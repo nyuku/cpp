@@ -3,16 +3,16 @@
 //---------  Consctructor - Destructor  -----------------
 Contact::Contact(void)
 {
-	std::cout << "Constructor Contact called"
-			  << std::endl;
-	return;
+//	std::cout << "Constructor Contact called"
+//			  << std::endl;
+//	return;
 }
 
 Contact::~Contact(void)
 {
-	std::cout << "Destructor Contact called"
-	          << std::endl;
-	return;
+//	std::cout << "Destructor Contact called"
+//	          << std::endl;
+//	return;
 }
 
 //---------  fonctions Getters attributs  -----------------

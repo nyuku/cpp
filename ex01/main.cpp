@@ -10,30 +10,29 @@ int	main(void)
 
 	std::cout	<< TITLE
 				 << std::endl;
-	std::cout	<< "*    Welcome to this awesome phonebook !    *"
+	std::cout	<< "     *          Phonebook           *"
 				 << std::endl;
 	std::cout	<< TITLE
 				 << std::endl;
 
 	while (1)
 	{
-		std::cout	<< "Enter ADD, SEARCH or EXIT to proceed..."
-					 << std::endl;
+		std::cout	<< SOFT_GREEN<< "Commands available : ADD, SEARCH and EXIT "<< RESET_COLOR << std::endl;
 
 		std::getline(std::cin, prompt);
 		for (int i = 0; i < (int)prompt.length(); i++)
 			prompt[i] = (char)toupper(prompt[i]);
-		std::cout	<< "You entered: [" << prompt << "]"
-					 << std::endl;
+		std::cout	<< std::endl <<"You entered: [" << prompt << "]"
+					 << std::endl<< std::endl<< std::endl;
 
 		if (prompt == "EXIT")
 			break;
 
 		if (prompt != "ADD" && prompt != "SEARCH")
 		{
-			std::cout	<< "[" << prompt << "] is an invalid command. Please try again."
+			std::cout	<<LIGHT_RED<<"[" << prompt << "] is an invalid command. Please try again."<< RESET_COLOR
 						 << std::endl;
-			continue;
+//			continue;
 		}
 
 		if (prompt == "ADD")

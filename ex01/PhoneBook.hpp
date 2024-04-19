@@ -4,18 +4,30 @@
 #include "Contact.hpp" // Assurez-vous que ce fichier existe et est accessible
 #include <string>      // Nécessaire pour std::string
 #include <iostream>    // Nécessaire pour std::cout et std::cin
-
+#include <sstream>
 #define MAX_CONTACT  8
 #define MAX_LEN      10
 #define DIVIDER      "|"
 
-#define ROW_SEPA     "*----------*----------*----------*----------*"
+#define ROW_SEPA     "±-------------------------------------------±"
 #define ROW_TITLE    "|     INDEX|      NAME|   SURNAME|  NICKNAME|"
-#define TITLE        "*-------------------------------------------*"
+#define TITLE        "---------------------------------------------"
 #define WORD_SEPA    "|"
 
-const std::string LILAC = "\033[0;94m";
-const std::string RESET_COLOR = "\033[0m";
+
+#define RESET_COLOR "\033[0m"
+#define SOFT_GREEN   "\033[0;92m"
+#define LIGHT_GREEN	 "\033[1;32m"
+
+#define LIGHTPURPLE		" \033[1;35m"
+#define LIGHT_LILAC		" \033[1;34m"
+#define LIGHT_MAGENTA   " \033[0;95m"
+#define LIGHT_CYAN		" \033[1;36m"
+#define MAGENTA			" \033[0;35m"
+#define LILAC			" \033[0;94m"
+#define BLUE			" \033[0;34m"
+#define CYAN			" \033[0;36m"
+#define LIGHT_RED       " \033[0;91m"
 
 class Phonebook
 {

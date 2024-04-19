@@ -6,8 +6,8 @@
 //--------- Constructor - Destructor ---------
 Phonebook::Phonebook(void)
 {
-	std::cout << "Constructor Phonebook called"
-			  << std::endl;
+//	std::cout << "Constructor Phonebook called"
+//			  << std::endl;
 	this->_nbRegistred = 0;
 	this->_entries = 0;
 	return;
@@ -49,7 +49,7 @@ void	Phonebook::addContact(void)
 	this->contact_tab[this->_entries % MAX_CONTACT].setNickname(gnl);
 	gnl.clear();
 
-	this->InputPrompt(gnl, "Telephone number:", "But where's your number? so call me, maybe?");
+	this->InputPrompt(gnl, "Phone number:", "But where's your number? so call me, maybe?");
 	this->contact_tab[this->_entries % MAX_CONTACT].setPhoneNumber(gnl);
 	gnl.clear();
 
@@ -62,40 +62,78 @@ void	Phonebook::addContact(void)
 
 bool	Phonebook::searchContact(void)
 {
-	int promptIndex;
 	if (this->getNbRegistred() == 0)
 	{
-		std::cout << "|___________________________________________|" << std::endl;
+		std::cout << "___________________________________________" << std::endl;
 		std::cout	<< "There no entries in the phonebook."
 					 << std::endl;
-		std::cout << "|___________________________________________|" << std::endl;
+		std::cout << "___________________________________________" << std::endl;
 		return (false);
 	}
 	this->printAllContact();
 
 	// User choose an index
-	std::cout	<< "Whose identifications do you need, enter their index number."
-				 << std::endl;
-	if (!(std::cin >> promptIndex)) // si pas d'entrée legit
-	{
-//		std::cin.clear();
-//		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout	<< "Wrong index, please try again."
+
+
+	std::cout	<< "Whose identifications do you need? Enter their index number:"
 					 << std::endl;
-		return (false);
-	}
-	if (promptIndex >= 0 && promptIndex < this->getNbRegistred())
+	bool valid = false;
+	std::string input; // Utiliser une chaîne pour l'entrée initiale
+
+	while (!valid) // Continue tant que l'index n'est pas valide
 	{
-		this->lookDataContact(promptIndex);
+
+		std::cin >> input;
+
+		if (input == "exit") // Permet à l'utilisateur de quitter
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return false; // Sort de la fonction avec false, indiquant une sortie prématurée
+		}
+
+		// Convertit la chaîne en indice numérique si possible
+		std::istringstream iss(input);
+		int promptIndex;
+		if (!(iss >> promptIndex)) // Si la conversion échoue
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Wrong index, please try again." << std::endl;
+		}
+		else if (promptIndex >= 0 && promptIndex < this->getNbRegistred())
+		{
+			this->lookDataContact(promptIndex);
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			valid = true; // L'index est valide, on peut sortir de la boucle
+		}
+		else
+		{
+			std::cout << "No one known by this index number. Please try again." << std::endl;
+		}
+	}
+	return true;
+//	if (!(std::cin >> promptIndex)) // si pas d'entrée legit
+//	{
 //		std::cin.clear();
 //		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		return (true);
-	}
-	std::cout	<< "No one know by this index number. Please try again."
-				 << std::endl;
+//		std::cout	<< "Wrong index, please try again."
+//					 << std::endl;
+//		return (false);
+//	}
+//	if (promptIndex >= 0 && promptIndex < this->getNbRegistred())
+//	{
+//		this->lookDataContact(promptIndex);
+//		std::cin.clear();
+//		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//		return (true);
+//	}
+//	std::cout	<< "No one know by this index number. Please try again."
+//				 << std::endl;
 //	std::cin.clear();
 //	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	return (false);
+//	return (false);
 }
 
 void	Phonebook::InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage)
@@ -143,28 +181,30 @@ void	Phonebook::printAllContact(void)
 }
 void	Phonebook::lookDataContact(int i)
 {
-	std::cout	<< "Here's the info you are looking for:"
-				 << std::endl;
-	std::cout << "|___________________________________________|" << std::endl;
-	std::cout	<< "FULL NAME"
+	std::cout	<< std::endl << LIGHT_LILAC<< "Here's the info you are looking for:" << RESET_COLOR
+				 << std::endl<< std::endl;
+	std::cout << "§___________________________________________§" << std::endl;
+	std::cout	 << LIGHT_CYAN<< "FULL NAME"<< RESET_COLOR
 				 << std::endl
 				 << TITLE
 				 << std::endl
 				 << this->contact_tab[i].getFirstName()
+				 << " "
+				 << this->contact_tab[i].getLastName()
 				 << " \""
 				 << this->contact_tab[i].getNickname()
 				 << "\" "
-				 << this->contact_tab[i].getLastName()
+//				 << this->contact_tab[i].getLastName()
 				 << std::endl
 				 << std::endl;
-	std::cout	<< "TELEPHONE NUMBER"
+	std::cout	 << LIGHT_CYAN<< "TELEPHONE NUMBER"<< RESET_COLOR
 				 << std::endl
 				 << TITLE
 				 << std::endl
 				 << this->contact_tab[i].getPhoneNumber()
 				 << std::endl
 				 << std::endl;
-	std::cout	<< "DARKEST SECRET"
+	std::cout	<< LIGHT_CYAN<< "DARKEST SECRET"<< RESET_COLOR
 				 << std::endl
 				 << TITLE
 				 << std::endl

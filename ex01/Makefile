@@ -15,7 +15,7 @@ NAME			=	phonebook
 RM				=	rm -f
 CC				=	clang++ #c++ ou g++
 FLAGS			=	-Wall -Wextra -Werror -std=c++98
-BS_TXT			=	echo "\n\n\n\n"
+BS_TXT			=	echo "\n"
 
 # ---------------- Objets ---------------
 OBJ				= 	${SRC:.cpp=.o}
@@ -60,11 +60,8 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN)Open the phonebook ☎️ 🌸$(ENDCOLOR)"
+				@echo "$(GREEN)Open the phonebook ☎️ $(ENDCOLOR)"
 
-
-	
-				
 # --------------- Tests  --------------------
 
 
@@ -78,6 +75,5 @@ fclean:			clean
 
 re:				fclean all clean
 				@echo "$(LILAC)Deep Cleaning 🧹$(ENDCOLOR)"
-				@$(BS_TXT)
 
 .PHONY : all clean fclean re 
