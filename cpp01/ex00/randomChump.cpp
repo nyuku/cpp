@@ -1,12 +1,11 @@
 #include	"Zombie.hpp"
 
-//Crée un zombie éphémère -> alloc "new"
+//Crée un zombie éphémère
 // lui donne un nom et le fait se présenter.
-//meurt
+// dès qu'on sort de la fonction
 void randomChump( std::string name )
 {
-	Zombie	*snow = new Zombie();
-	snow->setName(name);
-	snow->announce();
-	delete snow;
+	Zombie snow;
+	snow.setName(name);
+	snow.announce();
 }
