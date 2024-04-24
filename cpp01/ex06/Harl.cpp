@@ -37,9 +37,6 @@ void Harl::error( void )
 
 void	Harl::complain(std::string str)
 {
-	//void (Harl::*ptr_level[4]) (void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	int i = 0;
-//	std::string	lvl[4] = { "debug", "info", "warning", "error" };
 	std::string	LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
 	for (i = 0; i < 4; i++)
 	{
@@ -51,23 +48,15 @@ void	Harl::complain(std::string str)
 		std::cerr<< LIGHT_RED << "ERROR: Argument not valid" << RESET_COLOR<<std::endl;
 		return;
 	}
-	while (i < 4)
+	switch(i)
 	{
-		switch(i)
-		{
-			case 0:
-				this->Harl::debug();
-				break;
-			case 1:
-				this->Harl::info();
-				break;
-			case 2:
-				this->Harl::warning();
-				break;
-			case 3:
-				this->Harl::error();
-				break;
-		}
-		i++;
+		case 0:
+			this->Harl::debug();
+		case 1:
+			this->Harl::info();
+		case 2:
+			this->Harl::warning();
+		case 3:
+			this->Harl::error();
 	}
 }
