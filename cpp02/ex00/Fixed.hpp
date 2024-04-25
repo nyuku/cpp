@@ -1,6 +1,6 @@
 
-#ifndef Harl_HPP
-#define Harl_HPP
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
 //--------------- Library -------------------
 # include	<string>
@@ -23,22 +23,25 @@
 #define LIGHT_RED       " \033[0;91m"
 
 
-class Harl
+class Fixed
 {
 	private:
-		void debug( void );
-		void info( void );
-		void warning( void );
-		void error( void );
+		int					_value;
+		static int	const	_bitsNb = 8;
 
 	public:
 	//----------------- Constructor- destructor -----------------
-		Harl(void);
-		~Harl(void);
+		Fixed();
+		~Fixed();
+		Fixed( const Fixed &obj );			// Constructeur de copie
+		Fixed &operator=(const Fixed &obj);	// Opérateur d'affectation
+
 	// ----------------- Getters- Setter -----------------
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
 
 	//-------------- Fonction ----------------
-		void complain( std::string level);
+
 
 };
 

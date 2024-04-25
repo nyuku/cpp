@@ -1,62 +1,50 @@
-#include "Harl.hpp"
+#include "Fixed.hpp"
 
 //--------- Constructor - Destructor ---------//
 
-Harl::Harl()
+Fixed::Fixed()
 {
-	std::cout	<<LIGHT_CYAN<< "Oh?? An earthquake?! Oh no...He...is coming.."
+	std::cout	<<LIGHT_RED<< "Default constructor called"
+				 <<RESET_COLOR<< std::endl<< std::endl;
+	this->_value = 0;
+}
+
+Fixed::~Fixed()
+{
+	std::cout	<<LIGHT_RED<< "Destructor called"
 				 <<RESET_COLOR<< std::endl;
 }
-
-Harl::~Harl()
-{
-	std::cout	<<LIGHT_CYAN<< "Phew....he's leaving.."
-				 <<RESET_COLOR<< std::endl<< std::endl;
-}
 //------------- Fonction membre-------------//
-
-void Harl::debug( void )
+//copy constructor- créer un nouvel objet à partir d'un objet existant.
+Fixed::Fixed(const Fixed &a)
 {
-	std::cout <<CYAN<< "\U0001F60D [DEBUG] I love having extra bacon for my 7XL-double-cheese-triple-pickle-special ketchup burger. I really do!" <<RESET_COLOR<< std::endl<< std::endl;
+	std::cout	<<BLUE<< "Copy constructor called"
+				 <<RESET_COLOR<< std::endl;
+	*this = a;
+	// copie tout l onjet other dans this
 }
 
-void Harl::info( void )
+//copier les données d'un objet existant dans un objet déjà existant. =
+// copier les données de l'objet other dans l'objet courant (*this).
+Fixed& Fixed::operator=(const Fixed &other)// copy assignment operator, utilisé pour copier les données d'un objet existant dans un objet déjà existant.
 {
-	std::cout <<LIGHT_LILAC<< "\U0001F616 [INF0] I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!" <<RESET_COLOR<< std::endl<< std::endl;
-}
-
-void Harl::warning( void )
-{
-	std::cout <<LIGHT_GREEN<< " \U0001F615 [WARNING] I think I deserve to have some extra bacon for free. I’ve been coming for years whereas you started working here since last month." <<RESET_COLOR<< std::endl<< std::endl;
-}
-
-void Harl::error( void )
-{
-	std::cout<<LIGHT_RED << "\U0001F621 [ERROR] This is unacceptable! I want to speak to the manager now." << RESET_COLOR<<std::endl<< std::endl;
-}
-
-void	Harl::complain(std::string str)
-{
-	std::string	LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
-	for (i = 0; i < 4; i++)
+	if (this != &other)
 	{
-		if (!(LVL[i]).compare(str))
-			break;
+		std::cout << MAGENTA<< "Copy assignment operator called" << RESET_COLOR<<std::endl;
+		this->_value = other.getRawBits(); // copie seulement le champ _value et pas tout l objet.
 	}
-	if (i == 4)
-	{
-		std::cerr<< LIGHT_RED << "ERROR: Argument not valid" << RESET_COLOR<<std::endl;
-		return;
-	}
-	switch(i)
-	{
-		case 0:
-			this->Harl::debug();
-		case 1:
-			this->Harl::info();
-		case 2:
-			this->Harl::warning();
-		case 3:
-			this->Harl::error();
-	}
+	return (*this);
+}
+
+// retourne la valeur du nombre à virgule fixe sans la convertir.
+int Fixed::getRawBits(void) const
+{
+	std::cout <<LIGHT_GREEN<< " getRawBits member function called" <<RESET_COLOR<< std::endl;
+	return (this->_value);
+}
+
+//initialise la valeur du nombre à virgule fixe avec celle passée en paramètre.
+void Fixed::setRawBits(int const raw)
+{
+	this->_value = raw;
 }

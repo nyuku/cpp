@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # ---------------- Nickname --------------
-NAME			=	harlfilter
+NAME			=	Fixed
 RM				=	rm -f
 CC				=	clang++ #c++ ou g++
 FLAGS			=	-Wall -Wextra -Werror -std=c++98
@@ -23,7 +23,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	main.cpp Harl.cpp
+SRC 			=	main.cpp Fixed.cpp
 
 # ---------------- Color --------------
 
@@ -60,7 +60,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) 🍔🧀------Karen filter ------🧀🍔 $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------Fixed ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
