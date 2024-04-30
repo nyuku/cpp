@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:59:10 by angela            #+#    #+#             */
-/*   Updated: 2024/04/25 12:59:11 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/29 11:43:17 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	Phonebook::addContact(void)
 	this->_entries++;
 }
 
-bool	Phonebook::searchContact(void)
+bool	Phonebook::searchContact(void)//patcher avec ctrld
 {
 	bool valid = false;
 	std::string input;
@@ -89,9 +89,14 @@ bool	Phonebook::searchContact(void)
 	std::cout	<< "Whose identifications do you need? Enter their index number or exit:"
 					 << std::endl;
 
-	while (!valid) // Continue tant que l'index n'est pas valide
+	while (!valid ) // tartine
 	{
-
+		if (std::cin.eof())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return false;
+		}
 		std::cin >> input;
 
 		if (input == "exit")
@@ -104,21 +109,21 @@ bool	Phonebook::searchContact(void)
 		// Convertit la string input -> iss ->int
 		std::istringstream iss(input);
 		int promptIndex;
-		if (!(iss >> promptIndex)) // Si la conversion échoue
+		if (!(iss >> promptIndex) && !std::cin.eof()) // Si la conversion échoue
 		{
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "ERROR: Wrong index" << std::endl;
 		}
-		promptIndex -=1;
-		if (promptIndex >= 0 && promptIndex <= this->getNbRegistred()) // ! new decallage avec prompt
+		promptIndex -=1;// pour coller a l'index de lookdata
+		if (promptIndex >= 0 && promptIndex < this->getNbRegistred()) // ! tartine p new decallage avec prompt
 		{
 			this->lookDataContact(promptIndex);//test
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			valid = true; // L'index est valide, on peut sortir de la boucle
 		}
-		else
+		if (!std::cin.eof())
 		{
 			std::cout << "Please try again." << std::endl;
 		}

@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:58:56 by angela            #+#    #+#             */
-/*   Updated: 2024/04/25 12:58:57 by angela           ###   ########.fr       */
+/*   Updated: 2024/04/29 11:26:58 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	std::cout << "     *          Phonebook           *"<< std::endl;
 	std::cout << DIVIDER << std::endl;
 
-	while (1)
+	while ((!std::cin.eof()))
 	{
 		std::cout << SOFT_GREEN<< "Commands available : ADD, SEARCH and EXIT "
 		          << RESET_COLOR << std::endl;
