@@ -2,10 +2,11 @@
 
 //--------- Constructor - Destructor ---------//
 
-Zombie::Zombie()
+Zombie::Zombie(std::string name)
 {
 	std::cout	<< "Something move on the ground...under the ground??"
 				 << std::endl;
+	this->_name = name;
 }
 
 Zombie::~Zombie()
