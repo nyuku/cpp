@@ -47,6 +47,10 @@ int main(int argc, char **argv)
 	}
 	Zombie	*horde;
 	horde = zombieHorde(numberZombie, ZombieName);
+	// for (int i = 0 ; i < numberZombie ; i ++)
+	// {
+	// 	horde[i].announce();
+	// }
 	delete [] horde;
 
 	return(0);
