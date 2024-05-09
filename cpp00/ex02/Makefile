@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: angnguye <angnguye@student.42.fr>          +#+  +:+       +#+         #
+#    By: angela <angela@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/11 11:38:21 by angela            #+#    #+#              #
-#    Updated: 2024/05/09 17:33:14 by angnguye         ###   ########.fr        #
+#    Updated: 2024/05/09 22:52:03 by angela           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	tests.cpp Account.cpp Account.cpp
+SRC 			=	tests.cpp Account.cpp
 
 # ---------------- Color --------------
 
