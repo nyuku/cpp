@@ -19,8 +19,8 @@
 #define LILAC		"\033[0;94m"
 #define BLUE		"\033[0;34m"
 #define CYAN		"\033[0;36m"
-#define LIGHT_RED       " \033[0;91m"
-#define GREEN           " \033[0;32m"
+#define LIGHT_RED       "\033[0;91m"
+#define GREEN           "\033[0;32m"
 #define DARK_BLUE       "\033[0;94m"
 # efine PEACH		"\033[0;93m"
 
