@@ -19,17 +19,24 @@
 #define GREEN           " \033[0;32m"
 #define DARK_BLUE       "\033[0;94m"
 
-void	InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage)
+void InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color)
 {
-	std::cout << LILAC <<promptAsk<< RESET_COLOR << std::endl;
-	while (input.empty())
+    if (!std::cin.eof())
+        std::cout<< std::endl << color << promptAsk << RESET_COLOR << std::endl;
+    while (input.empty() && !std::cin.eof())
 	{
-		std::getline(std::cin, input);
-		if (input.empty())
+        std::getline(std::cin, input);
+        if (std::cin.eof()) {
+            std::cerr << LIGHT_RED << std::endl << "Error: You entered: [ CTRL + D ]" << RESET_COLOR << std::endl;
+            std::cin.clear();
+            exit(1);
+        }
+        if (input.empty() && !std::cin.eof())
 		{
-			std::cout <<LIGHT_RED<< errorMessage <<RESET_COLOR<< std::endl;
-		}
-	}
+            std::cout << LIGHT_RED << errorMessage << RESET_COLOR << std::endl;
+			std::cin.clear();//ajout
+        }
+    }
 }
 
 int main(int argc, char **argv)
@@ -46,7 +53,7 @@ int main(int argc, char **argv)
 
 	//--------PARSING---------//
 	//get the files
-	InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error");
+	InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error", LIGHTPURPLE);
 	std::cout << std::endl<<CYAN<<"You entered: [" << input << "]"
 			  <<RESET_COLOR<< std::endl;
 	int i = 0;
