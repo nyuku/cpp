@@ -2,6 +2,7 @@
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
+
 int main()
 {
 	std::cout <<PEACH << "      --------------Human A with weapon--------------"<< RESET_COLOR <<std::endl;
@@ -16,7 +17,7 @@ int main()
 	{
 		Weapon club = Weapon("crude spiked club");
 		HumanB jim("Jim");
-		jim.attack();
+		jim.attack();// ajouter pour voir qu'il a bien rien en main
 		jim.setWeapon(club);
 		jim.attack();
 		club.setType("some other type of club");

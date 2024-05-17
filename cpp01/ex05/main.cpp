@@ -1,36 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 20:52:00 by angela            #+#    #+#             */
+/*   Updated: 2024/05/17 15:38:06 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "Harl.hpp"
-#include <fstream>
-#include <iostream>
 
-
-#define RESET_COLOR "\033[0m"
-#define SOFT_GREEN   "\033[0;92m"
-#define LIGHT_GREEN	 "\033[1;32m"
-#define LIGHTPURPLE		" \033[1;35m"
-#define LIGHT_LILAC		" \033[1;34m"
-#define LIGHT_MAGENTA   " \033[0;95m"
-#define LIGHT_CYAN		" \033[1;36m"
-#define MAGENTA			" \033[0;35m"
-#define LILAC			" \033[0;94m"
-#define BLUE			" \033[0;34m"
-#define CYAN			" \033[0;36m"
-#define LIGHT_RED       " \033[0;91m"
-#define GREEN           " \033[0;32m"
-#define DARK_BLUE       "\033[0;94m"
-
-void	InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage)
+void InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color)
 {
-	std::cout << LILAC <<promptAsk<< RESET_COLOR << std::endl;
-	while (input.empty())
+    if (!std::cin.eof())
+        std::cout<< std::endl << color << promptAsk << RESET_COLOR << std::endl;
+    while (input.empty() && !std::cin.eof())
 	{
-		std::getline(std::cin, input);
-		if (input.empty())
+        std::getline(std::cin, input);
+        if (std::cin.eof()) {
+            std::cerr << LIGHT_RED << std::endl << "Error: You entered: [ CTRL + D ]" << RESET_COLOR << std::endl;
+            std::cin.clear();
+            exit(1);
+        }
+        if (input.empty() && !std::cin.eof())
 		{
-			std::cout <<LIGHT_RED<< errorMessage <<RESET_COLOR<< std::endl;
-		}
-	}
+            std::cout << LIGHT_RED << errorMessage << RESET_COLOR << std::endl;
+			std::cin.clear();//ajout
+        }
+    }
 }
+
 int main(int argc, char **argv)
 {
 	(void)argv;
@@ -47,7 +49,7 @@ int main(int argc, char **argv)
 
 	//--------PARSING---------//
 	//get the files
-	InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error");
+	InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error", LILAC);//tourne jusuq'a avoir une rentré
 	std::cout << std::endl<<CYAN<<" You entered: [" << input << "]"
 			  <<RESET_COLOR<< std::endl;
 

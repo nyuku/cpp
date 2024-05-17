@@ -9,7 +9,7 @@
 
 //--------------- Color -------------------
 #define RESET_COLOR		"\033[0m"
-#define SOFT_GREEN		"\033[0;92m"
+#define GREEN			"\033[0;92m"
 #define LIGHT_GREEN		"\033[1;32m"
 #define LIGHTPURPLE		"\033[1;35m"
 #define LIGHT_LILAC		"\033[1;34m"
@@ -34,7 +34,7 @@ class Weapon
 		Weapon(std::string name);
 		~Weapon(void);
 	// -----------------  Getters -----------------
-		const std::string	&getType(void)const;
+		const std::string	&getType(void)const; // retourne une reférence&
 	// -----------------  Setters -----------------
 		void 			setType(std::string str);
 	//-------------- Fonction ----------------

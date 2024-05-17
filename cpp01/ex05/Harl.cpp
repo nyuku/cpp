@@ -32,28 +32,79 @@ void Harl::warning( void )
 
 void Harl::error( void )
 {
-	std::cout<<LIGHT_RED << "\U0001F621 This is unacceptable! I want to speak to the manager now." << RESET_COLOR<<std::endl<< std::endl;
+	std::cout<<std::endl<<LIGHT_RED << "\U0001F621 This is unacceptable! I want to speak to the manager now." << RESET_COLOR<<std::endl<< std::endl;
 }
 
-void	Harl::complain(std::string str)
+void Harl::complain(std::string str)
 {
-	void (Harl::*ptr_level[4]) (void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+    // Tableau de pointeurs de fonctions membres
+    void (Harl::*ptr_level[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
-	std::string	lvl[4] = { "debug", "info", "warning", "error" };
-	std::string	LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+    // Niveaux de plainte
+    std::string lvl[4] = { "debug", "info", "warning", "error" };
+    std::string LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
 
-	bool	check = false;
-	for (int i = 0; i < 4; i++)
-	{
-		if (lvl[i] == str || LVL[i] == str)
-		{
-			(this->*ptr_level[i])();
-			{
-				check = true;
-				break;
-			}
-		}
-	}
-	if (check == false)
-		std::cerr <<LIGHT_RED<< "Error : Your complain-option is unavailable, only: debug / info / warning / error" <<RESET_COLOR<< std::endl;
+    bool check = false;
+
+    while (!check && !std::cin.eof())
+    {
+        // Vérifie si 'str' correspond à l'un des niveaux de plainte
+        for (int i = 0; i < 4; ++i)
+        {
+            if (lvl[i] == str || LVL[i] == str)
+            {
+                // Appelle la fonction membre correspondante
+                (this->*ptr_level[i])();
+                check = true;
+                break;
+            }
+        }
+
+        // Si 'str' ne correspond à aucun niveau de plainte, demande une nouvelle entrée
+        if (!check)
+        {
+            std::cerr << LIGHT_RED << "Error: Your complain-option is unavailable, only: debug / info / warning / error" << RESET_COLOR << std::endl;
+            std::string input;
+            InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error", LILAC);
+            if (std::cin.eof()) // Sortir de la boucle si EOF est rencontré
+                break;
+            str = input; // Met à jour 'str' avec la nouvelle entrée
+            std::cout << std::endl << CYAN << "You entered: [" << str << "]" << RESET_COLOR << std::endl;
+        }
+    }
 }
+
+// void	Harl::complain(std::string str)
+// {
+// 	void (Harl::*ptr_level[4]) (void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};// tableau de pointeurs 
+
+// 	std::string	lvl[4] = { "debug", "info", "warning", "error" };
+// 	std::string	LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+
+// 	bool	check = false;
+// 	std::string input = str;
+// 	while (check == false && !std::cin.eof())
+// 	{
+// 		for (int i = 0; i < 4; i++)
+// 		{
+// 			// std::cout << std::endl<<CYAN<<"Yploop"<<RESET_COLOR<< std::endl;
+// 			if (lvl[i] == input || LVL[i] == input)
+// 			{
+// 				(this->*ptr_level[i])();
+// 				{
+// 					check = true;
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		if (check == false)
+// 		{
+// 			std::cerr <<LIGHT_RED<< "Error : Your complain-option is unavailable, only: debug / info / warning / error" <<RESET_COLOR<< std::endl;
+// 			InputPrompt(input, "Please enter level of complain: ", "Choose between: debug / info / warning / error", LILAC);
+// 			std::cout << std::endl<<CYAN<<"You entered: [" << input << "]"<<RESET_COLOR<< std::endl;
+// 			input = str;
+// 		}
+
+// 	}
+// }
+

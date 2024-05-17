@@ -7,9 +7,9 @@
 class HumanB
 {
 	private:
-		Weapon		*_equipment;
 		std::string	_name;
-
+		Weapon		*_equipment; // ne vient pas avoir une arme, on lui attrivue après
+		
 	public:
 		//----------------- Constructor- destructor -----------------
 		HumanB(std::string name);
