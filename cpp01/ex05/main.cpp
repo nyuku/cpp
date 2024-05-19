@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 20:52:00 by angela            #+#    #+#             */
-/*   Updated: 2024/05/17 15:38:06 by angela           ###   ########.fr       */
+/*   Updated: 2024/05/19 12:00:36 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color)
 {
-    if (!std::cin.eof())
+    input.clear(); 
+	if (!std::cin.eof())
         std::cout<< std::endl << color << promptAsk << RESET_COLOR << std::endl;
     while (input.empty() && !std::cin.eof())
 	{

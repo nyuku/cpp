@@ -6,7 +6,7 @@
 /*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:06:38 by angela            #+#    #+#             */
-/*   Updated: 2024/05/16 20:03:09 by angela           ###   ########.fr       */
+/*   Updated: 2024/05/19 12:00:21 by angela           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ bool replace_str(std::string &buffer, std::string const &s1, std::string const &
 
 void InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color)
 {
-    if (!std::cin.eof())
+    input.clear(); 
+	if (!std::cin.eof())
         std::cout<< std::endl << color << promptAsk << RESET_COLOR << std::endl;
     while (input.empty() && !std::cin.eof())
 	{
