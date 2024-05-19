@@ -22,6 +22,8 @@
 #define CYAN			" \033[0;36m"
 #define LIGHT_RED       " \033[0;91m"
 
+void		InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color);
+std::string	toupperStr(std::string str);
 
 class Harl
 {
@@ -41,5 +43,6 @@ class Harl
 		void complain( std::string level);
 
 };
+
 
 #endif

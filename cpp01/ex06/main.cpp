@@ -21,7 +21,9 @@
 
 void InputPrompt(std::string& input, const std::string& promptAsk, const std::string& errorMessage, const std::string& color)
 {
-    if (!std::cin.eof())
+   
+	input.clear(); 
+	if (!std::cin.eof())
         std::cout<< std::endl << color << promptAsk << RESET_COLOR << std::endl;
     while (input.empty() && !std::cin.eof())
 	{

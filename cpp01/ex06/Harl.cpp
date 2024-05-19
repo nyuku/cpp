@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/19 11:58:38 by angela            #+#    #+#             */
+/*   Updated: 2024/05/19 11:58:39 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Harl.hpp"
+
 
 //--------- Constructor - Destructor ---------//
 
@@ -35,29 +48,49 @@ void Harl::error( void )
 	std::cout<<LIGHT_RED << "\U0001F621 [ERROR] This is unacceptable! I want to speak to the manager now." << RESET_COLOR<<std::endl<< std::endl;
 }
 
-void	Harl::complain(std::string str)//recoit une str
+std::string toupperStr(std::string str)
 {
-	std::string	LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+    for (size_t i = 0; i < str.length(); ++i)
+        str[i] = std::toupper((str[i]));
+	return (str);
+}
+
+void Harl::complain(std::string str)
+{
+    std::string LVL[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
 	int i;
-	for ( i = 0; i < 4; i++)
+	std::string input;
+    while (!std::cin.eof())
 	{
-		if (!(LVL[i]).compare(str))
-			break;
-	}
-	if (i == 4)
-	{
-		std::cerr<< LIGHT_RED << "ERROR: Argument not valid" << RESET_COLOR<<std::endl;
-		return;
-	}
-	switch(i)
-	{
-		case 0:
-			this->Harl::debug();
-		case 1:
-			this->Harl::info();
-		case 2:
-			this->Harl::warning();
-		case 3:
-			this->Harl::error();
-	}
+        str = toupperStr(str);
+        for (i = 0; i < 4; ++i) 
+		{
+            if (LVL[i] == str)
+            	break;
+        }
+
+        switch (i) 
+		{
+            case 0:
+                this->debug();
+                return;  
+            case 1:
+                this->info();
+                return;  
+            case 2:
+                this->warning();
+                return;  
+            case 3:
+                this->error();
+                return;  
+            default:
+				{
+					std::cerr << LIGHT_RED << "Error: Argument not valid. Only: DEBUG, INFO, WARNING, ERROR" << RESET_COLOR << std::endl;
+					InputPrompt(input, "Please enter level of complain: ", "Choose between: DEBUG, INFO, WARNING, ERROR", LILAC);
+					str = input;
+					std::cout << std::endl << CYAN << "You entered: [" << str << "]" << RESET_COLOR << std::endl;
+				}
+
+        }
+    }
 }
