@@ -31,17 +31,45 @@ class Fixed
 {
 	private:
 		int					_value;
-		static int	const	_bit = 8;//(1 << _bit) ==> 256
+		static int	const	_bit = 8;
+
 	public:
 	//----------------- Constructor- destructor -----------------
 		Fixed();
 		~Fixed();
 
-		Fixed(const int nb);   // constructeur avec int
-		Fixed(const float nb); // constructeur avec Float
+		Fixed(const int nb);
+		Fixed(const float nb);
 
 		Fixed( const Fixed &obj );			// Constructeur de copie
-		Fixed &operator=(const Fixed &obj);	// Opérateur d'affectation
+		//Fixed &operator=(const Fixed &obj);	// Opérateur d'affectation
+		Fixed &operator=(const Fixed &obj);
+
+	//-------------------- Surcharges d'opérateurs de comparaison -----------
+
+		bool  operator>(const Fixed &other) const;
+		bool  operator<(const Fixed &other) const;
+		bool  operator>=(const Fixed &other) const;
+		bool  operator<=(const Fixed &other) const;
+		bool  operator==(const Fixed &other) const;
+		bool  operator!=(const Fixed &other) const;
+
+	//-------------------- Surcharges d'opérateurs arithmétiques ------------
+		Fixed operator+(const Fixed &other) const;
+		Fixed operator-(const Fixed &other) const;
+		Fixed operator*(const Fixed &other) const;
+		Fixed operator/(const Fixed &other) const;
+
+	//-------------------- opérateurs de post/pré incrémentation et de décrémentation ------------
+		Fixed& operator++();
+		Fixed operator++(int);
+		Fixed& operator--();
+		Fixed operator--(int);
+	//----------------- Fonctions membresmax/min -----------------
+		static Fixed min(Fixed& a, Fixed& b);
+		static Fixed min(const Fixed& a, const Fixed& b);
+		static Fixed max(Fixed& a, Fixed& b);
+		static Fixed max(const Fixed& a, const Fixed& b);
 
 	// ----------------- Getters- Setter -----------------
 		int getRawBits(void) const;

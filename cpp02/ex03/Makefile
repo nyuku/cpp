@@ -6,7 +6,7 @@
 #    By: angela <angela@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/11 11:38:21 by angela            #+#    #+#              #
-#    Updated: 2024/06/13 22:40:35 by angela           ###   ########.fr        #
+#    Updated: 2024/06/20 00:10:03 by angela           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	main.cpp Fixed.cpp
+SRC 			=	main.cpp Fixed.cpp Point.cpp bsp.cpp
 
 # ---------------- Color --------------
 
@@ -60,7 +60,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------Fixed ex00------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------BSP ex 03------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
