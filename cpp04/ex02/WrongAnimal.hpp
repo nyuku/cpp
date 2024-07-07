@@ -5,23 +5,23 @@
 
 class WrongAnimal
 {
-	private:
+private:
 
-	protected:
-		std::string	type;
+protected:
+	std::string	type;
 
-	public:
-		WrongAnimal();
-		WrongAnimal( std::string type);
-		WrongAnimal( const WrongAnimal &cpy);
-		WrongAnimal& operator=( const WrongAnimal &rhs );
-		~WrongAnimal();
+public:
+	WrongAnimal();
+	WrongAnimal( std::string type);
+	WrongAnimal( const WrongAnimal &cpy);
+	WrongAnimal& operator=( const WrongAnimal &rhs );
+	~WrongAnimal();
 
-		void	makeSound() const;
+	void	makeSound() const;
 
-		const std::string	getType( void ) const;
+	const std::string	getType( void ) const;
 
-		void	setType( const std::string type );
+	void	setType( const std::string type );
 
 };
 

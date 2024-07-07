@@ -1,17 +1,22 @@
 
 
-
 # ---------------- Nickname --------------
-NAME			=	ANIMAL
+NAME			=	BRAIN
+SANITIZED_NAME	=	BRAIN_sanitized
 RM				=	rm -f
 CC				=	g++ #c++ ou g++ , clang pas à l'ecole
 FLAGS			=	-Wall -Wextra -Werror -std=c++98
 BS_TXT			=	echo "\n"
+SANITIZE_FLAGS	=	-fsanitize=address -g
 
 # ---------------- Objets ---------------
 OBJ				= 	${SRC:.cpp=.o}
+SANITIZED_OBJ	= 	${SRC:.cpp=.san.o}
+
 %.o: 				%.cpp
 					@$(CC) $(FLAGS) -c $< -o $@
+%.san.o: %.cpp
+	@$(CC) $(FLAGS) $(SANITIZE_FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
 SRC 			=	main.cpp AAnimal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
@@ -51,17 +56,24 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------Animal ex02------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------Classe abstraite ex02------✨ $(ENDCOLOR)"
+sanitize: clean $(SANITIZED_NAME)
+
+$(SANITIZED_NAME): $(SANITIZED_OBJ)
+	@$(CC) $(FLAGS) $(SANITIZE_FLAGS) -o $(SANITIZED_NAME) $(SANITIZED_OBJ)
+	@echo "$(GREEN) ✨------Brain sanitize ex01------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
 
 # --------------- Service nettoyage --------------------
 clean:
-				@${RM} ${OBJ}
+				@${RM} ${OBJ} $(SANITIZED_OBJ) 
+				@${RM} -r *.dSYM
+
 
 fclean:			clean
-				@${RM} ${NAME}
+				@${RM} ${NAME} $(SANITIZED_NAME)
 				@echo "$(GREEN)Cleaning success 🌸$(ENDCOLOR)"
 
 re:				fclean all clean

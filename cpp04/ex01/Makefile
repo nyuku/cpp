@@ -68,7 +68,9 @@ $(SANITIZED_NAME): $(SANITIZED_OBJ)
 
 # --------------- Service nettoyage --------------------
 clean:
-				@${RM} ${OBJ} $(SANITIZED_OBJ)
+				@${RM} ${OBJ} $(SANITIZED_OBJ) 
+				@${RM} -r *.dSYM
+
 
 fclean:			clean
 				@${RM} ${NAME} $(SANITIZED_NAME)

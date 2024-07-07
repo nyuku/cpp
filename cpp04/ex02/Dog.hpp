@@ -18,4 +18,4 @@ class Dog : public AAnimal
 		virtual void makeSound() const;
 };
 
-#endif 
+#endif

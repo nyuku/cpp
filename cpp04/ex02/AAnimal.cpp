@@ -1,25 +1,30 @@
 #include "AAnimal.hpp"
+
 //.......................................................................................................
 //										Constructor - Destructor										|
 //.......................................................................................................
 AAnimal::AAnimal() : type("AAnimal")
 {
-	std::cout << this->type << " default constructor called.\n" << std::endl;
-}
 
+	std::cout <<LILAC<<"AAnimal, type:  "<< this->type<< " \t-Default constructor called." <<RESET_COLOR << std::endl;
+}
 AAnimal::~AAnimal()
 {
-	std::cout << "AAnimal " << this->type << " destructor called" << std::endl;
+
+	std::cout <<LILAC<<"AAnimal, type:  "<< this->type<< " \t-Destructor called." <<RESET_COLOR << std::endl;
 }
 
-AAnimal::AAnimal( std::string type) : type(type)
+AAnimal::AAnimal( std::string type) //type(type)
 {
-	std::cout << "AAnimal " << this->type << " constructor called.\n" << std::endl;
+	this->type = type;
+	std::cout <<LILAC<<"AAnimal, type:  "<< this->type<< " \t-Name constructor called." <<RESET_COLOR << std::endl;
 }
+
 
 //.......................................................................................................
 //										 Copy constructor												|
 //.......................................................................................................
+
 AAnimal::AAnimal( const AAnimal &cpy)
 {
 	*this = cpy;
@@ -40,14 +45,12 @@ AAnimal& AAnimal::operator=( const AAnimal &rhs )
 }
 
 
-
 //=======================================================================================================
 //										   Fonctions membres											|
 //=======================================================================================================
 void AAnimal::makeSound() const
 {
-	std::cout << "AAnimal makeSound() called." << std::endl;
-	std::cout << "'Makes " << this->type << " noise'\n" << std::endl;
+	std::cout << "Grooaaaaa" << std::endl;
 }
 
 //=======================================================================================================

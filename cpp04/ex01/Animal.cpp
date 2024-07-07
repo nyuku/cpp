@@ -50,8 +50,7 @@ Animal& Animal::operator=( const Animal &rhs )
 //=======================================================================================================
 void Animal::makeSound() const
 {
-	std::cout << "Animal makeSound() called." << std::endl;
-	std::cout << "'Makes " << this->type << " noise'\n" << std::endl;
+	std::cout << "Moooooooooooh" << std::endl;
 }
 
 //=======================================================================================================
