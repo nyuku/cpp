@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 10:58:57 by angela            #+#    #+#             */
+/*   Updated: 2024/07/06 15:21:24 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
@@ -6,35 +18,45 @@
 
 int main()
 {
-	std::cout << "\t-----Animals-----\n" << std::endl;
+	std::cout <<  "......................................................................................................................."<< std::endl;
+	std::cout <<  " \t\t\t\t\t\tPolymorphisme \t\t"<< std::endl;
+	std::cout <<  "......................................................................................................................."<< std::endl;
+	std::cout<<LILAC<<"• This color is for Parent\n"<<std::endl;
+//=======================================================================================================
+//										   Animal Test											|
+//=======================================================================================================
 
-	const Animal* animal = new Animal();
+	const Animal* beast = new Animal();
 	const Animal* dog = new Dog();
 	const Animal* cat = new Cat();
 
-	std::cout << "Dog Type : " << dog->getType() << std::endl;
-	std::cout << "Cat Type : " << cat->getType() << std::endl;
+	std::cout << std::endl<< "\n ✿-----What does the fox says? -----✿\n"<< std::endl;
+	std::cout << "Animal type : " <<LIGHT_GREEN<< beast->getType() <<RESET_COLOR<<"\tgoes : ";
+		beast->makeSound();
+	std::cout << "Animal type : " <<LIGHT_GREEN<< dog->getType()   <<RESET_COLOR<<"\tgoes :";
+		dog->makeSound();
+	std::cout << "Animal type : " <<LIGHT_GREEN<< cat->getType()   <<RESET_COLOR<<"\tgoes :";
+		cat->makeSound();
 	std::cout << std::endl;
-
-	dog->makeSound();
-	cat->makeSound();
-	animal->makeSound();
-
+	
 	delete cat;
 	delete dog;
-	delete animal;
+	delete beast;
 
-	std::cout << "\n\t-----WrongAnimals-----\n" << std::endl;
+//=======================================================================================================
+//										   Wrong animal test     										|
+//=======================================================================================================
 
-	const WrongAnimal* wrongAnimal = new WrongAnimal();
-	const WrongAnimal* wrongCat = new WrongCat();
-
-	std::cout << "WrongAnimal Type : " << wrongAnimal->getType() << std::endl;
-	std::cout << "WrongCat Type : " << wrongCat->getType() << std::endl;
+	std::cout <<"\n........................................................................\n"<< std::endl;
+	const WrongAnimal* wrongAnimal  = new WrongAnimal();
+	const WrongAnimal* wrongCat 	= new WrongCat();
+	
+	std::cout << std::endl<< "\n ✿-----What wrong with these?! -----✿\n"<< std::endl;
+	std::cout << "Wrong Animal Type: " <<GREEN<< wrongAnimal->getType() <<RESET_COLOR<< "\tgoes: ";
+		wrongAnimal->makeSound();
+	std::cout << "Wrong Animal Type: " <<GREEN<< wrongCat->getType() << RESET_COLOR<<"\tgoes: ";
+		wrongCat->makeSound();
 	std::cout << std::endl;
-
-	wrongCat->makeSound();
-	wrongAnimal->makeSound();
 
 	delete wrongCat;
 	delete wrongAnimal;

@@ -1,24 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 10:58:45 by angela            #+#    #+#             */
+/*   Updated: 2024/07/06 15:07:23 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Cat.hpp"
 
-/.......................................................................................................
+//.......................................................................................................
 //										Constructor - Destructor										|
 //.......................................................................................................
+
 Cat::Cat() : Animal("Cat")
 {
-	std::cout << "Cat " << this->type << " default constructor called.\n" << std::endl;
+	std::cout << "     little 🐱 " <<LIGHT_GREEN<< this->type <<RESET_COLOR<< " \t-Default constructor called." << std::endl;
 }
 
 Cat::~Cat()
 {
-	std::cout << "Cat " << this->type << " destructor called.\n" << std::endl;
+	std::cout << "     little 🐱 " <<LIGHT_GREEN<< this->type <<RESET_COLOR<< " \t-Destructor called." << std::endl;
 }
 
 Cat::Cat( std::string type) : Animal(type)
 {
-	std::cout << "Cat " << this->type << " constructor called.\n" << std::endl;
+	std::cout << "     little 🐱 "  <<LIGHT_GREEN<< this->type <<RESET_COLOR<< " \t-Name constructor called." << std::endl;
 }
-
-
 //.......................................................................................................
 //										 Copy constructor												|
 //.......................................................................................................
@@ -28,17 +39,16 @@ Cat::Cat( const Cat &cpy)
 	*this = cpy;
 	std::cout <<LILAC<< "Cat " << RESET_COLOR<< this->type << " copy constructor called.\n" << std::endl;
 }
-
 //.......................................................................................................
 //										    Opérator 													|
 //.......................................................................................................
 
-Cat& Cat::operator=( const Cat &rhs )
+Cat& Cat::operator=( const Cat &src )
 {
 	std::cout << "Cat assignement operator called.\n" << std::endl;
-	if ( this != &rhs )
+	if ( this != &src )
 	{
-		this->type = rhs.getType();
+		this->type = src.getType();
 	}
 	return *this;
 }
@@ -50,6 +60,5 @@ Cat& Cat::operator=( const Cat &rhs )
 //=======================================================================================================
 void Cat::makeSound() const
 {
-	std::cout << "Cat makeSound() called." << std::endl;
-	std::cout << "'Makes " <<LILAC<< this->type << RESET_COLOR<< " noise'\n" << std::endl;
+	std::cout << " Nyaaaaaaaaaa nyaaaa" << std::endl;
 }

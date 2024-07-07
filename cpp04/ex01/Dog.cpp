@@ -2,26 +2,26 @@
 //.......................................................................................................
 //										Constructor - Destructor										|
 //.......................................................................................................
-Dog::Dog() : Animal("Dog")
+Dog::Dog() : Animal("Dog"), _brain(new Brain())
 {
-	std::cout << "Dog " << this->type << " default constructor called.\n" << std::endl;
-	try {
-		this->_brain = new Brain();
-	}
-	catch (const std::bad_alloc& e) {
-		std::cout << "Memory allocation failed : " << e.what() << std::endl;
-	}
+	std::cout << "     little 🐶 " << this->type << " \t-Default constructor called.\n" << std::endl;
+	// try {
+	// 	this->_brain = new Brain();
+	// }
+	// catch (const std::bad_alloc& e) {
+	// 	std::cout << "Memory allocation failed : " << e.what() << std::endl;
+	// }
 }
 
 Dog::~Dog()
 {
-	std::cout << "Dog " << this->type << " destructor called.\n" << std::endl;
+	std::cout << "     little 🐶 "<< this->type << " \t-Destructor called." << std::endl;
 	delete this->_brain;
 }
 
 Dog::Dog( std::string type) : Animal(type)
 {
-	std::cout << "Dog " << this->type << " constructor called.\n" << std::endl;
+	std::cout << "     little 🐶 "<< this->type << " \t-Name constructor called." << std::endl;
 }
 //.......................................................................................................
 //										 Copy constructor												|

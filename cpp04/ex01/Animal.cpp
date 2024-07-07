@@ -5,16 +5,19 @@
 //.......................................................................................................
 Animal::Animal() : type("Animal")
 {
-	std::cout << this->type << " default constructor called.\n" << std::endl;
+
+	std::cout <<LILAC<<"ANIMAL, type:  "<< this->type<< " \t-Default constructor called." <<RESET_COLOR << std::endl;
 }
 Animal::~Animal()
 {
-	std::cout << "Animal " << this->type << " destructor called" << std::endl;
+
+	std::cout <<LILAC<<"ANIMAL, type:  "<< this->type<< " \t-Destructor called." <<RESET_COLOR << std::endl;
 }
 
-Animal::Animal( std::string type) : type(type)
+Animal::Animal( std::string type) //type(type)
 {
-	std::cout << "Animal " << this->type << " constructor called.\n" << std::endl;
+	this->type = type;
+	std::cout <<LILAC<<"ANIMAL, type:  "<< this->type<< " \t-Name constructor called." <<RESET_COLOR << std::endl;
 }
 
 

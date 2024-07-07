@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 10:58:39 by angela            #+#    #+#             */
+/*   Updated: 2024/07/06 15:06:48 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Animal.hpp"
 
 //.......................................................................................................
@@ -5,17 +17,17 @@
 //.......................................................................................................
 Animal::Animal() : type("Animal")
 {
-	std::cout << this->type << " default constructor called.\n" << std::endl;
+	std::cout <<LILAC<<"ANIMAL, type:  "<< this->type<< " \t-Default constructor called." <<RESET_COLOR << std::endl;
 }
 
 Animal::~Animal()
 {
-	std::cout << "Animal " << this->type << " destructor called" << std::endl;
+	std::cout <<LILAC<< "Animal, type:  " << this->type << " \t-Destructor called" <<RESET_COLOR<< std::endl;
 }
 
 Animal::Animal( std::string type) : type(type)
 {
-	std::cout << "Animal " << this->type << " constructor called.\n" << std::endl;
+	std::cout <<LILAC<< "Animal, type:  " <<RESET_COLOR<< this->type <<LILAC<< " \t-Name constructor called." <<RESET_COLOR<< std::endl;
 }
 
 //.......................................................................................................
@@ -45,9 +57,12 @@ Animal& Animal::operator=( const Animal &rhs )
 //=======================================================================================================
 void Animal::makeSound() const
 {
-	std::cout << "Animal makeSound() called." << std::endl;
-	std::cout << "'Makes " << this->type << " noise'\n" << std::endl;
+	std::cout <<LILAC<< "Mooooooo" <<RESET_COLOR<< std::endl;
 }
+/*
+	Par default les autres classes feront "mooooo" s'ils ont pas override a leur sauce. 
+	± des layers
+*/
 
 //=======================================================================================================
 //										   Getters-Setters												|

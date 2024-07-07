@@ -3,25 +3,27 @@
 //.......................................................................................................
 //										Constructor - Destructor										|
 //.......................................................................................................
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : Animal("Cat"), _brain(new Brain())
 {
-	std::cout << "Cat " << this->type << " default constructor called.\n" << std::endl;
-	try {
-		this->_brain = new Brain();
-	}
-	catch (const std::bad_alloc& e) {
-		std::cout << "Memory allocation failed : " << e.what() << std::endl;
-	}
+	std::cout << "     little 🐈 "<< this->type << " \t-Default constructor called.\n" << std::endl;
+	// try
+	// {
+	// 		this->_brain = new Brain();
+	// }
+	// catch (const std::bad_alloc& e) 
+	// {
+	// 	std::cout << "Memory allocation failed : " << e.what() << std::endl;
+	// }
 }
 Cat::~Cat()
 {
-	std::cout << "Cat " << this->type << " destructor called.\n" << std::endl;
+	std::cout << "     little 🐈 " << this->type << " \t-Destructor called." << std::endl;
 	delete this->_brain;
 }
 
 Cat::Cat( std::string type) : Animal(type)
 {
-	std::cout << "Cat " << this->type << " constructor called.\n" << std::endl;
+	std::cout <<"     little 🐈 "<< this->type << " \t-Name constructor called." << std::endl;
 }
 //.......................................................................................................
 //										 Copy constructor												|
@@ -29,7 +31,7 @@ Cat::Cat( std::string type) : Animal(type)
 Cat::Cat( const Cat &cpy)
 {
 	*this = cpy;
-	std::cout << "Cat " << this->type << " copy constructor called.\n" << std::endl;
+	std::cout << "     little 🐈 " << this->type << " copy constructor called." << std::endl;
 }
 
 //.......................................................................................................
@@ -45,6 +47,16 @@ Cat& Cat::operator=( const Cat &rhs )
 	}
 	return *this;
 }
+//cause de leaks
+// Cat& Cat::operator=(const Cat& other) {
+//     std::cout << "Cat assignment operator called." << std::endl;
+//     if (this != &other) {
+//         Animal::operator=(other);
+//         delete _brain;
+//         _brain = new Brain(*(other._brain));
+//     }
+//     return *this;
+// }
 
 
 //=======================================================================================================
@@ -54,4 +66,8 @@ void Cat::makeSound() const
 {
 	std::cout << "Cat makeSound() called." << std::endl;
 	std::cout << "'Makes " << this->type << " noise'\n" << std::endl;
+}
+
+Brain* Cat::getBrain() const {
+    return _brain;
 }

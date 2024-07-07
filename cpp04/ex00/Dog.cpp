@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angela <angela@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 10:58:51 by angela            #+#    #+#             */
+/*   Updated: 2024/07/06 15:02:23 by angela           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Dog.hpp"
 
 //.......................................................................................................
@@ -5,16 +17,16 @@
 //.......................................................................................................
 Dog::Dog() : Animal("Dog")
 {
-	std::cout << "Dog " << this->type << " default constructor called.\n" << std::endl;
+	std::cout << "     little 🐶 " <<LIGHT_GREEN<< this->type <<RESET_COLOR<< " \t-Default constructor called." << std::endl;
 }
 Dog::~Dog()
 {
-	std::cout << "Dog " << this->type << " destructor called.\n" << std::endl;
+	std::cout << "     little 🐶 "<<LIGHT_GREEN<< this->type <<RESET_COLOR<< " \t-Destructor called." << std::endl;
 }
 
 Dog::Dog( std::string type) : Animal(type)
 {
-	std::cout << "Dog " << this->type << " constructor called.\n" << std::endl;
+	std::cout << "     little 🐶 "<< this->type << " \t-Name constructor called." << std::endl;
 }
 
 //.......................................................................................................
@@ -31,12 +43,12 @@ Dog::Dog( const Dog &cpy)
 //										    Opérator 													|
 //.......................................................................................................
 
-Dog& Dog::operator=( const Dog &rhs )
+Dog& Dog::operator=( const Dog &src )
 {
 	std::cout <<CYAN<< "Dog"<< RESET_COLOR<<" assignement operator called.\n" << std::endl;
-	if ( this != &rhs )
+	if ( this != &src )
 	{
-		this->type = rhs.getType();
+		this->type = src.getType();
 	}
 	return *this;
 }
@@ -45,6 +57,6 @@ Dog& Dog::operator=( const Dog &rhs )
 //=======================================================================================================
 void Dog::makeSound() const
 {
-	std::cout << "Dog makeSound() called." << std::endl;
-	std::cout << "'Makes " <<CYAN<< this->type <<RESET_COLOR<< " noise'\n" << std::endl;
+	
+	std::cout << " WOOOOOOOOOF woooof " << std::endl;
 }
