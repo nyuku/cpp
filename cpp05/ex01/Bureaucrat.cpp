@@ -106,6 +106,19 @@
         }
     }
 
+    void Bureaucrat::signForm(Form& form)
+    {
+        if (this->getGrade() <= form.getSignGrade())
+        {
+            form.beSigned(*this);
+            std::cout << this->getName() << " signed " << form.getName() << std::endl;
+        }
+        else
+        {
+            std::cout << this->getName() << " couldn't sign: " << form.getName() << "\n";
+            throw Form::GradeTooLowException();
+        }
+    }
 
 //=======================================================================================================
 //										   Getters-Setters												|
@@ -130,14 +143,14 @@
 //										   Operator <<					    							|
 //=======================================================================================================
 
-    std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs)
+    std::ostream & operator<<(std::ostream & output, Bureaucrat const & rhs)
     {
-        o	<< LIGHT_TURCOI
-            << "• Name: "<< rhs.getName()
-            << " / "
-            << "Bureaucrat grade: "<< rhs.getGrade()
-            << RESET_COLOR;
-        return (o);
+        output	<< LIGHT_TURCOI
+                << "• Name: "<< rhs.getName()
+                << " / "
+                << "Bureaucrat grade: "<< rhs.getGrade()
+                << RESET_COLOR;
+        return (output);
     }
 
 //=======================================================================================================

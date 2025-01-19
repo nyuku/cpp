@@ -13,7 +13,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	main.cpp Bureaucrat.cpp
+SRC 			=	main.cpp Bureaucrat.cpp Form.cpp
 
 # ---------------- Color --------------
 
@@ -50,7 +50,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------ Ex 00- Mommy! I want to be a Bureaucrat ------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------ Ex 01 - Form up, maggots! ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
