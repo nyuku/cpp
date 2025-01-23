@@ -8,7 +8,7 @@
 //										Constructor - Destructor
 //.......................................................................................................
     PresidentialPardonForm::PresidentialPardonForm(): 
-    AForm("PresidentialPardonForm", GRADETOSIGN, GRADETOEXEC), _target("default_target")
+    AForm("PresidentialPardonForm", GRADETOSIGN_P, GRADETOEXEC_P), _target("default_target")
     {
         std::cout	<< "Create a default form to pardon. "
                     << std::endl;
@@ -20,7 +20,7 @@
     }
 
     PresidentialPardonForm::PresidentialPardonForm(std::string target): 
-    AForm("PresidentialPardonForm", GRADETOSIGN, GRADETOEXEC), _target(target)
+    AForm("PresidentialPardonForm", GRADETOSIGN_P, GRADETOEXEC_P), _target(target)
     {
         std::cout	<< "Create a new file to pardon. Name: " << target
                     << std::endl;

@@ -8,7 +8,7 @@
 //                                      Défini d'office un grade, nom	    							|
 //.......................................................................................................
     ShrubberyCreationForm::ShrubberyCreationForm(): 
-    AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXEC), _target("default_target")
+    AForm("ShrubberyCreationForm", GRADETOSIGN_S, GRADETOEXEC_S), _target("default_target")
     {
         std::cout	<< "Create a default new file with a tree in it. "
                     << std::endl;
@@ -20,7 +20,7 @@
     }
 
     ShrubberyCreationForm::ShrubberyCreationForm(std::string target): : 
-    AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXEC), _target(target)
+    AForm("ShrubberyCreationForm", GRADETOSIGN_S, GRADETOEXEC_S), _target(target)
     {
         std::cout	<< "Create a new file with a tree in it. Name: " << target
                     << std::endl;

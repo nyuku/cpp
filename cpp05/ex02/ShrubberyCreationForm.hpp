@@ -12,8 +12,8 @@
 #include "AForm.hpp"
 #include <fstream>
 
-#define GRADETOSIGN 145
-#define GRADETOEXEC 137
+#define GRADETOSIGN_S 145
+#define GRADETOEXEC_S 137
 class ShrubberyCreationForm : public AForm
 {
     private:

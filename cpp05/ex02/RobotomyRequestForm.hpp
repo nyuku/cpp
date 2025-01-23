@@ -6,8 +6,8 @@
 #include <fstream>
 #include <cstdlib> // rand
 
-#define GRADETOSIGN 72
-#define GRADETOEXEC 45
+#define GRADETOSIGN_R 72
+#define GRADETOEXEC_R 45
 
 class RobotomyRequestForm : public AForm
 {

@@ -4,8 +4,8 @@
 #include "AForm.hpp"
 #include <fstream>
 
-#define GRADETOSIGN 25
-#define GRADETOEXEC 5
+#define GRADETOSIGN_P 25
+#define GRADETOEXEC_P 5
 
 class PresidentialPardonForm : public AForm
 {

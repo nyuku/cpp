@@ -8,7 +8,7 @@
 //										Constructor - Destructor
 //.......................................................................................................
     RobotomyRequestForm::RobotomyRequestForm(): 
-    AForm("RobotomyRequestForm", GRADETOSIGN, GRADETOEXEC), _target("default_target")
+    AForm("RobotomyRequestForm", GRADETOSIGN_R, GRADETOEXEC_R), _target("default_target")
     {
         std::cout	<< "Create a default to robotomized. "
                     << std::endl;
@@ -20,7 +20,7 @@
     }
 
     RobotomyRequestForm::RobotomyRequestForm(std::string target): 
-    AForm("RobotomyRequestForm", GRADETOSIGN, GRADETOEXEC), _target(target)
+    AForm("RobotomyRequestForm", GRADETOSIGN_R, GRADETOEXEC_R), _target(target)
     {
         std::cout	<< "Create a new file robotomized. Name: " << target
                     << std::endl;
