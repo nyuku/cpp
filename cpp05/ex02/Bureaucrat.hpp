@@ -54,8 +54,8 @@ class Bureaucrat
     //	✩  ---------   Fonctions membres      ---------
 		void	        promoteBureaucrat();// diminue le grade-> --
 		void	        demoteBureaucrat();//diminue le grade -> ++
-    void 	        signForm(Form & form);
-    void			    executeForm(AForm const & form);
+    void 	        signForm(AForm & Aform);
+    void			    executeForm(AForm const & Aform);
     //	✩  ---------   Getters-setters ---------
     std::string		getName() const;
     int				    getGrade() const;

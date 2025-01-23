@@ -38,13 +38,17 @@ class Bureaucrat;
 
 class AForm
 {
+   
     private:
 		std::string const	_name;
 		bool				_signed;
 		int const			_gradeToSign;
 		int const			_gradeToExec;
 
-	public:
+    protected:
+        void    checkGradesSignExec(int requiredExecGrade, const Bureaucrat &executor) const;
+	
+    public:
         //	✩  ---------   Constructor- destructor      --------- 
 		AForm();
         virtual ~AForm();
@@ -56,7 +60,9 @@ class AForm
 
          //	✩  ---------   Fonctions membres      ---------
 		void	        beSigned(Bureaucrat &Bureaucrat);
-        virtual void	beExecute(Bureaucrat const & executor) const = 0;
+
+         //	✩  ---------   Fonctions virtuel      ---------
+        virtual void	Execute(Bureaucrat const & executor) const = 0;
 
 		//	✩  ---------   Getters-setters ---------
 		std::string		getName() const;
@@ -64,20 +70,27 @@ class AForm
 		int				getSignGrade() const;
 		int				getExecGrade() const;
 
-        //	✩  ---------   Exception hériter de classe c++ : std::exception    ---------
-        // class GradeTooHighException:
-        //     public std::exception
-        //     {
-        //         public:
-        //             virtual const char* what() const throw();
-        //     };
+        //  ---------   Exception hériter de classe c++ : std::exception    ---------
+        class GradeTooHighException:
+            public std::exception
+            {
+                public:
+                    virtual const char* what() const throw();
+            };
 
-        // class GradeTooLowException:
-        //     public std::exception
-        //     {
-        //     public:
-        //         virtual const char* what() const throw();
-        //     };
+        class GradeTooLowException:
+            public std::exception
+            {
+            public:
+                virtual const char* what() const throw();
+            };
+
+        class NotSignedException:
+            public std::exception
+            {
+            public:
+                virtual const char* what() const throw();
+            };
 
 };
 

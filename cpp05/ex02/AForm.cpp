@@ -72,16 +72,16 @@
                     << std::endl;
     }
 
-//=======================================================================================================
-//										   Fonctions membres											|
-//=======================================================================================================
-    void	AForm::beSigned(Bureaucrat &Bureaucrat)
-    {
-        if (Bureaucrat.getGrade() > this->getSignGrade())
-            throw (AForm::GradeTooLowException());
-        else
-            this->_signed = true;
-    }
+// //=======================================================================================================
+// //										   Fonctions membres											|
+// //=======================================================================================================
+//     void	AForm::beSigned(Bureaucrat &Bureaucrat)
+//     {
+//         if (Bureaucrat.getGrade() > this->getSignGrade())
+//             throw (AForm::GradeTooLowException());
+//         else
+//             this->_signed = true;
+//     }
 
 //=======================================================================================================
 //										   Getters-Setters												|
@@ -105,6 +105,28 @@
     {
         return (_gradeToExec);
     }
+
+//=======================================================================================================
+//                                      Fonctions membres
+//=======================================================================================================
+    void    AForm::beSigned(Bureaucrat &Bureaucrat)
+    {
+        if (bureaucrat.getGrade() <= this->gradeToSign)
+            this->_signed = true;
+        else
+            throw GradeTooLowException();
+    }
+//=======================================================================================================
+//                                     Fonctions protected("privé a la classe et aux enfants")          
+//=======================================================================================================
+    void AForm::checkGradesSignExec(int requiredExecGrade, const Bureaucrat &executor) const
+    {
+        if (!this->_signed)
+            throw (AForm::NotSignedException());
+        if (executor.getGrade() > this->_gradeToExec)
+            throw (AForm::GradeTooLowException());
+    }
+
 
 //=======================================================================================================
 //										   Operator <<					    							|
@@ -140,4 +162,9 @@
     const char* AForm::GradeTooLowException::what() const throw()
     {
         return (LIGHT_RED"ERROR: Grade is too low."RESET_COLOR);
+    }
+
+    const char* AForm::NotSignedException::what() const throw()
+    {
+        return (LIGHT_RED"ERROR: Form is not signed."RESET_COLOR);
     }

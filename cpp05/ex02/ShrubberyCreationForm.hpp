@@ -1,17 +1,19 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // |		Commandes
 // 		 ✩ librairie <fstream> pour creer fichiers
-//       ✩ Create a file "Target"
-//       ✩ 
+//          ✩ Create a file "Target"
+//       ✩ Héritage public de AForm
 //       ✩ 
 //       ✩ 
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #ifndef SCRUBERRYCREATIONFORM_HPP
-#def    SCRUBERRYCREATIONFORM_HPP
+#define    SCRUBERRYCREATIONFORM_HPP
 
 #include "AForm.hpp"
 #include <fstream>
 
+#define GRADETOSIGN 145
+#define GRADETOEXEC 137
 class ShrubberyCreationForm : public AForm
 {
     private:
@@ -30,7 +32,11 @@ class ShrubberyCreationForm : public AForm
 
     //=======================================================================================================
    //										   Fonctions membres
-        void beExecute(Bureaucrat const & executor) const;  // recuperer de la classe parents AForm
+        void execute(Bureaucrat const & executor) const;  // recuperer de la classe parents AForm
+
+    //=======================================================================================================
+    //										   Getters-Setters
+        std::string getTarget() const;        
 };
 
 #endif

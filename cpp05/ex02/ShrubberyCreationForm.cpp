@@ -1,25 +1,5 @@
-
-
-     ccee88oo
-  C8O8O8Q8PoOb o8oo
- dOB69QO8PdUOpugoO9bD
-CgggbU8OU qOp qOdoUOdcb
-    6OuU  /p u gcoUodpP
-      \\\//  /douUP
-        \\\////
-         |||/\
-         |||\/
-         |||||
-   .....//||||\....
-
-
-
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ Grade: 1(highest)- 150
-//       ✩ Exception pour grade ]1-150[
-//       ✩ Vconstante name and grande (private?)
-//       ✩ You will implement an overload of the insertion («) 
-//       ✩ try et catch.thrown exceptions must be catchable using try and catch blocks
+// 		 ✩ Execute fonction to be define (virtuel) in the child class
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include ShrubberyCreationForm.hpp
 
@@ -28,17 +8,23 @@ CgggbU8OU qOp qOdoUOdcb
 //                                      Défini d'office un grade, nom	    							|
 //.......................................................................................................
     ShrubberyCreationForm::ShrubberyCreationForm(): 
+    AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXEC), _target("default_target")
     {
-        _target("Target")
-        std::cout	<< "Create a new file with a tree in it. "
+        std::cout	<< "Create a default new file with a tree in it. "
                     << std::endl;
     }
 
     ShrubberyCreationForm::~ShrubberyCreationForm()
     {
-        std::cout	<< "The file has been destroyed." << std::endl;
+        std::cout	<< "The (tree)file has been destroyed." << std::endl;
     }
 
+    ShrubberyCreationForm::ShrubberyCreationForm(std::string target): : 
+    AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXEC), _target(target)
+    {
+        std::cout	<< "Create a new file with a tree in it. Name: " << target
+                    << std::endl;
+    }
 //.......................................................................................................
 //										    Opérator 													|
 //.......................................................................................................
@@ -48,7 +34,7 @@ CgggbU8OU qOp qOdoUOdcb
         {
             _target = rhs._target;
         }
-        std::cout	<< "A t ree form has been change and copy from "
+        std::cout	<< "A tree form has been change and copy from "
                 << this->_name
                 << std::endl;
         return (*this);
@@ -60,29 +46,53 @@ CgggbU8OU qOp qOdoUOdcb
 //                          methode: liste d’initialisation                                             |
 //.......................................................................................................
     ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const & src):
-        _target(src._target)
+        AForm(src)
     {
-        std::cout	<< " A tree form has been cloned from "
+        std::cout	<< " A new tree form has been cloned from "
                 << this->_name
                 << std::endl;
+        *this = src;
     }
 
 //=======================================================================================================
 //										   Fonctions membres											|
 //=======================================================================================================
-
-
+ void   ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+{
+    checkGradesSignExec(GRADETOEXEC, executor);
+    if (this->getFormSigned())
+    {
+        std::string nameFile = (this->getTarget() + "_shruberry");
+        std::ofstream file(nameFile); // Création et ouverture auto du fichier
+         if (!file.is_open())
+            std::cerr << "Error: opening file." << std::endl;
+         else
+         {
+                std::cout << executor
+                        << " has executed the form: "
+                        << this->getName()
+                        << std::endl;
+                file << GREEN
+                     "       _-_\n"
+                    "    /~~   ~~\\\n"
+                    " /~~         ~~\\\n"
+                    "{               }\n"
+                    " \\  _-     -_  /\n"
+                    "   ~  \\\\ //  ~\n"
+                    "_- -   | | _- _\n"
+                    "  _ -  | |   -_\n"
+                    "      // \\\\" 
+                    << RESET_COLOR
+                    << std::endl;
+                file.close();
+            }
+    }
+}
 
 //=======================================================================================================
 //										   Getters-Setters												|
 //=======================================================================================================
-
-
-//=======================================================================================================
-//										   Operator <<					    							|
-//=======================================================================================================
-
-
-//=======================================================================================================
-//										   Exceptions					    							|
-//=======================================================================================================
+    ShrubberyCreationForm::getTarget() const
+    {
+        return (_target);
+    }
