@@ -2,7 +2,7 @@
 // |	 ✩ Execute fonction to be define (virtuel) in the child class
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
-#include"robotomyRequestForm.hpp"
+#include"RobotomyRequestForm.hpp"
 
 //.......................................................................................................
 //										Constructor - Destructor
@@ -35,7 +35,7 @@
             _target = rhs._target;
         }
         std::cout	<< "A robotomized form has been change and copy from "
-                << this->_name
+                << rhs.getName()
                 << std::endl;
         return (*this);
     }
@@ -47,7 +47,7 @@
         AForm(src)
     {
         std::cout	<< " A new robotomized form has been cloned from "
-                << this->_name
+                << src.getName()
                 << std::endl;
         *this = src;
     }
@@ -57,12 +57,22 @@
 //.......................................................................................................
  void   RobotomyRequestForm::execute(Bureaucrat const & executor) const
  {
-     checkGradesSignExec(GRADETOEXEC, executor);
-     std::cout << "* LOUD DRILL NOISES *" << std::endl;
-        if (rand() % 2)
-            std::cout << _target << " has been robotomized successfully." << std::endl;
-        else
-            std::cout << _target << " robotomization failed." << std::endl;
+    std::srand(std::time(nullptr));
+    checkGradesSignExec(executor);
+     std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
+    int randomValue = rand() % 2; // Stockez le résultat pour inspection
+    std::cout << "Random value: " << randomValue << std::endl; // Ajoutez cette ligne pour le débogage
+
+    if (randomValue) {
+        std::cout << LIGHT_GREEN << _target << " has been robotomized successfully." << RESET_COLOR << std::endl;
+    } else {
+        std::cout << LIGHT_RED << _target << " robotomization failed." << RESET_COLOR << std::endl;
+    }
+    //  std::cout << "* LOUD DRILL NOISES *" << std::endl;
+    //     if (rand() % 2)
+    //         std::cout <<LIGHT_GREEN<< _target << " has been robotomized successfully." <<RESET_COLOR<< std::endl;
+    //     else
+    //         std::cout <<LIGHT_RED<< _target << " robotomization failed." << RESET_COLOR<<std::endl;
  }
 
 

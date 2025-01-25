@@ -31,9 +31,7 @@
 # include <iostream>
 # include <stdexcept>
 # include <string>
-// # include "Bureaucrat.hpp"
-
-class Bureaucrat;
+# include "Bureaucrat.hpp"
 
 
 class AForm
@@ -46,7 +44,7 @@ class AForm
 		int const			_gradeToExec;
 
     protected:
-        void    checkGradesSignExec(int requiredExecGrade, const Bureaucrat &executor) const;
+        void    checkGradesSignExec(const Bureaucrat &executor) const;
 	
     public:
         //	✩  ---------   Constructor- destructor      --------- 
@@ -62,7 +60,7 @@ class AForm
 		void	        beSigned(Bureaucrat &Bureaucrat);
 
          //	✩  ---------   Fonctions virtuel      ---------
-        virtual void	Execute(Bureaucrat const & executor) const = 0;
+        virtual void	execute(Bureaucrat const & executor) const = 0;
 
 		//	✩  ---------   Getters-setters ---------
 		std::string		getName() const;

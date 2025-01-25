@@ -1,7 +1,7 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // 		 ✩ Execute fonction to be define (virtuel) in the child class
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
-#include ShrubberyCreationForm.hpp
+#include "ShrubberyCreationForm.hpp"
 
 //.......................................................................................................
 //										Constructor - Destructor		
@@ -19,7 +19,7 @@
         std::cout	<< "The (tree)file has been destroyed." << std::endl;
     }
 
-    ShrubberyCreationForm::ShrubberyCreationForm(std::string target): : 
+    ShrubberyCreationForm::ShrubberyCreationForm(std::string target):
     AForm("ShrubberyCreationForm", GRADETOSIGN_S, GRADETOEXEC_S), _target(target)
     {
         std::cout	<< "Create a new file with a tree in it. Name: " << target
@@ -35,7 +35,7 @@
             _target = rhs._target;
         }
         std::cout	<< "A tree form has been change and copy from "
-                << this->_name
+                << rhs.getName()
                 << std::endl;
         return (*this);
     }
@@ -49,7 +49,7 @@
         AForm(src)
     {
         std::cout	<< " A new tree form has been cloned from "
-                << this->_name
+                << src.getName()
                 << std::endl;
         *this = src;
     }
@@ -59,8 +59,8 @@
 //=======================================================================================================
  void   ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-    checkGradesSignExec(GRADETOEXEC, executor);
-    if (this->getFormSigned())
+    checkGradesSignExec(executor);
+    std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
     {
         std::string nameFile = (this->getTarget() + "_shruberry");
         std::ofstream file(nameFile); // Création et ouverture auto du fichier
@@ -68,7 +68,7 @@
             std::cerr << "Error: opening file." << std::endl;
          else
          {
-                std::cout << executor
+                std::cout << executor.getName()
                         << " has executed the form: "
                         << this->getName()
                         << std::endl;
@@ -82,6 +82,7 @@
                     "_- -   | | _- _\n"
                     "  _ -  | |   -_\n"
                     "      // \\\\" 
+                    <<"exec by: " << executor.getName()
                     << RESET_COLOR
                     << std::endl;
                 file.close();
@@ -92,7 +93,7 @@
 //=======================================================================================================
 //										   Getters-Setters												|
 //=======================================================================================================
-    ShrubberyCreationForm::getTarget() const
+   std::string  ShrubberyCreationForm::getTarget() const
     {
         return (_target);
     }

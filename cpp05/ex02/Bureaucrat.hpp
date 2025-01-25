@@ -32,7 +32,7 @@
 
 #include <string>
 #include <iostream>
-#include "AForm.hpp"
+class AForm;
 
 class Bureaucrat
 {
@@ -41,8 +41,8 @@ class Bureaucrat
 		int			      _grade;
     std::string	const _name;
 		
-    public:
-    //	✩  ---------   Constructor- destructor      --------- 
+  public:
+  //	✩  ---------   Constructor- destructor      --------- 
 		Bureaucrat();
     ~Bureaucrat();
 		Bureaucrat(int grade, std::string name);

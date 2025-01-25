@@ -1,3 +1,11 @@
+// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
+// |		CommandeS 
+// 		 ✩ ! execute vs exceuteForm
+//       ✩ ! signForm vs beSigned
+//       ✩ 3 lv de classes: Bureaucrate qui fait les actions
+//                          AForm qui subit les actions
+//                          3 classes enfants de AForm qui ont les memes actions
+// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
@@ -9,23 +17,22 @@ int	main()
     {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
-                    Bureaucrat Link("Link",50);
-					Bureaucrat Zelda("Zelda",120);
+                    Bureaucrat Link(50,"Link");
+					Bureaucrat Zelda(120,"Zelda");
 
 					ShrubberyCreationForm swordform("sword"); 
                     std::cout << swordform << std::endl;
 
-                    Link.signForm(sword);
+                    Link.signForm(swordform);
 					std::cout << swordform << std::endl;
 
-					Zelda.execute(sowrd);
-                    std::cout << swordform << std::endl;
+					Zelda.executeForm(swordform);
         }
-        catch (Form::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Form::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -38,23 +45,22 @@ int	main()
     {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Link("Link",50);
-			Bureaucrat Zelda("Zelda",150);
+            Bureaucrat Link(50,"Link");
+            Bureaucrat Zelda(150,"Zelda");
 
 			ShrubberyCreationForm swordform("sword"); 
 			std::cout << swordform << std::endl;
 
-			Link.signForm(sword);
+			Link.signForm(swordform);
 			std::cout << swordform << std::endl;
 
-			Zelda.execute(sowrd);
-			std::cout << swordform << std::endl;
+			Zelda.executeForm(swordform);
         }
-        catch (Bureaucrat::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Bureaucrat::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -67,23 +73,23 @@ int	main()
     {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Link("Link",150);
-			Bureaucrat Zelda("Zelda",150);
+            Bureaucrat Link(150,"Link");
+            Bureaucrat Zelda(15,"Zelda");
 
 			ShrubberyCreationForm swordform("sword"); 
 			std::cout << swordform << std::endl;
 
-			Link.signForm(sword);
+			Link.signForm(swordform);
 			std::cout << swordform << std::endl;
 
-			Zelda.execute(sowrd);
-			std::cout << swordform << std::endl;
+			Zelda.executeForm(swordform);
+
         }
-        catch (Bureaucrat::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Bureaucrat::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -97,23 +103,23 @@ int	main()
     {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 1 RobotomyRequestForm[sign:✅ exec:?] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Luke("Luke",15);
-			Bureaucrat Vader("Vader",1);
+            Bureaucrat Luke(15,"Luke");
+			Bureaucrat R2d2(1,"R2d2");
 
-			ShrubberyCreationForm deathStar("deathStar"); 
+			RobotomyRequestForm deathStar("deathStar"); 
 			std::cout << deathStar << std::endl;
 
-			Link.signForm(deathStar);
+			Luke.signForm(deathStar);
 			std::cout << deathStar << std::endl;
 
-			Zelda.execute(deathStar);
-			std::cout << deathStar << std::endl;
+			R2d2.executeForm(deathStar);
+		
         }
-        catch (Form::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Form::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -122,26 +128,28 @@ int	main()
                 std::cerr << "An exception occurred: "<< excep.what() << std::endl;
         }
     }
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 2 RobotomyRequestForm[sign:❌ exec:?] --------" << RESET_COLOR<< std::endl;
+
+//-------------------------------------------------------------------------------------------------------------------------------------//
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test  RobotomyRequestForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Luke("Luke",150);
-			Bureaucrat Vader("Vader",150);
+            Bureaucrat Luke(70,"Luke");
+			Bureaucrat R2d2(50,"R2d2");
 
-			ShrubberyCreationForm deathStar("deathStar"); 
+			RobotomyRequestForm deathStar("deathStar"); 
 			std::cout << deathStar << std::endl;
 
-			Link.signForm(deathStar);
+			Luke.signForm(deathStar);
 			std::cout << deathStar << std::endl;
 
-			Zelda.execute(deathStar);
-			std::cout << deathStar << std::endl;
+			R2d2.executeForm(deathStar);
+	
         }
-        catch (Form::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Form::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -151,26 +159,26 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 1 RobotomyRequestForm[sign:❌ exec:?] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test  RobotomyRequestForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Luke("Luke", 80);
-			Bureaucrat Vader("Vader",1);
+            Bureaucrat Luke(150,"Luke");
+			Bureaucrat R2d2(150,"R2d2");
 
-			ShrubberyCreationForm deathStar("deathStar"); 
+			RobotomyRequestForm deathStar("deathStar"); 
 			std::cout << deathStar << std::endl;
 
-			Link.signForm(deathStar);
+			Luke.signForm(deathStar);
 			std::cout << deathStar << std::endl;
 
-			Zelda.execute(deathStar);
-			std::cout << deathStar << std::endl;
+			R2d2.executeForm(deathStar);
+
         }
-        catch (Form::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Form::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -180,26 +188,64 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {   std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate 70- Form to sign 150 --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  PresidentialPardonForm [sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
-            Bureaucrat Stagiaire(149, "Stagiaire");
-            Form	    form("Devil_contract", 150, 20);
-            Stagiaire.signForm(form);
-            std::cout << form << std::endl;
+            Bureaucrat Hokage(1,"Hashirama");
+			Bureaucrat Sarutobi(2,"Sarutobi");
+
+			PresidentialPardonForm Alliance("Alliance"); 
+			std::cout << Alliance << std::endl;
+
+			Hokage.signForm(Alliance);
+			std::cout << Alliance << std::endl;
+
+			Sarutobi.executeForm(Alliance);
 
         }
-        catch (Form::GradeTooHighException &excep)
+        catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Form::GradeTooLowException &excep)
+        catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
         catch (std::exception& excep)
         {
-            std::cerr << "An exception occurred: "<< excep.what() << std::endl;
+                std::cerr << "An exception occurred: "<< excep.what() << std::endl;
         }
     }
+//-------------------------------------------------------------------------------------------------------------------------------------//
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  PresidentialPardonForm [sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
+        try
+        {
+            Bureaucrat Hokage(150,"Tsunade");
+			Bureaucrat Orochimaru(150,"Orochimaru");
+
+			PresidentialPardonForm Alliance("Alliance"); 
+			std::cout << Alliance << std::endl;
+
+			Hokage.signForm(Alliance);
+			std::cout << Alliance << std::endl;
+
+			Orochimaru.executeForm(Alliance);
+		
+        }
+        catch (AForm::GradeTooHighException &excep)
+        {
+            std::cout	<< excep.what() << std::endl;
+        }
+        catch (AForm::GradeTooLowException &excep)
+        {
+            std::cout	<< excep.what() << std::endl;
+        }
+        catch (std::exception& excep)
+        {
+                std::cerr << "An exception occurred: "<< excep.what() << std::endl;
+        }
+    }
+
+
+
 }

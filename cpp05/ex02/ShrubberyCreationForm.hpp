@@ -6,11 +6,12 @@
 //       ✩ 
 //       ✩ 
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
-#ifndef SCRUBERRYCREATIONFORM_HPP
-#define    SCRUBERRYCREATIONFORM_HPP
+#ifndef SHRUBBERRYCREATIONFORM_HPP
+#define SHRUBBERRYCREATIONFORM_HPP
 
 #include "AForm.hpp"
 #include <fstream>
+#include <string>
 
 #define GRADETOSIGN_S 145
 #define GRADETOEXEC_S 137

@@ -35,7 +35,7 @@
             _target = rhs._target;
         }
         std::cout	<< "A pardon form has been change and copy from "
-                << this->_name
+                << rhs.getName()
                 << std::endl;
         return (*this);
     }
@@ -47,7 +47,7 @@
         AForm(src)
     {
         std::cout	<< " A new pardon form has been cloned from "
-                << this->_name
+                << src.getName()
                 << std::endl;
         *this = src;
     }
@@ -56,6 +56,7 @@
 //.......................................................................................................
     void   PresidentialPardonForm::execute(Bureaucrat const & executor) const
     {
-        checkGradesSignExec(GRADETOEXEC, executor);
-        std::cout << "The president , Zaphod Beeblebrox, was pleased to pardon " << _target << std::endl;
+        checkGradesSignExec(executor);
+          std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
+        std::cout <<LIGHT_GREEN<< "The president , Zaphod Beeblebrox, was pleased to pardon " << _target <<RESET_COLOR<< std::endl;
     }

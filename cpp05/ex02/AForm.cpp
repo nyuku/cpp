@@ -91,7 +91,7 @@
         return (_name);
     }
 
-    int				AForm::getAFormSigned() const
+    int				AForm::getFormSigned() const
     {
         return (_signed);
     }
@@ -111,7 +111,7 @@
 //=======================================================================================================
     void    AForm::beSigned(Bureaucrat &Bureaucrat)
     {
-        if (bureaucrat.getGrade() <= this->gradeToSign)
+        if (Bureaucrat.getGrade() <= this->_gradeToSign)
             this->_signed = true;
         else
             throw GradeTooLowException();
@@ -119,13 +119,22 @@
 //=======================================================================================================
 //                                     Fonctions protected("privé a la classe et aux enfants")          
 //=======================================================================================================
-    void AForm::checkGradesSignExec(int requiredExecGrade, const Bureaucrat &executor) const
+    void AForm::checkGradesSignExec(const Bureaucrat &executor) const
     {
-        if (!this->_signed)
-            throw (AForm::NotSignedException());
         if (executor.getGrade() > this->_gradeToExec)
+        {    
+            std::cout<<LIGHT_RED<<"Form error: "<<executor.getName()<<" cannot execute the form: "<<this->_name<<RESET_COLOR<<std::endl;
             throw (AForm::GradeTooLowException());
+        }
     }
+    //le controle "signed" ne sera pas atteint car deja bloc par le l'exeption signForm
+    //  void AForm::checkGradesSignExec(const Bureaucrat &executor) const
+    // {
+    //     if (!this->_signed)
+    //         throw (AForm::NotSignedException());
+    //     else if (executor.getGrade() > this->_gradeToExec)
+    //         throw (AForm::GradeTooLowException());
+    // }
 
 
 //=======================================================================================================
