@@ -14,7 +14,7 @@ OBJ				= 	${SRC:.cpp=.o}
 
 # ---------------- Sources -----------
 SRC 			=	main.cpp Bureaucrat.cpp AForm.cpp \
-					ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+					ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 
 # ---------------- Color --------------
 

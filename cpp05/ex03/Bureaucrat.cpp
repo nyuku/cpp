@@ -8,6 +8,7 @@
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
 #include"Bureaucrat.hpp"
+#include "AForm.hpp"
 
 //.......................................................................................................
 //										Constructor - Destructor		
@@ -106,18 +107,24 @@
         }
     }
 
-    void Bureaucrat::signForm(Form& form)
+    void Bureaucrat::signForm(AForm& form)
     {
         if (this->getGrade() <= form.getSignGrade())
         {
             form.beSigned(*this);
-            std::cout << "The Bureaucrat "<< this->getName() << " signed " << form.getName() << std::endl;
+            std::cout << this->getName() << " signed " << form.getName() << std::endl;
         }
         else
         {
-            std::cout << "The Bureaucrat "<< this->getName() <<  " couldn't sign: " << form.getName() << "\n";
-            throw Form::GradeTooLowException();
+            std::cout <<LIGHT_RED<<"The Bureaucrat "<< this->getName() << " couldn't sign: " << form.getName() <<RESET_COLOR<< "\n";
+            throw AForm::GradeTooLowException();
         }
+    }
+
+    void Bureaucrat::executeForm(AForm const & form)//->execute de AForm->execute les autres classe enfants
+    {   
+        form.execute(*this);
+        // std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< this->getName() << " executed " << form.getName() << RESET_COLOR<< std::endl;
     }
 
 //=======================================================================================================

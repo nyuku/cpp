@@ -10,19 +10,19 @@
     ShrubberyCreationForm::ShrubberyCreationForm(): 
     AForm("ShrubberyCreationForm", GRADETOSIGN_S, GRADETOEXEC_S), _target("default_target")
     {
-        std::cout	<< "Create a default new file with a tree in it. "
+        std::cout	<< "Shrubbery: Create a default new file with a tree in it. "
                     << std::endl;
     }
 
     ShrubberyCreationForm::~ShrubberyCreationForm()
     {
-        std::cout	<< "The (tree)file has been destroyed." << std::endl;
+        std::cout	<< "Shrubbery: The file has been destroyed." << std::endl;
     }
 
     ShrubberyCreationForm::ShrubberyCreationForm(std::string target):
     AForm("ShrubberyCreationForm", GRADETOSIGN_S, GRADETOEXEC_S), _target(target)
     {
-        std::cout	<< "Create a new file with a tree in it. Name: " << target
+        std::cout	<< "Shrubbery: Create a new file with a tree in it. Name: " << target
                     << std::endl;
     }
 //.......................................................................................................
@@ -60,7 +60,6 @@
  void   ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
     checkGradesSignExec(executor);
-    std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
     {
         std::string nameFile = (this->getTarget() + "_shruberry");
         std::ofstream file(nameFile); // Création et ouverture auto du fichier
@@ -68,10 +67,16 @@
             std::cerr << "Error: opening file." << std::endl;
          else
          {
-                std::cout << executor.getName()
-                        << " has executed the form: "
-                        << this->getName()
-                        << std::endl;
+                std::cout   <<"The Bureaucrat "
+                            <<BOLD
+                            << executor.getName()
+                            << RESET_COLOR
+                            << " has executed the form: "
+                            << BOLD
+                            << this->getName()
+                            << "\n"
+                            <<RESET_COLOR
+                            << std::endl;
                 file << 
                     "       _-_\n"
                     "    /~~   ~~\\\n"
