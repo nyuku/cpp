@@ -51,7 +51,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------ Ex 01 - Form up, maggots! ------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------ Ex 02 - Forms everywhere! ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
