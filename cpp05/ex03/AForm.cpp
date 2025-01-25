@@ -177,3 +177,8 @@
     {
         return (LIGHT_RED"ERROR: Form is not signed."RESET_COLOR);
     }
+
+    const char* AForm::InvalidNameForm::what() const throw()
+    {
+        return (LIGHT_RED"ERROR: Invalid name form."RESET_COLOR);
+    }

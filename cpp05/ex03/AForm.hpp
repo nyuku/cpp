@@ -89,12 +89,11 @@ class AForm
             public:
                 virtual const char* what() const throw();
             };
-            
+
         class InvalidNameForm : public std::exception
             {
                 public :
-                virtual const char* what() const throw(){
-                    return ("Invalid target.\n");}
+                virtual const char* what() const throw()
             };
 
 };
