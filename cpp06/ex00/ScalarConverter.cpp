@@ -194,3 +194,28 @@ void ScalarConverter::detectType(std::string src)
         _isValid = true;
     }
 }
+
+void ScalarConverter::selectType(std::string src)
+{
+   // Tableau de booleen de flag
+    bool flags[4] = {_isChar, _isInt, _isFloat, _isDouble};
+
+     // Tableau de fonctions correspondant à chaque type
+    void (ScalarConverter::*conversionFunctions[4])(std::string) = 
+    {
+        &ScalarConverter::SrcChar,
+        &ScalarConverter::SrcInt,
+        &ScalarConverter::SrcFloat,
+        &ScalarConverter::SrcDouble
+    };
+
+  for (int i = 0; i < 4; i++) 
+  {
+    if (flags[i]) {  // Si un flag est true, le type a été détecté
+        std::cout << "Detected type: " << types[i] << std::endl;
+        (this->*conversionFunctions[i])(src);  // Appelle la fonction de conversion correspondante
+        return;  // Quitte la fonction dès qu'un type est traité
+    }
+  }
+    std::cout << "Invalid data." << std::endl;
+}
