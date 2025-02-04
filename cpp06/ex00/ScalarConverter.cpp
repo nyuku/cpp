@@ -171,7 +171,11 @@ void ScalarConverter::detectType(std::string src)
 //(src.find('-') != std::string::npos) => not found. pos = pas trouvé
 //if find == rfind = 1seul occurence
 
-    
+    if (src.empty())
+    {
+        std::cout<<"error"<<ENDL;
+        return;
+    }
        //verifie en dur les cas particuliers nan, inf, inff
     if (src == "nan" || src == "nanf" || src == "+inf" || src == "-inf" || src == "+inff" || src == "-inff") {
         //fonction supp a lance
@@ -220,6 +224,7 @@ void ScalarConverter::detectType(std::string src)
             _isValid = true;
     }
     //check chiffre +42, -42, 42 !! +42 +-42
+    //! pas besoin de decaler si 0 sigm
     else if (!src.empty() && src.size() > 1 && (std::isdigit(src[0]) || (_hasPlus== true || _hasSign == true)))
     {
        for (std::size_t i = 1; i < src.size(); ++i) //on decale de 1
@@ -315,6 +320,8 @@ void ScalarConverter::selectType(std::string src)
 
 void	ScalarConverter::printAll()
 {
+    if(!(_isValid))
+        return;
     printChar();
     printInt();
     printFloat();
