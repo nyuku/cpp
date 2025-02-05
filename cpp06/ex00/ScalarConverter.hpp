@@ -37,8 +37,14 @@
 class ScalarConverter
 {
     private:
+
+        //    ✩  ---------   Constructor    --------- 
+        ScalarConverter();
+        ScalarConverter(std::string src);
+        ScalarConverter(ScalarConverter const & src);
+        ScalarConverter & operator=(ScalarConverter const & rhs);
         //    ✩  ---------   Argument      ---------
-    	std::string _toConvert;
+        std::string _toConvert;
 
         //    ✩  ---------   Résultats     ---------
         char    _charResult;
@@ -63,20 +69,17 @@ class ScalarConverter
         //    ✩  ---------  Valid   ---------    
         bool	_isValid;
 
-        //    ✩  ---------   Constructor    --------- 
-        ScalarConverter();
 
     public:
         //    ✩  ---------   Destructor - Constructor with arg- Constructor copy      --------- 
         ~ScalarConverter();
-        ScalarConverter(std::string src);
-        ScalarConverter(ScalarConverter const & src);
+  
 
         //    ✩  ---------   Operator      ---------
-        ScalarConverter & operator=(ScalarConverter const & rhs);
+        //non-nstanciable 
 
         //    ✩  ---------   Fonctions membre principale     ---------
-        static void convert(const std::string &ref);
+        static void convert(const std::string &src);
 
         //    ✩  ---------   Getters      ---------
         char	getChar() const;
