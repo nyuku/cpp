@@ -94,7 +94,8 @@ class ScalarConverter
         void    selectType(std::string src); //prend le flag et redirige vers la conversion
 
 
-        void convertByType(std::string src);
+        void    convertByType(std::string src);
+        void    nanInf(std::string src);
         //    ✩  ---------   Fonctions convert     ---------
         void	SrcChar(std::string src);
         void	SrcInt(std::string src);

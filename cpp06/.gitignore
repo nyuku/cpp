@@ -1,0 +1,23 @@
+# Ignorer les fichiers d'exécutable
+a.out
+*.exe
+*.out
+
+# Ignorer les fichiers d'objets et de compilation
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+
+# Ignorer les fichiers macOS spécifiques
+.DS_Store
+
+# Ignorer les fichiers de logs et temporaires
+*.log
+*.tmp
+*.swp
+
+# Ignorer les fichiers de debug
+debug/
+*.dSYM/

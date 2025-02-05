@@ -162,7 +162,16 @@ void ScalarConverter::SrcDouble(std::string src)
 //                              Détection-Conversion-Impression 													|
 //.......................................................................................................
 
-void ScalarConverter::detectType(std::string src) 
+void    ScalarConverter::nanInf(std::string src)
+{
+	_isNanInf = true;
+	if (src == "nanf" || src == "-inff" || src == "+inff")
+		_isFloat = true;
+	else
+		_isDouble = true;
+}
+
+void    ScalarConverter::detectType(std::string src) 
 {
 // Initialisation des flags, pré-tri.check si 1x
 // find() retourne la première occurrence du caractère.
@@ -176,19 +185,10 @@ void ScalarConverter::detectType(std::string src)
         std::cout<<"error"<<ENDL;
         return;
     }
-       //verifie en dur les cas particuliers nan, inf, inff
-    if (src == "nan" || src == "nanf" || src == "+inf" || src == "-inf" || src == "+inff" || src == "-inff") {
-        //fonction supp a lance
-        // void	cast::exception(std::string src)
-        // {
-        // 	_isNanInf = true;
-        // 	if (src == "nanf" || src == "-inff" || src == "+inff")
-        // 		_isFloat = true;
-        // 	else
-        // 		_isDouble = true;
-        // }
-
-    }
+    //verifie en dur les cas particuliers nan, inf, inff
+    if (src == "nan" || src == "nanf" || src == "+inf" || src == "-inf" || src == "+inff" || src == "-inff")
+       nanInf(src);
+    
     //check s'il y a une signe '-'/'.'/'f' dans la string. +- que au debut
     _hasSign = ((src.find('-') != std::string::npos) && (src.find('-') == src.rfind('-') && src.find('-') == 0));
     _hasPlus = ((src.find('+') != std::string::npos) && (src.find('+') == src.rfind('+') && src.find('+') == 0));
@@ -225,11 +225,13 @@ void ScalarConverter::detectType(std::string src)
     }
     //check chiffre +42, -42, 42 !! +42 +-42
     //! pas besoin de decaler si 0 sigm
-    else if (!src.empty() && src.size() > 1 && (std::isdigit(src[0]) || (_hasPlus== true || _hasSign == true)))
+    else if (!src.empty() && (std::isdigit(src[0]) || (_hasPlus== true || _hasSign == true)))
     {
-       for (std::size_t i = 1; i < src.size(); ++i) //on decale de 1
+       if(src.size() == 1 && (_hasPlus== true || _hasSign == true))
+        return;
+       for (std::size_t i = 1; i < src.size(); ++i) //on decale de 1 car deja check le src[0]
        {
-            if (!std::isdigit(src[i])) 
+            if (!std::isdigit(src[i]))
             {
                 return;
             }
@@ -268,7 +270,8 @@ void ScalarConverter::convertByType(std::string src)
 void ScalarConverter::selectType(std::string src)
 {
     // Tableau de booleen de flag
-    if(!(_isValid))
+
+    if( !(_isNanInf) && !(_isValid))
     {
         std::cout << "Invalid data." << std::endl;
         return;
@@ -288,10 +291,17 @@ void ScalarConverter::selectType(std::string src)
 
     int i = 0, j = 0;
     const char* flagNames[4] = {"_isChar", "_isInt", "_isFloat", "_isDouble"};// pour print le nom
-    while (j < 3 && i < 4)
+    while (j < 3 || i < 4)
     {
         if (flags[i])
-            std::cout <<"Type: "<<flagNames[i]<< std::endl;
+        {
+            std::cout <<LIGHT_MAGENTA<<"\nType: "<<RESET_COLOR<<flagNames[i];
+            if (_hasPlus== true || _hasSign == true)
+                std::cout << ", with sign";
+            if (_isNanInf )
+                std::cout << ", pseudo literals";
+            std::cout << ENDL;
+        }
         if (!flags[i]) //i != detectedType, tant que flag pas actif// On évite de caster le type détecté
         {
             //flag off
@@ -302,25 +312,13 @@ void ScalarConverter::selectType(std::string src)
         
     }
 
-
-//     	std::cout << "--- BOOL TESTS ---" << std::endl;
-// 	std::cout << "point:   " << _hasPoint << std::endl;
-// 	std::cout << "sign:    " << _hasSign << std::endl;
-// 	std::cout << "f:       " << _hasF << std::endl;
-// 	std::cout << "isChar:  " << _isChar <<std::endl;
-// 	std::cout << "isInt:   " << _isInt <<std::endl;
-// 	std::cout << "ifFlt:   " << _isFloat <<std::endl;
-// 	std::cout << "isDble:  " << _isDouble <<std::endl;
-// 	std::cout << "isNanIn: " << _isDouble <<std::endl;
-// 	std::cout << "isValid: " << _isValid <<std::endl;
-// 	std::cout << std::endl;
 }
 
 //--------------------------------------------------------------------------
 
 void	ScalarConverter::printAll()
 {
-    if(!(_isValid))
+    if(!(_isNanInf) && !(_isValid) )
         return;
     printChar();
     printInt();
