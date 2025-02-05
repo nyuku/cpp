@@ -93,12 +93,18 @@ class ScalarConverter
         //										   Détection-Conversion-Impression                              |
         //.......................................................................................................
         void	detectType(std::string src); //give a flag to the type
-        void	checkInvalid(std::string src);// a faire
         void    selectType(std::string src); //prend le flag et redirige vers la conversion
 
 
         void    convertByType(std::string src);
+
         void    nanInf(std::string src);
+        void    initFlags(std::string src);
+        void    checkSign();
+        void    checkFloatDouble();
+        void    checkChar(std::string src);
+        void    checkInt(std::string src);
+
         //    ✩  ---------   Fonctions convert     ---------
         void	SrcChar(std::string src);
         void	SrcInt(std::string src);
