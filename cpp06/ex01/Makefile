@@ -1,7 +1,7 @@
 
 
 # ---------------- Nickname --------------
-NAME			=	Conversion
+NAME			=	Serialization
 RM				=	rm -f
 CC				=	g++ #c++ ou g++ , clang pas à l'ecole
 FLAGS			=	-Wall -Wextra -Werror -std=c++98
@@ -50,7 +50,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------ Ex 01 -  Serialization! ------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) \n✨------ Ex 01 -  Serialization! ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 

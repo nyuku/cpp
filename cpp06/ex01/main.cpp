@@ -1,39 +1,57 @@
 
-// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
+// ╔────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────╗
 // 		 ✩ ->serialization : 	convertir un objet en une séquence d'octets
 //       ✩ <- deserialization : convertir une séquence d'octets en un objet
 //       ✩ 
 //       ✩ Créer les donnés que va contenir le pointeur
-//       ✩ 
-// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
+//       ✩ "struct data"       ->SERIALIZE: strucdata adresse               ----> unsigned int "serializedData"
+//       ✩ "serializedData"    ->DESERIALIZE: unsigned int "serializedData" ----> new ptr
+//          ---> Check if &data == &ptr
+// ╚────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────╝
 #include "Serializer.hpp"
+#include <iostream>
 
 int main()
 {
+
+//.......................................................................................................
+//										    Create Data 										    	|
+//.......................................................................................................
     Data myData;
     myData.value = 42;
     myData.str = "Test Data";
+    std::cout   << "\nAdresse de la structure myData: " 
+                <<LIGHT_CYAN<< &myData <<RESET_COLOR<< std::endl;
 
-    std::cout << "Adresse de myData: " << &myData << std::endl;
+//.......................................................................................................
+//										    Serialization 												|
+//.......................................................................................................
 
-    uintptr_t raw;
+    uintptr_t serializedData;
+    serializedData = Serializer::serialize(&myData);
+    std::cout   << "Valeur de serializedData après serialize:  " 
+                <<BLUE<< serializedData <<RESET_COLOR<< std::endl;
 
-    //Serialization, modifie le pointeur existant contenant nos données par constructeur copy
-    raw = Serializer::serialize(&myData);
-    std::cout << "Valeur de raw après serialize: " << raw << std::endl;
-
-    //Deserialization
+//.......................................................................................................
+//										    Deserialization 											|
+//.......................................................................................................
+    
     Data *ptr;
-    ptr = Serializer::deserialize(raw);
-    std::cout << "Adresse après deserialize: " << ptr << std::endl;
+    ptr = Serializer::deserialize(serializedData);
+    std::cout   << "\nAdresse après deserialize: " 
+                <<LIGHT_CYAN<< ptr <<RESET_COLOR<< std::endl;
+
+//.......................................................................................................
+//										    Check            											|
+//.......................................................................................................
 
     if (ptr == &myData)
-        std::cout << "SUCCESS: La désérialisation a fonctionné !" << std::endl;
+        std::cout <<LIGHT_GREEN<< "SUCCESS: La désérialisation a fonctionné !" <<RESET_COLOR<< std::endl;
     else
         std::cout << "ERROR: Pointeur incorrect après désérialisation !" << std::endl;
 
-    std::cout << "Valeur de PTR: " << ptr->value << ", Nom: " << ptr->str << std::endl;
-    std::cout << "Valeur myData: " << myData.value << ", Nom: " << myData.str << std::endl;
-    
-
+    std::cout   << "\nCheck que c'est le meme contenu:\nValeur de PTR: " 
+                << ptr->value << ", Nom: " << ptr->str << std::endl
+                << "Valeur myData: " << myData.value << ", Nom: " 
+                << myData.str << ENDL<<ENDL;
 }
