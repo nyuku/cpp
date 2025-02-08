@@ -4,32 +4,60 @@
 #include "C.hpp"
 #include <iostream>
 
-int main() {
-    // Test de la fonction generate
-    std::cout << "==== Test generate() ====" << std::endl;
-    Base* obj = generate();  // Crée un objet A, B ou C aléatoirement
+int main() 
+{
 
-    // Identification avec pointeur
-    std::cout << "==== Test identify(Base* p) ====" << std::endl;
-    identify(obj);  // Identifie l'objet via un pointeur
+    std::srand(std::time(0));// pour generate()
 
-    // Identification avec référence
-    std::cout << "==== Test identify(Base& p) ====" << std::endl;
-    identify(*obj);  // Identifie l'objet via une référence
+    std::cout << BLUE<< "\n==== Test generate() ====" << RESET_COLOR<< std::endl;
+        Base* Tom = generate();
+        Base* Jerry = generate();
 
-    // Nettoyage de la mémoire
-    delete obj;  // Libère la mémoire allouée dynamiquement
+    std::cout <<MAGENTA<< "\n==== Test identify(Base* p) ====" <<RESET_COLOR<< std::endl;
+        identify(Tom);
+        identify(Jerry);
 
-    // Test avec un objet statique (créé directement)
-    std::cout << "==== Test avec un objet statique ====" << std::endl;
-    A a;  // Création d'un objet A
-    identify(a);  // Identifie l'objet A via référence
+    std::cout <<LILAC<< "\n==== Test identify(Base& p) ====" <<RESET_COLOR<< std::endl;
+        identify(*Tom);
+        identify(*Jerry);
 
-    B b;  // Création d'un objet B
-    identify(b);  // Identifie l'objet B via référence
+    std::cout << "\n==== Nettoyage de la mémoire ====\n";
+        delete Tom;
+        delete Jerry;
 
-    C c;  // Création d'un objet C
-    identify(c);  // Identifie l'objet C via référence
 
+    std::cout <<LIGHT_TURCOI<< "\n\n============= Test direct avec un objet statique =============" <<RESET_COLOR<< std::endl;
+       
+        std::cout<<LIGHT_MAGENTA<< "\n== Base A ==" <<RESET_COLOR<< std::endl;
+        A ananas;
+        identify(ananas);
+
+        std::cout<<LIGHT_MAGENTA<< "\n== Base B ==" <<RESET_COLOR<< std::endl;
+        B banane;
+        identify(banane); 
+
+        std::cout<<LIGHT_MAGENTA<< "\n== Base C ==" <<RESET_COLOR<< std::endl;
+        C chat; 
+        identify(chat);
+
+
+    std::cout <<LIGHT_BLUE<< "\n\n=============  Test direct avec un objet dynamique (Pointeur) =============" <<RESET_COLOR<< std::endl;
+
+        std::cout<<LIGHT_MAGENTA<< "\n== Base A ==" <<RESET_COLOR<< std::endl;
+        Base* p_ananas = new A;
+        identify(p_ananas); // Appelle identify(Base*)
+
+        std::cout<<LIGHT_MAGENTA<< "\n== Base B ==" <<RESET_COLOR<< std::endl;
+        Base* p_banane = new B;
+        identify(p_banane); // Appelle identify(Base*)
+
+        std::cout<<LIGHT_MAGENTA<< "\n== Base C ==" <<RESET_COLOR<< std::endl;
+        Base* p_chat = new C;
+        identify(p_chat); // Appelle identify(Base*)
+
+    std::cout << "\n==== Nettoyage de la mémoire ====\n\n";
+        delete p_ananas;
+        delete p_banane;
+        delete p_chat;
     return 0;
 }

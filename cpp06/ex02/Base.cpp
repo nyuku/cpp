@@ -26,7 +26,7 @@
 // New :Création dynamique -> delete
     Base	*generate(void)
     {
-        std::srand(std::time(0));
+        // std::srand(std::time(0));
         int	randNbr = std::rand()% 3 + 1;;
 
         if(!(randNbr == 3))
@@ -63,7 +63,7 @@
         for (int i = 0; i < 3; i++) {
             if (casts[i](p))
             {
-                std::cout << "This ptr is type: "<<types[i] << std::endl;
+                std::cout << "This ptr is type: "<<LIGHT_GREEN<<types[i] <<RESET_COLOR<< std::endl;
                 return;
             }
         }
@@ -125,7 +125,7 @@ void identify(Base& p)
     for (int i = 0; i < 3; i++) {
         if (casts[i](p)) 
         {
-            std::cout << types[i] << std::endl;
+            std::cout << "This reference is from type : "<<LIGHT_GREEN<<types[i] <<RESET_COLOR<< std::endl;
             return;
         }
     }
