@@ -1,32 +1,31 @@
 
-
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ Destructor virtuel -> héritage avec une classe abstraite
-//           1 methode “pure” en =0 ( definir uniquement en .hpp)
+// 		 ✩ Destructor virtuel -> héritage avec une classe abstraite en .hpp
+//       ✩ Pas besoin de constructor, automatic
 //       ✩ no orthodox canonical class needed
 //       ✩ 3 fonctions utilitaires demandées -> en dehors de la classe car ne modifie rien dedans
+//          ✩ 2 fonctions identify -> 1 avec ptr et 1 avec ref(sans pointeur)
+//          ✩ 1 fonction generate -> return un pointeur de A, B ou C -> new/delete
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+
 //.......................................................................................................
 //								        Destructor		
 //                                                                             							|
 //.......................................................................................................
 
     Base::~Base()
-    {
-
-    }
-
+    {}
 //=======================================================================================================
-//										   Fonctions utilitaires											|
+//										   Fonctions utilitaires										|
 //=======================================================================================================
 // New :Création dynamique -> delete
     Base	*generate(void)
     {
-        // std::srand(std::time(0));
+        // std::srand(std::time(0)); à mettre en main uniquement si plusieur appel
         int	randNbr = std::rand()% 3 + 1;;
 
         if(!(randNbr == 3))
@@ -67,17 +66,13 @@
                 return;
             }
         }
-        
         std::cout <<LIGHT_RED<< "Error, no match" << RESET_COLOR <<std::endl;  // Si aucun cast ne réussit
     }
-
-    //no pointer allowed
 
 //.......................................................................................................
 //						                        Identify with reference                                 |
 //                                          							                                |
 //.......................................................................................................
- 
 //------- ✩ Fonctions de check pour chaque type
 
 bool refToA(Base& p) 
@@ -102,7 +97,6 @@ bool refToB(Base& p)
           {return false;}
 }
 
-
 bool refToC(Base& p) 
 {
     try 
@@ -114,7 +108,6 @@ bool refToC(Base& p)
       {  return false;}
 
 }
-
 
 void identify(Base& p) 
 {
@@ -129,6 +122,5 @@ void identify(Base& p)
             return;
         }
     }
-
     std::cout << "Error: no match found" << std::endl;
 }

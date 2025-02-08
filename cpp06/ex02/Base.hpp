@@ -42,12 +42,17 @@
 
 //.......................................................................................................
 //						                        Fonctions externes                                       |
-//                                          							                                |
+//                                          							                                 |
 //.......................................................................................................
  
-
     Base * generate(void);
     void identify(Base* p);
+        bool isA(Base* p);
+        bool isB(Base* p);
+        bool isC(Base* p);
     void identify(Base& p);
+        bool refToA(Base& p);
+        bool refToB(Base& p);
+        bool refToC(Base& p);
 
 #endif
