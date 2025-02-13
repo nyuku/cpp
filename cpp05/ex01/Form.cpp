@@ -1,6 +1,6 @@
 
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ Grade: 1(highest)- 150
+// 		 ✩ Grade: 1(highest)- GRADELOW
 //       ✩ std::string _name : constant, représente le nom du formulaire.
 //       ✩ bool _signed : indique si le formulaire est signé (initialisé à false)
 //       ✩ const int _gradeToSign : grade minimal requis pour signer
@@ -33,9 +33,9 @@
         _gradeToSign(gradeToSign),
         _gradeToExec(gradeToExec)
         {
-            if ((_gradeToSign < 1) || (_gradeToExec < 1))
+            if ((_gradeToSign < GRADEHIGH) || (_gradeToExec < GRADEHIGH))
                 throw (Form::GradeTooHighException());
-            else if ((_gradeToSign > 150) || (_gradeToExec > 150))
+            else if ((_gradeToSign > GRADELOW) || (_gradeToExec > GRADELOW))
                 throw (Form::GradeTooLowException());
 
             std::cout	<< "New Form created:  " <<_name << " needs to be filled." << std::endl;
@@ -134,10 +134,10 @@
 
     const char* Form::GradeTooHighException::what() const throw()
     {
-        return (LIGHT_RED"ERROR: Grade is too high."RESET_COLOR);
+        return (LIGHT_RED "ERROR: Grade is too high." RESET_COLOR);
     }
 
     const char* Form::GradeTooLowException::what() const throw()
     {
-        return (LIGHT_RED"ERROR: Grade is too low."RESET_COLOR);
+        return (LIGHT_RED "ERROR: Grade is too low." RESET_COLOR);
     }

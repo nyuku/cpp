@@ -29,7 +29,7 @@
 # include <iostream>
 # include <stdexcept>
 # include <string>
-// # include "Bureaucrat.hpp"
+
 
 class Bureaucrat;
 
@@ -77,6 +77,10 @@ class Form
             };
 
 };
+//...................................................................................................
+//										           Opérator <<				
+//                                 affiche : <name>, bureaucrat grade <grade>.						  |
+//...................................................................................................
 
 std::ostream	&operator<<(std::ostream & output, Form const & rhs);
 

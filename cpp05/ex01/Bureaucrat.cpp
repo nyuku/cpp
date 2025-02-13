@@ -30,9 +30,9 @@
 
     Bureaucrat::Bureaucrat(int grade, const std::string name) : _grade(grade), _name(name)
     {
-        if (grade < 1)
+        if (grade < GRADEHIGH)
             throw GradeTooHighException();
-        else if (grade > 150)
+        else if (grade > GRADELOW)
             throw GradeTooLowException();
         else
         {
@@ -71,12 +71,6 @@
                     << std::endl;
     }
 
-    // V2 avec operateur d'assignation:
-    // Bureaucrat::Bureaucrat(Bureaucrat const & src):
-    // 	_name(src.getName())
-    // {
-    //  	*this = src;
-    // }
 
 //=======================================================================================================
 //										   Fonctions membres											|
@@ -85,7 +79,7 @@
     void	Bureaucrat::promoteBureaucrat()
     {
         this->_grade--;
-        if (this->_grade < 1)
+        if (this->_grade < GRADEHIGH)
             throw (GradeTooHighException());
         else
         {
@@ -97,7 +91,7 @@
     void	Bureaucrat::demoteBureaucrat()
     {
         this->_grade++;
-        if (this->_grade > 150)
+        if (this->_grade > GRADELOW)
             throw (GradeTooLowException());
         else
         {
@@ -124,10 +118,6 @@
 //										   Getters-Setters												|
 //=======================================================================================================
 
-    // std::string	Bureaucrat::getName() const
-    // {
-    //     return (this->_name);
-    // }
 
     std::string		Bureaucrat::getName() const
     {

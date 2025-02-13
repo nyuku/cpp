@@ -29,6 +29,10 @@
 #define BOLD		     	"\033[1m"
 #define ENDL          std::endl
 
+#define GRADELOW      150
+#define GRADEHIGH      1
+
+
 
 #include <string>
 #include <iostream>
@@ -59,7 +63,10 @@ class Bureaucrat
     std::string		getName() const;
     int				    getGrade() const;
 
-    //	✩  ---------   Exception hériter de classe c++ : std::exception    ---------
+  //...............................................................................................
+  //										                  Exception hériter de classe c++ :  			
+  //                                            std::exception						                         |
+  //...............................................................................................
     class GradeTooHighException:
       public std::exception
       {
@@ -75,8 +82,11 @@ class Bureaucrat
       };
 };
 
-//	✩  --------- operator "<<" ------------
-//affiche : <name>, bureaucrat grade <grade>.
+//...................................................................................................
+//										                            Opérator 	<<				
+//                                 affiche : <name>, bureaucrat grade <grade>.						           |
+//...................................................................................................
+
 std::ostream & operator<<(std::ostream & output, Bureaucrat const & rhs);
 
 #endif
