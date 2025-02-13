@@ -1,5 +1,6 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // |		CommandeS 
+// 		 ✩ canoninal orthodox form
 // 		 ✩ Grade: 1(highest)- 150
 //       ✩ Exception pour grade ]1-150[
 //       ✩ Vconstante name and grande (private?)
@@ -23,24 +24,25 @@
 
     Bureaucrat::~Bureaucrat()
     {
-        std::cout	<< _name << " [" << _grade << "]"
+        std::cout	<< _name << " [" << _grade << "] \t"
                     << " Closing hour!"
                     << std::endl;
     }
 
     Bureaucrat::Bureaucrat(int grade, const std::string name) : _grade(grade), _name(name)
     {
-        if (grade < 1)
+        if (grade < GRADEHIGH)
             throw GradeTooHighException();
-        else if (grade > 150)
+        else if (grade > GRADELOW)
             throw GradeTooLowException();
         else
         {
-        std::cout	<< _name << " [" << _grade << "]"
+            std::cout	<< _name << " [" << _grade << "]"
                     << " Welcome to the corporate life."
                     << std::endl;
         }
     }
+
 //.......................................................................................................
 //										    Opérator 													|
 //.......................................................................................................
@@ -49,7 +51,7 @@
     {
         if (this != &rhs)
         {
-            // _name = rhs._name; nope car const uniquement lors de la creation
+            // _name ? nope car const uniquement lors de la creation
             _grade = rhs._grade;
             std::cout	<< " a bureaucrat has been cloned from "
                     << this->_name
@@ -85,7 +87,7 @@
     void	Bureaucrat::promoteBureaucrat()
     {
         this->_grade--;
-        if (this->_grade < 1)
+        if (this->_grade < GRADEHIGH)
             throw (GradeTooHighException());
         else
         {
@@ -97,7 +99,7 @@
     void	Bureaucrat::demoteBureaucrat()
     {
         this->_grade++;
-        if (this->_grade > 150)
+        if (this->_grade > GRADELOW)
             throw (GradeTooLowException());
         else
         {
@@ -111,11 +113,6 @@
 //										   Getters-Setters												|
 //=======================================================================================================
 
-    // std::string	Bureaucrat::getName() const
-    // {
-    //     return (this->_name);
-    // }
-
     std::string		Bureaucrat::getName() const
     {
         return (_name);
@@ -124,20 +121,6 @@
     int				Bureaucrat::getGrade() const
     {
         return (_grade);
-    }
-
-//=======================================================================================================
-//										   Operator <<					    							|
-//=======================================================================================================
-
-    std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs)
-    {
-        o	<< LIGHT_TURCOI
-            << "• Name: "<< rhs.getName()
-            << " / "
-            << "Bureaucrat grade: "<< rhs.getGrade()
-            << RESET_COLOR;
-        return (o);
     }
 
 //=======================================================================================================
@@ -152,4 +135,18 @@
     const char* Bureaucrat::GradeTooLowException::what() const throw()
     {
         return ("ERROR: Grade is too low.");
+    }
+
+//=======================================================================================================
+//										   Operator <<					    							|
+//=======================================================================================================
+
+    std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs)
+    {
+        o	<< LIGHT_TURCOI
+            << "• Name: "<< rhs.getName()
+            << " / "
+            << "Bureaucrat grade: "<< rhs.getGrade()
+            << RESET_COLOR;
+        return (o);
     }

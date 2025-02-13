@@ -16,11 +16,11 @@
 #define LIGHTPURPLE		"\033[1;35m"
 #define LIGHT_BLUE    "\033[1;34m"
 #define LIGHT_MAGENTA	"\033[0;95m"
-#define CYAN	        "\033[1;36m" //bold light blu
+#define CYAN	        "\033[1;36m"
 #define MAGENTA		  	"\033[0;35m"
 #define LILAC		    	"\033[0;94m"
 #define BLUE		    	"\033[0;34m"
-#define LIGHT_TURCOI "\033[0;36m"
+#define LIGHT_TURCOI  "\033[0;36m"
 #define LIGHT_RED	  	"\033[0;91m"
 #define SOFT_GREEN		"\033[0;32m"
 #define DARK_BLUE		  "\033[0;94m"
@@ -29,6 +29,9 @@
 #define BOLD		     	"\033[1m"
 #define ENDL          std::endl
 
+#define GRADELOW      150
+#define GRADEHIGH      1
+
 
 #include <string>
 #include <iostream>
@@ -36,49 +39,50 @@
 class Bureaucrat
 {
 	private:
-    //	✩  ---------   Variables      --------- 
-		int			      _grade;
-    std::string	const _name;
+    //	✩  ---------   Variables      ------------------------------------------------------------ 
+		int			            _grade;
+    std::string	const   _name;
 		
-    public:
-    //	✩  ---------   Constructor- destructor      --------- 
+  public:
+    //	✩  ---------   Constructor - destructor - Constructor arg - Constructor copy     --------- 
 		Bureaucrat();
     ~Bureaucrat();
 		Bureaucrat(int grade, std::string name);
 		Bureaucrat(Bureaucrat const & src);
 
-    //	✩  ---------   Operator      ---------
+    //	✩  ---------   Operator      -------------------------------------------------------------
 		Bureaucrat & operator=(Bureaucrat const & rhs);
 
-    //	✩  ---------   Fonctions membres      ---------
-		void	promoteBureaucrat();// diminue le grade-> --
-		void	demoteBureaucrat();//diminue le grade -> ++
+    //	✩  ---------   Fonctions membres      ----------------------------------------------------
+		void	              promoteBureaucrat();// diminue le grade-> --
+		void	              demoteBureaucrat();//diminue le grade -> ++
 
-    //	✩  ---------   Getters-setters ---------
-    std::string		getName() const;
-    int				getGrade() const;
+    //	✩  ---------   Getters-setters ------------------------------------------------------------
+    std::string		      getName() const;
+    int				          getGrade() const;
+  //...............................................................................................
+  //										                  Exception hériter de classe c++ :  			
+  //                                            std::exception						                         |
+  //...............................................................................................
 
-    //	✩  ---------   Exception hériter de classe c++ : std::exception    ---------
-    class GradeTooHighException:
-            public std::exception
-        {
-            public:
-                virtual const char* what() const throw();
-        };
+    class GradeTooHighException: public std::exception
+    {
+        public:
+            virtual const char* what() const throw();
+    };
 
-    class GradeTooLowException:
-      public std::exception
+    class GradeTooLowException: public std::exception
     {
       public:
         virtual const char* what() const throw();
     };
-
-
-
 };
 
-//	✩  --------- operator "<<" ------------
-//affiche : <name>, bureaucrat grade <grade>.
-std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs);
+//...................................................................................................
+//										                            Opérator 	<<				
+//                                 affiche : <name>, bureaucrat grade <grade>.						           |
+//...................................................................................................
+
+  std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs);
 
 #endif

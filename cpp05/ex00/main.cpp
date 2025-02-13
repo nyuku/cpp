@@ -7,24 +7,28 @@ int	main()
         {
                 //Constructeur avec parametre
                     Bureaucrat	Belle(150, "Belle"); 
-                    std::cout	<< Belle << std::endl;
+                    std::cout	<< Belle << ENDL<<std::endl;
 
                     Bureaucrat Professeur(1, "Professeur");
-                    std::cout	<< Professeur << std::endl;
+                    std::cout	<< Professeur << ENDL<< std::endl;
                 //Constructeur standard, standard name = Bertrand
                     Bureaucrat	Bulle; 
-                    std::cout	<< Bulle << std::endl;
+                    std::cout	<< Bulle << ENDL<< std::endl;
+                    std::cout <<"Promote:" <<ENDL;
                     Bulle.promoteBureaucrat();
-                    std::cout	<< Bulle << std::endl;
+                    std::cout	<< Bulle<< ENDL << std::endl;
                 //Constructeur par copie
+                    std::cout <<"Copie:" << ENDL;
                     Bureaucrat	Rebelle = Bulle; 
-                    std::cout	<< Rebelle << std::endl;
+                    std::cout	<< Rebelle << ENDL<< std::endl;
+                    std::cout <<"Demomote:" << ENDL;
                     Rebelle.demoteBureaucrat();
-                    std::cout	<< Rebelle << std::endl;
-                //test operateur d'affectation 
+                    std::cout	<< Rebelle << ENDL<< std::endl;
+                //test operateur d'affectation
+                    std::cout <<"Operator = basic:" << ENDL;
                     Bureaucrat  Mojojo;
                     Mojojo = Bulle;
-                    std::cout	<< Mojojo << std::endl;
+                    std::cout	<< Mojojo << ENDL<< std::endl;
         }
         catch (Bureaucrat::GradeTooHighException &excep)
         {
@@ -40,7 +44,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat 1 - promote to 0 --------" <<RESET_COLOR<< std::endl;
+    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat grade:1 - promote to 0 --------" <<RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Princess(1, "bob");
@@ -60,7 +64,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat 150 - demomote to 151 --------" <<RESET_COLOR<< std::endl;
+    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat grade:150 - demomote to 151 --------" <<RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Sedusa(150, "Sadusa");
@@ -80,7 +84,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate 151 --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate grade:151 --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Barbara(151, "Barbara");
@@ -100,7 +104,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {   std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate 0 --------" << RESET_COLOR<< std::endl;
+    {   std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate grade:0 --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Lui(0, "lui");
