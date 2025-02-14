@@ -63,7 +63,7 @@
     std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
     {
         std::string nameFile = (this->getTarget() + "_shruberry");
-        std::ofstream file(nameFile); // Création et ouverture auto du fichier
+        std::ofstream file(nameFile.c_str()); // Création et ouverture auto du fichier, const char *
          if (!file.is_open())
             std::cerr << "Error: opening file." << std::endl;
          else

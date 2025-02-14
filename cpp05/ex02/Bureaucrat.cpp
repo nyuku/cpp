@@ -17,14 +17,14 @@
 
     Bureaucrat::Bureaucrat(): _grade(42), _name("Bertrand")
     {
-        std::cout	<< _name << " [" << _grade << "]"
+        std::cout	<< _name << " \t[" << _grade << "]"
                     << " Welcome to the corporate life."
                     << std::endl;
     }
 
     Bureaucrat::~Bureaucrat()
     {
-        std::cout	<< _name << " [" << _grade << "]"
+        std::cout	<< _name << " \t[" << _grade << "]"
                     << " Closing hour!"
                     << std::endl;
     }
@@ -37,7 +37,7 @@
             throw GradeTooLowException();
         else
         {
-        std::cout	<< _name << " [" << _grade << "]"
+        std::cout	<< _name << " \t[" << _grade << "]"
                     << " Welcome to the corporate life."
                     << std::endl;
         }

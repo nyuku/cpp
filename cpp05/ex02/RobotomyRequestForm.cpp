@@ -57,7 +57,7 @@
 //.......................................................................................................
  void   RobotomyRequestForm::execute(Bureaucrat const & executor) const
  {
-    std::srand(std::time(nullptr));
+    std::srand(time(NULL));
     checkGradesSignExec(executor);
      std::cout <<LIGHT_GREEN<<"The Bureaucrat "<< executor.getName() << " executed " << this->_target << RESET_COLOR<< std::endl;
     int randomValue = rand() % 2; // Stockez le résultat pour inspection

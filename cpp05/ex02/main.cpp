@@ -14,7 +14,7 @@
 
 int	main()
 {
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 1 ShrubberyCreationForm[sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
                     Bureaucrat Link(50,"Link");
@@ -27,14 +27,17 @@ int	main()
 					std::cout << swordform << std::endl;
 
 					Zelda.executeForm(swordform);
+                    std::cout<<"\n";
         }
         catch (AForm::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
+            std::cout<<"\n";
         }
         catch (AForm::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
+            std::cout<<"\n";
         }
         catch (std::exception& excep)
         {
@@ -42,7 +45,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 2 ShrubberyCreationForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Link(50,"Link");
@@ -70,7 +73,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 3 ShrubberyCreationForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Link(150,"Link");
@@ -100,7 +103,7 @@ int	main()
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
 
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 1 RobotomyRequestForm[sign:✅ exec:?] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 1 RobotomyRequestForm[sign:✅ exec:✅+?] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Luke(15,"Luke");
@@ -130,7 +133,7 @@ int	main()
     }
 
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test  RobotomyRequestForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test  2 RobotomyRequestForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Luke(70,"Luke");
@@ -159,7 +162,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test  RobotomyRequestForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 3 RobotomyRequestForm[sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Luke(150,"Luke");
@@ -188,7 +191,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  PresidentialPardonForm [sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test 1 PresidentialPardonForm [sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Hokage(1,"Hashirama");
@@ -217,7 +220,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  PresidentialPardonForm [sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  2 PresidentialPardonForm [sign:❌ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Hokage(150,"Tsunade");

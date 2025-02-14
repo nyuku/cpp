@@ -19,7 +19,7 @@
                 _gradeToSign(3),
                 _gradeToExec(5)
     {
-        std::cout	<<"New Form Created: "<< _name << " needs to be signed." << std::endl;
+        std::cout	<<"New Form Created: "<< _name  << std::endl;
     }
 
     AForm::~AForm()
@@ -38,7 +38,7 @@
             else if ((_gradeToSign > 150) || (_gradeToExec > 150))
                 throw (AForm::GradeTooLowException());
 
-            std::cout	<< "New Form created:  " <<_name << " needs to be filled." << std::endl;
+            std::cout	<< "New Form created:  " <<_name << std::endl;
         }
 
 //.......................................................................................................
@@ -143,12 +143,8 @@
 
     std::ostream& operator<<(std::ostream & output, AForm const & rhs)
     {
-        output << LIGHT_BLUE
-               << "\nThe form: "
-               << rhs.getName() 
-               << " need a burocrate's grade of " << rhs.getSignGrade() << " to be signed.\n" << "and a burocrate's grade of " << rhs.getExecGrade() << " to be execute.\n"
-               << "Current status: "
-               << RESET_COLOR;
+        
+        output << "Current status: ";
         if (rhs.getFormSigned() == 0)
             output << LIGHT_RED 
                    <<"not signed.\n"
@@ -157,6 +153,12 @@
             output << GREEN
                    << "signed.\n"
                    << RESET_COLOR;   
+        output << LIGHT_BLUE
+               << "The form: "
+               << rhs.getName() 
+               << " need burocrate's grade of : \t\t" << rhs.getSignGrade() << " to be signed.\n" << "\t\t\t\t\t\t\t\t\t" << rhs.getExecGrade() << " to be execute.\n"
+               << RESET_COLOR;
+        
         return output;
     }
 //=======================================================================================================
@@ -165,15 +167,15 @@
 
     const char* AForm::GradeTooHighException::what() const throw()
     {
-        return (LIGHT_RED"ERROR: Grade is too high."RESET_COLOR);
+        return (LIGHT_RED "ERROR: Grade is too high." RESET_COLOR);
     }
 
     const char* AForm::GradeTooLowException::what() const throw()
     {
-        return (LIGHT_RED"ERROR: Grade is too low."RESET_COLOR);
+        return (LIGHT_RED "ERROR: Grade is too low." RESET_COLOR);
     }
 
     const char* AForm::NotSignedException::what() const throw()
     {
-        return (LIGHT_RED"ERROR: Form is not signed."RESET_COLOR);
+        return (LIGHT_RED "ERROR: Form is not signed." RESET_COLOR);
     }
