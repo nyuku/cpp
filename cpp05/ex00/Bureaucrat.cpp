@@ -18,14 +18,18 @@
     Bureaucrat::Bureaucrat(): _grade(42), _name("Bertrand")
     {
         std::cout	<< _name << " [" << _grade << "]"
-                    << " Welcome to the corporate life."
+                    << "\tWelcome to the corporate life."
                     << std::endl;
     }
 
     Bureaucrat::~Bureaucrat()
     {
-        std::cout	<< _name << " [" << _grade << "] \t"
-                    << " Closing hour!"
+         std::cout	<< _name ;
+        if (_grade >= GRADEHIGH && _grade <= GRADELOW)
+            std::cout	<< " [" << _grade << "] \t";
+        else
+            std::cout	<< " [Dismiss] \t";
+        std::cout	<< " Closing hour!"
                     << std::endl;
     }
 
@@ -38,7 +42,7 @@
         else
         {
             std::cout	<< _name << " [" << _grade << "]"
-                    << " Welcome to the corporate life."
+                    << "\tWelcome to the corporate life."
                     << std::endl;
         }
     }
@@ -54,7 +58,7 @@
             // _name ? nope car const uniquement lors de la creation
             _grade = rhs._grade;
             std::cout	<< " a bureaucrat has been cloned from "
-                    << this->_name
+                    << rhs._name
                     << std::endl;
         }
         return (*this);

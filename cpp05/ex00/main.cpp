@@ -27,7 +27,7 @@ int	main()
                 //test operateur d'affectation
                     std::cout <<"Operator = basic:" << ENDL;
                     Bureaucrat  Mojojo;
-                    Mojojo = Bulle;
+                    Mojojo = Professeur;
                     std::cout	<< Mojojo << ENDL<< std::endl;
         }
         catch (Bureaucrat::GradeTooHighException &excep)
