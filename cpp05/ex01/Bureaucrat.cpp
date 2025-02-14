@@ -52,7 +52,7 @@
             // _name = rhs._name; nope car const uniquement lors de la creation
             _grade = rhs._grade;
             std::cout	<< " a bureaucrat has been cloned from "
-                    << this->_name
+                    << rhs._name
                     << std::endl;
         }
         return (*this);

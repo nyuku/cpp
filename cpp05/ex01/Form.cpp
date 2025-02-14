@@ -14,12 +14,12 @@
 //                                      Défini d'office un grade, nom	    							|
 //.......................................................................................................
     Form::Form():
-                _name("Birthday card"),
+                _name("Hbdcard"),
                 _signed(false),
                 _gradeToSign(3),
                 _gradeToExec(5)
     {
-        std::cout	<<"New Form Created: "<< _name << " needs to be signed." << std::endl;
+        std::cout	<<"New Form Created: "<< _name << std::endl;
     }
 
     Form::~Form()
@@ -38,7 +38,7 @@
             else if ((_gradeToSign > GRADELOW) || (_gradeToExec > GRADELOW))
                 throw (Form::GradeTooLowException());
 
-            std::cout	<< "New Form created:  " <<_name << " needs to be filled." << std::endl;
+            std::cout	<< "New Form created:  " <<_name  << std::endl;
         }
 
 //.......................................................................................................
@@ -51,7 +51,7 @@
             _signed = rhs._signed;
         }
         std::cout	<< "A form has been change and copy from "
-                << this->_name
+                << rhs._name
                 << std::endl;
         return (*this);
     }
@@ -112,12 +112,8 @@
 
     std::ostream& operator<<(std::ostream & output, Form const & rhs)
     {
-        output << LIGHT_BLUE
-               << "\nThe form: "
-               << rhs.getName() 
-               << " need a burocrate's grade of " << rhs.getSignGrade() << " to be signed.\n" << "and a burocrate's grade of " << rhs.getExecGrade() << " to be execute.\n"
-               << "Current status: "
-               << RESET_COLOR;
+        
+        output << "Current status: ";
         if (rhs.getFormSigned() == 0)
             output << LIGHT_RED 
                    <<"not signed.\n"
@@ -126,6 +122,12 @@
             output << GREEN
                    << "signed.\n"
                    << RESET_COLOR;   
+        output << LIGHT_BLUE
+               << "The form: "
+               << rhs.getName() 
+               << " need burocrate's grade of : \t\t" << rhs.getSignGrade() << " to be signed.\n" << "\t\t\t\t\t\t\t" << rhs.getExecGrade() << " to be execute.\n"
+               << RESET_COLOR;
+        
         return output;
     }
 //=======================================================================================================
