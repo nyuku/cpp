@@ -1,5 +1,5 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ non-instanciable-> constructor private
+// 		 ✩ non-instanciable-> constructors private
 //       ✩ one static method "convert"
 //          ✩(std::string) -> char-int-float-double
 //       ✩ 4 types: char, int, float, double à convertir
@@ -100,6 +100,7 @@ class ScalarConverter
 
         void    nanInf(std::string src);
         void    initFlags(std::string src);
+        void    checkDigit(std::string src);
         void    checkSign();
         void    checkFloatDouble();
         void    checkChar(std::string src);

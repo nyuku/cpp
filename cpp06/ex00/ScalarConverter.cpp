@@ -1,4 +1,6 @@
-// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
+// ╔────────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────────╗
+// 		 ✩ Choisir un seul type de cast: ici static_cast (autre possible reinterpret_cast(pointeur), dynamic_cast(poly), const_cast)
+//          les autres gerent des pointeurs, objet const et polymorphisme
 // 		 ✩ si a un point : float ou double
 //       ✩ vérifié en dur si nan, inf, -inf, etc
 //       ✩ (std::string) -> char-int-float-double
@@ -7,7 +9,7 @@
 //        ✩1  find() retourne la première occurrence du caractère.
 //          rfind() retourne la dernière occurrence du caractère.
 //          Si find() == rfind(), cela signifie que le caractère n'apparaît qu'une seule fois.
-// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
+// ╚────────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────────╝
 
 
 #include "ScalarConverter.hpp"
@@ -131,22 +133,22 @@
 
     void ScalarConverter::SrcChar(std::string src) 
     {
-        _charResult = static_cast<char>(std::atoi(src.c_str()));
+        _charResult = static_cast<char>(atoi(src.c_str()));
     }
 
     void ScalarConverter::SrcInt(std::string src) 
     {
-        _intResult = static_cast<int>(std::strtol(src.c_str(), NULL, 10));
+        _intResult = static_cast<int>(strtol(src.c_str(), NULL, 10));
     }
 
     void ScalarConverter::SrcFloat(std::string src) 
     {
-        _floatResult = static_cast<float>(std::strtof(src.c_str(), NULL));
+        _floatResult = static_cast<float>(strtof(src.c_str(), NULL));
     }
 
     void ScalarConverter::SrcDouble(std::string src) 
     {
-        _doubleResult = static_cast<double>(std::strtod(src.c_str(), NULL));
+        _doubleResult = static_cast<double>(strtod(src.c_str(), NULL));
     }
 
 //.......................................................................................................
@@ -172,6 +174,7 @@ void    ScalarConverter::detectType(std::string src)
     if (src == "nan" || src == "nanf" || src == "+inf" || src == "-inf" || src == "+inff" || src == "-inff")
        nanInf(src);
     initFlags(src);
+    checkDigit(src);
     checkSign();
     checkFloatDouble();
     checkChar(src);
@@ -183,7 +186,7 @@ void ScalarConverter::selectType(std::string src)
 {
     if( !(_isNanInf) && !(_isValid))
     {
-        std::cout << "Invalid data." << std::endl;
+        std::cout <<LIGHT_RED<< "ERROR: Invalid data.\n" <<RESET_COLOR<< std::endl;
         return;
     }
     bool flags[4] = {_isChar, _isInt, _isFloat, _isDouble};
@@ -232,11 +235,11 @@ void ScalarConverter::selectType(std::string src)
         if (_isChar) 
             _charResult = src[0];
         else if (_isInt) 
-            _intResult = std::atol(src.c_str());
+            _intResult = atol(src.c_str());
         else if (_isFloat)
-            _floatResult = std::atof(src.c_str());
+            _floatResult = atof(src.c_str());
         else if (_isDouble)
-            _doubleResult = std::strtod(src.c_str(), NULL);
+            _doubleResult = strtod(src.c_str(), NULL);
     }
     void    ScalarConverter::nanInf(std::string src)
     {
@@ -253,9 +256,21 @@ void ScalarConverter::selectType(std::string src)
         _hasSign = ((src.find('-') != std::string::npos) && (src.find('-') == src.rfind('-') && src.find('-') == 0));
         _hasPlus = ((src.find('+') != std::string::npos) && (src.find('+') == src.rfind('+') && src.find('+') == 0));
         _hasPoint = ((src.find('.') != std::string::npos) && (src.find('.') == src.rfind('.')));
-        _hasF = (!src.empty() && src.back() == 'f' && src.find('f') == src.rfind('f'));
+        _hasF = (!src.empty() && src[src.length() - 1] == 'f' && src.find('f') == src.rfind('f'));
     }
 
+     void ScalarConverter::checkDigit(std::string src)
+    {
+        for (std::string::size_type  i = 0; i < src.length(); ++i) 
+        {
+            if (!std::isdigit(static_cast<unsigned char>(src[i])) && src[i] != 'F') 
+            {
+                _isValid = false;  // Si un caractère n'est ni un chiffre ni un 'F', on retourne false
+            }
+        }
+        _isValid = true;  // Tous les caractères sont des chiffres ou un 'F'
+    }
+    
     void ScalarConverter::checkSign()
     {
         if (_hasPlus == true && _hasSign == true) 
@@ -268,17 +283,19 @@ void ScalarConverter::selectType(std::string src)
 
     void ScalarConverter::checkFloatDouble()
     {
-        if (_hasPoint) 
+        
+        
+        if (_hasPoint && _isValid) 
         {
             if (_hasF) 
             {
                 _isFloat = true;  
-                _isValid = true;
+                // _isValid = true;
             }
             else
             {
                 _isDouble = true;
-                _isValid = true;
+                // _isValid = true;
             }
         }
     }
