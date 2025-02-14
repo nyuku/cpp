@@ -15,7 +15,7 @@
 
 int	main()
 {
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 1 ShrubberyCreationForm[sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
                     Bureaucrat  Link(50,"Link");
@@ -47,7 +47,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test ShrubberyCreationForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 2 ShrubberyCreationForm[sign:✅ exec:❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Link(50,"Link");
@@ -81,7 +81,7 @@ int	main()
 
 //-------------------------------------------------------------------------------------------------------------------------------------//
 
-    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 1 RobotomyRequestForm[sign:✅ exec:?] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_BLUE<< "-------- Test 3 RobotomyRequestForm[sign:✅ exec:✅+?] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Luke(15,"Luke");
@@ -117,7 +117,7 @@ int	main()
     }
 
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test  PresidentialPardonForm [sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test 4 PresidentialPardonForm [sign:✅ exec:✅] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Hokage(1,"Hashirama");
@@ -151,14 +151,14 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test Random Form [❌] --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHT_TURCOI<< "-------- Test 5 Random Form no protocol[❌] --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Hokage(1,"Hashirama");
 			Bureaucrat Sarutobi(2,"Sarutobi");
             Intern	    someRandomIntern;
 
-            AForm* Exam = nullptr;
+            AForm* Exam = NULL;
             Exam = someRandomIntern.makeForm("Chunnin_exam", "Exam");
 			std::cout << *Exam << std::endl;
 

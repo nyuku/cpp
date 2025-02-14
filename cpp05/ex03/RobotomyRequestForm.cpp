@@ -57,7 +57,7 @@
 //.......................................................................................................
  void   RobotomyRequestForm::execute(Bureaucrat const & executor) const
  {
-    std::srand(std::time(nullptr));
+    std::srand(time(NULL));
     checkGradesSignExec(executor);
     std::cout   <<"The Bureaucrat "
                 << executor.getName() << " executed " 

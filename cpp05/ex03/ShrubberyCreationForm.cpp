@@ -62,7 +62,7 @@
     checkGradesSignExec(executor);
     {
         std::string nameFile = (this->getTarget() + "_shruberry");
-        std::ofstream file(nameFile); // Création et ouverture auto du fichier
+        std::ofstream file(nameFile.c_str()); // Création et ouverture auto du fichier
          if (!file.is_open())
             std::cerr << "Error: opening file." << std::endl;
          else
