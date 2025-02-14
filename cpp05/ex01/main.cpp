@@ -64,11 +64,11 @@ int	main()
             Form page_low ("page_low", 200, 5);
             std::cout << page_low << std::endl;
         }
-        catch (Bureaucrat::GradeTooHighException &excep)
+        catch (Form::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Bureaucrat::GradeTooLowException &excep)
+        catch (Form::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -78,16 +78,16 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Form, grade to exec too low --------" <<RESET_COLOR<< std::endl;
+    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test 4 Form, grade to exec too low --------" <<RESET_COLOR<< std::endl;
         try
         {
             Form page_low ("page_low", 5, 200);
         }
-        catch (Bureaucrat::GradeTooHighException &excep)
+        catch (Form::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Bureaucrat::GradeTooLowException &excep)
+        catch (Form::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -97,16 +97,16 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Form, grade to exec too high --------" <<RESET_COLOR<< std::endl;
+    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test 5 Form, grade to exec too high --------" <<RESET_COLOR<< std::endl;
         try
         {
             Form page_high ("page_low", 5, 0);
         }
-        catch (Bureaucrat::GradeTooHighException &excep)
+        catch (Form::GradeTooHighException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
-        catch (Bureaucrat::GradeTooLowException &excep)
+        catch (Form::GradeTooLowException &excep)
         {
             std::cout	<< excep.what() << std::endl;
         }
@@ -117,7 +117,7 @@ int	main()
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
 
-    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat 11 - Form to sign 10 --------" <<RESET_COLOR<< std::endl;
+    {std::cout  <<ENDL<<LIGHTPURPLE<< "-------- Test 6 Bureaucrat 11 - Form to sign 10, could'nt sign --------" <<RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat  Sedusa(11, "Sedusa");
@@ -140,7 +140,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrat 5 - Form to sign 5 --------" << RESET_COLOR<< std::endl;
+    {std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 7 Bureaucrat 5 - Form to sign 5, signed --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat  Archangel(5, "Archangel");
@@ -162,7 +162,7 @@ int	main()
         }
     }
 //-------------------------------------------------------------------------------------------------------------------------------------//
-    {   std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test Bureaucrate 70- Form to sign 150 --------" << RESET_COLOR<< std::endl;
+    {   std::cout	<<ENDL<<LIGHTPURPLE<< "-------- Test 8 Bureaucrate 70- Form to sign 150, signed --------" << RESET_COLOR<< std::endl;
         try
         {
             Bureaucrat Stagiaire(149, "Stagiaire");
