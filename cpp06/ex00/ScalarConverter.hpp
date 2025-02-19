@@ -34,6 +34,8 @@
 #define BOLD		    "\033[1m"
 #define ENDL            std::endl
 
+enum Type { CHAR, INT, FLOAT, DOUBLE };
+
 class ScalarConverter
 {
     private:
@@ -65,6 +67,7 @@ class ScalarConverter
         bool	_hasPlus;
         bool	_hasF;
         bool	_isNanInf;
+        bool    _nonDigit;
 
         //    ✩  ---------  Valid   ---------    
         bool	_isValid;
@@ -111,6 +114,7 @@ class ScalarConverter
         void	SrcInt(std::string src);
         void	SrcFloat(std::string src);
         void	SrcDouble(std::string src);
+        void    explicitConversion(int type);   
         //    ✩  ---------   Fonctions print    ---------
         void    printAll();
         void	printChar();
