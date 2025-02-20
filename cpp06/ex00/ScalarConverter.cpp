@@ -151,14 +151,11 @@
     void ScalarConverter::SrcFloat(std::string src) 
     {
         _floatResult = static_cast<float>(strtof(src.c_str(), NULL));
-        std::cout<< "float result: "<<_floatResult << std::endl;
-
     }
 
     void ScalarConverter::SrcDouble(std::string src) 
     {
         _doubleResult = static_cast<double>(strtod(src.c_str(), NULL));
-        std::cout<< " _doubleResult:"<<  _doubleResult <<ENDL;
     }
 
 
@@ -219,18 +216,6 @@ void    ScalarConverter::detectType(std::string src)
     checkFloatDouble();
     checkChar(src);
     checkInt(src);
-        	std::cout << "--- BOOL TESTS ---" << std::endl;
-	std::cout << "point:   " << _hasPoint << std::endl;
-	std::cout << "sign:    " << _hasSign << std::endl;
-	std::cout << "f:       " << _hasF << std::endl;
-	std::cout << "isChar:  " << _isChar <<std::endl;
-	std::cout << "isInt:   " << _isInt <<std::endl;
-	std::cout << "ifFlt:   " << _isFloat <<std::endl;
-	std::cout << "isDble:  " << _isDouble <<std::endl;
-	std::cout << "isNanIn: " << _isDouble <<std::endl;
-	std::cout << "isValid: " << _isValid <<std::endl;
-	std::cout << std::endl;
-
 }
 
 
@@ -385,15 +370,9 @@ void ScalarConverter::selectType(std::string src)
         else if (_isInt) 
             SrcInt(src);
         else if (_isFloat)
-        {         
-            std::cout<< "\nflooooati\n"<< ENDL;
             SrcFloat(src);
-        }
         else if (_isDouble)
-        {          
-            std::cout<< "\n is double\n"<< ENDL;
             SrcDouble(src);
-        }
     }
 
 
