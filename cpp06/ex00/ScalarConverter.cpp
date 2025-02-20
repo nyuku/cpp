@@ -8,7 +8,7 @@
 // 		 ✩ si a un point : float ou double
 //       ✩ vérifié en dur si nan, inf, -inf, etc
 //       ✩ (std::string) -> char-int-float-double
-
+//       ✩ inf/nan -> c'est un double ou flaot a convertire
 
 //        ✩1  find() retourne la première occurrence du caractère.
 //          rfind() retourne la dernière occurrence du caractère.
@@ -158,6 +158,7 @@
     void ScalarConverter::SrcDouble(std::string src) 
     {
         _doubleResult = static_cast<double>(strtod(src.c_str(), NULL));
+        std::cout<< " _doubleResult:"<<  _doubleResult <<ENDL;
     }
 
 
@@ -167,8 +168,8 @@ void ScalarConverter::explicitConversion(int type)
     {
         case(CHAR):
             this->_intResult = static_cast<int>(this->_charResult);
-            this->_floatResult = static_cast<float>(this->_intResult);
-            this->_doubleResult = static_cast<double>(this->_intResult);
+            this->_floatResult = static_cast<float>(this->_charResult);
+            this->_doubleResult = static_cast<double>(this->_charResult);
             break;
         case(INT):
             this->_floatResult = static_cast<float>(this->_intResult);
@@ -178,12 +179,12 @@ void ScalarConverter::explicitConversion(int type)
         case(FLOAT):
             this->_intResult = static_cast<int>(this->_floatResult);
             this->_doubleResult = static_cast<double>(this->_floatResult);
-            this->_charResult = static_cast<char>(this->_intResult);
+            this->_charResult = static_cast<char>(this->_intResult);//(this->_intResult);//ici pour aider char?
             break;
         case(DOUBLE):
             this->_intResult =  static_cast<int>(this->_doubleResult);
             this->_floatResult = static_cast<float>(this->_doubleResult);
-            this->_charResult = static_cast<char>(this->_intResult);
+            this->_charResult = static_cast<char>(this->_intResult);//(this->_intResult);
        
         default:
             break;
@@ -218,6 +219,18 @@ void    ScalarConverter::detectType(std::string src)
     checkFloatDouble();
     checkChar(src);
     checkInt(src);
+        	std::cout << "--- BOOL TESTS ---" << std::endl;
+	std::cout << "point:   " << _hasPoint << std::endl;
+	std::cout << "sign:    " << _hasSign << std::endl;
+	std::cout << "f:       " << _hasF << std::endl;
+	std::cout << "isChar:  " << _isChar <<std::endl;
+	std::cout << "isInt:   " << _isInt <<std::endl;
+	std::cout << "ifFlt:   " << _isFloat <<std::endl;
+	std::cout << "isDble:  " << _isDouble <<std::endl;
+	std::cout << "isNanIn: " << _isDouble <<std::endl;
+	std::cout << "isValid: " << _isValid <<std::endl;
+	std::cout << std::endl;
+
 }
 
 
@@ -275,6 +288,7 @@ void ScalarConverter::selectType(std::string src)
         _hasPlus = ((src.find('+') != std::string::npos) && (src.find('+') == src.rfind('+') && src.find('+') == 0));
         _hasPoint = ((src.find('.') != std::string::npos) && (src.find('.') == src.rfind('.')) && src.find('.')!= 0);// si pas .67
         _hasF = (!src.empty() && src[src.length() - 1] == 'f' && src.find('f') == src.rfind('f'));
+        _hasF = (!src.empty() && src[src.length() - 1] == 'F' && src.find('F') == src.rfind('F'));
     }
 
      void ScalarConverter::checkDigit(std::string src)// check si poin?
@@ -283,7 +297,7 @@ void ScalarConverter::selectType(std::string src)
         { 
             for (std::string::size_type  i = 0; i < src.length(); ++i) 
             {
-                if (!std::isdigit(static_cast<unsigned char>(src[i])) && src[i] != 'F' && src[i] != '.') 
+                if (!std::isdigit(static_cast<unsigned char>(src[i])) && src[i] != 'F' && src[i] != 'f' && src[i] != '.' && src[i] != '-') 
                 {
                     _isValid = false;
                     _nonDigit = true;
@@ -293,7 +307,6 @@ void ScalarConverter::selectType(std::string src)
             }
             _isValid = true;  // Tous les caractères sont des chiffres ou un 'F'
         }
-        std::cout <<LIGHT_RED<< "value of valid:"<<_isValid <<RESET_COLOR<< std::endl << std::endl;
 
     }
     
@@ -372,9 +385,15 @@ void ScalarConverter::selectType(std::string src)
         else if (_isInt) 
             SrcInt(src);
         else if (_isFloat)
+        {         
+            std::cout<< "\nflooooati\n"<< ENDL;
             SrcFloat(src);
+        }
         else if (_isDouble)
+        {          
+            std::cout<< "\n is double\n"<< ENDL;
             SrcDouble(src);
+        }
     }
 
 
@@ -395,7 +414,9 @@ void ScalarConverter::selectType(std::string src)
    void ScalarConverter::printChar()
     {
         std::cout << CYAN << "\n▶ char:   " << RESET_COLOR;
-        if (!isprint(_charResult))
+        if (_isNanInf)// pas un nbr
+            std::cout << " impossible" << std::endl;
+        else if (!isprint(_charResult)) //&& std::isdigit(_charResult))
             std::cout << " not displayable" << std::endl;
         else
             std::cout << "'" << _charResult << "'" << std::endl;
@@ -413,18 +434,22 @@ void ScalarConverter::selectType(std::string src)
     void ScalarConverter::printFloat()
     {
         std::cout << CYAN << "▶ float:   " << RESET_COLOR;
-        if (_doubleResult < -std::numeric_limits<float>::max() || _doubleResult > std::numeric_limits<float>::max())
+
+        if (_isNanInf)
+         std::cout <<  _floatResult << "f" << std::endl;
+        else if (_doubleResult < -std::numeric_limits<float>::max() || _doubleResult > std::numeric_limits<float>::max())
             std::cout << "impossible" << std::endl;
-        // else  if (_isNanInf)
-        //     std::cout << "nanf" << std::endl;
         else
             std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
     }
 
    void ScalarConverter::printDouble()
     {
+        
         std::cout << BLUE << "▶ double:  " << RESET_COLOR;
-        if (_isNanInf || _doubleResult < -std::numeric_limits<double>::max() || _doubleResult > std::numeric_limits<double>::max())
+         if (_isNanInf)
+            std::cout <<  _doubleResult << "\n" << std::endl;
+        else if (_doubleResult < -std::numeric_limits<double>::max() || _doubleResult > std::numeric_limits<double>::max())
             std::cout << "impossible" << std::endl;
         else
             std::cout << std::fixed << std::setprecision(1) << _doubleResult << "\n" << std::endl;
