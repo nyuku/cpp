@@ -1,39 +1,45 @@
 
 #include "iter.hpp"
 
+//=======================================================================================================
+//										   Fonctions test										    	|
+//=======================================================================================================
+#include <cctype> // Pour std::toupper
+#include <cmath> // Pour std::round
+//----int
 void printInt(int x) 
 {
     std::cout << x << " ";
 }
-
 void plusTwo(int &x) 
 {
     x += 2;
-    // std::cout << x << " ";
 }
-
+//----string - char
 void printString(std::string s) 
 {
     std::cout << s << " ";
 }
-
-#include <cctype> // Pour std::toupper
-
-void toUppercase(char &c) {
+void toUppercase(char &c) 
+{
     c = std::toupper(c); // Utilise la fonction standard C++
 }
-
 void InvertBool(bool &b) 
 {
     b = !b;
 }
-
-#include <cmath> // Pour std::round
-
+//----double
 void roundValue(double &x) {
     x = std::round(x); // Arrondit au nombre entier le plus proche
 }
-
+//----float
+void squareFloat(float &x) 
+{
+    x = x * x;
+}
+//=======================================================================================================
+//										   Fonctions print tab										    |
+//=======================================================================================================
 template <typename T>
 void printArray(T *array, size_t length) 
 {
@@ -47,10 +53,10 @@ void printArray(T *array, size_t length)
     std::cout << " ]" << std::endl;
 }
 
-void squareFloat(float &x) {
-    x = x * x;
-}
 
+//=======================================================================================================
+//										   Main									                	    |
+//=======================================================================================================
 
 int main() 
 {
@@ -58,11 +64,13 @@ int main()
         int arr[] = {1, 2, 3, 4, 5};
         std::cout << "Array of int: \t\t\t";
         iter(arr, 5, printInt);
+        std::cout << std::endl;
 
     std::cout <<LILAC<< "\n==================== Test with str - Print ====================" <<RESET_COLOR<< std::endl;
         std::string strArr[] = {"Hello", "World", "Template"};
         std::cout << "Array of strings: \t\t";
         iter(strArr, 3, printString);
+        std::cout << std::endl;
 
     std::cout <<LILAC<< "\n==================== Test with int - PlusTwo ====================" <<RESET_COLOR<< std::endl;
         
@@ -71,7 +79,7 @@ int main()
         printArray(tab, 6);
         iter(tab, 6, plusTwo);
         std::cout << "Array of int, after: \t\t";
-        printArray(tab, 5);
+        printArray(tab, 6);
     
     std::cout <<LILAC<< "\n==================== Test with char - toUppercase ====================" <<RESET_COLOR<< std::endl;
         char c[] = "hello";

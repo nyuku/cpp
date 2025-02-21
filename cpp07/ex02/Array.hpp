@@ -1,5 +1,6 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ Tableau dynamique
+// 		 Template de class tableau
+//       ✩ Tableau dynamique
 //       ✩ instanciable avec n’importe quel type T
 //       ✩ Gestion de la mémoire dynamique (new[] et delete[]).obligatoirement
 //       ✩ taille : vide (Array()) ou contenir n éléments (Array(n)).
@@ -45,7 +46,7 @@ class Array
         unsigned int    _size;
     public:   
     //	✩  ---------   Constructor- destructor - arg constructor - copy constructor     --------- 
-	    Array() ;//: _tab(nullptr), _size(0) {} //array est vide au départ AVEC un ptr null(aucune mémoire allouée)
+	    Array() ;
         ~Array();
 
         Array(unsigned int element);
@@ -65,8 +66,7 @@ class Array
 			{
 				return ("Index out of bound.\n");
 			}
-		};
-		
+		};	
 };
 
 #include "Array.tpp"

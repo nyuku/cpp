@@ -1,20 +1,17 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 Template fonction , creation de tableau
-//       ✩ applique une fonction donnée sur chaque élément d’un tableau
-//       ✩ Fonction template "Iter".Prend en paramètre: 
-//          1. un tableau (via un pointeur ou une référence)
-//          2. sa taille
-//          3. une fonction, appliquée sur chaque élément du tableau
-//              'can be an instantiated function template'
-//       ✩  'must work with any type of array'
-//       ✩ 'Templates must be defined in the header files'
+// 		 Templates
+//		 ✩ swap: Swaps the values of two given arguments. Does not return anything ->&
+//       ✩ min:  Compares the two values, returns the smallest
+//              If they are equal, returns the second one.
+//       ✩ max: Compares the two values, returns the greatest one.
+//              If they are equal, returns the second one.
+//       ✩ can be called with any type of argument
+//       ✩ must support all the comparison operators
+//       ✩ Templates must be defined in the header files
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
-#ifndef ITER_HPP
-# define ITER_HPP
-
-#include <iostream>
-
+#ifndef WHATEVER_HPP
+# define WHATEVER_HPP
 #define RESET_COLOR		"\033[0m"
 #define GREEN			"\033[0;92m"
 #define LIGHT_GREEN		"\033[1;32m"
@@ -34,13 +31,27 @@
 #define BOLD		    "\033[1m"
 #define ENDL            std::endl
 
-template <typename T, typename Function>
-void iter(T *array, size_t sizeTab, Function func) {
-    if (!array) return;
-
-    for (size_t i = 0; i < sizeTab; i++) {
-        func(array[i]); 
-    }
+template< typename T >
+void	swap(T &x, T &y)
+{
+	T	temp = x;
+	x = y;
+	y = temp;
 }
 
+template< typename T >
+T	const & max(T const &x, T const &y)
+{
+	if (x > y)
+		return (x);
+	return (y);
+}
+
+template< typename T >
+T	const & min(T const &x, T const &y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}
 #endif
