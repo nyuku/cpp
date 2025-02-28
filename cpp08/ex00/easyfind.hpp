@@ -1,11 +1,23 @@
-// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 Template fonction sur container
-//       ✩ chercher un nombre entier dans un container template.
-//       ✩ pour l'exercice on doit gérer un container Template mais il va etre de type int
+// ╔───────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────╗
+// 		 Template fonction sur container d'entier
+//
+//       Données:
+//       ✩ Créer une fonction template, chercher un nombre entier dans un container entier template 
+//         -> found: retourne un itérateur pointant sur l'élément trouvé
+//         -> not found: retourne un itérateur vers la fin du container (container.end()) si l'entier n'est pas trouvé
+//                       Lancer une exception ou retourner une valeur erreur
+//       Fonction:
+//          -premier paramètre : un container d’entiers 
+//          -second paramètre : un entier à rechercher
+//          -template, utilisable avec différents types de containers 
+//
+//       More:
+//       ✩ "template": s’adapter à différents types de containers d'entier
+//              (comme std::vector<int>, std::list<int>, std::deque<int>, etc.)
+//       ✩ std::find dans <algorithm>
+//       ✩ "typename T::iterator" → Comme chaque container a son propre type d’itérateur 
 //         
-//       ✩ première occurrence du second paramètre dans le premier paramètre
-//       ✩ 'Templates must be defined in the header files'
-// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
+// ╚───────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────╝
 
 #ifndef EASYFIND_HPP
 # define EASYFIND_HPP
@@ -32,9 +44,12 @@
 #define BOLD		    "\033[1m"
 #define ENDL            std::endl
 
-template <typename T>
-typename T::iterator easyfind(T &container, int toFind);
+//.......................................................................................................
+//										    fonction      												|
+//.......................................................................................................
+    template <typename T>
+    typename T::iterator easyfind(T &container, int toFind);
+
 
 #include "easyfind.tpp"
-
 #endif
