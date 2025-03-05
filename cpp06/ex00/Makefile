@@ -3,8 +3,8 @@
 # ---------------- Nickname --------------
 NAME			=	Conversion
 RM				=	rm -f
-CC				=	g++ #c++ ou g++ , clang pas à l'ecole
-FLAGS			=	-Wall -Wextra -Werror -std=c++98
+CC				=	c++ #c++ ou g++ , clang pas à l'ecole
+FLAGS			=	-Wall -Wextra -Werror -std=c++98 -g -gdwarf-2
 BS_TXT			=	echo "\n"
 
 # ---------------- Objets ---------------

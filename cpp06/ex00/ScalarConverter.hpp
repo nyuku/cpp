@@ -13,18 +13,19 @@
 #include <string>
 #include <limits>
 #include <cmath>
-# include <iomanip>
+#include <iomanip>
+#include <cstdlib> 
 
 #define RESET_COLOR		"\033[0m"
 #define GREEN			"\033[0;92m"
 #define LIGHT_GREEN		"\033[1;32m"
 #define LIGHTPURPLE		"\033[1;35m"
-#define BLUE      "\033[1;34m"
+#define BLUE            "\033[1;34m"
 #define LIGHT_MAGENTA	"\033[0;95m"
 #define CYAN	        "\033[1;36m"
 #define MAGENTA		  	"\033[0;35m"
 #define LILAC		   	"\033[0;94m"
-#define LIGHT_BLUE		   	"\033[0;34m"
+#define LIGHT_BLUE		"\033[0;34m"
 #define LIGHT_TURCOI    "\033[0;36m"
 #define LIGHT_RED	  	"\033[0;91m"
 #define SOFT_GREEN		"\033[0;32m"
@@ -34,7 +35,7 @@
 #define BOLD		    "\033[1m"
 #define ENDL            std::endl
 
-enum Type { CHAR, INT, FLOAT, DOUBLE };
+enum Type { CHAR, INT, FLOAT, DOUBLE, LONG };
 
 class ScalarConverter
 {
@@ -42,8 +43,8 @@ class ScalarConverter
 
         //    ✩  ---------   Constructor    --------- 
         ScalarConverter();
-        ScalarConverter(std::string src);
-        ScalarConverter(ScalarConverter const & src);
+        ScalarConverter(const std::string & src);
+        ScalarConverter(const ScalarConverter &src);
         ScalarConverter & operator=(ScalarConverter const & rhs);
         //    ✩  ---------   Argument      ---------
         std::string _toConvert;
@@ -60,6 +61,7 @@ class ScalarConverter
         bool	_isInt;
         bool	_isFloat;
         bool	_isDouble;
+        bool    _isLong;
 
         //    ✩  ---------  Particularité     ---------
         bool	_hasPoint;
@@ -110,17 +112,16 @@ class ScalarConverter
         void    checkInt(std::string src);
 
         //    ✩  ---------   Fonctions convert     ---------
-        void	SrcChar(std::string src);
         void	SrcInt(std::string src);
         void	SrcFloat(std::string src);
         void	SrcDouble(std::string src);
         void    explicitConversion(int type);   
         //    ✩  ---------   Fonctions print    ---------
-        void    printAll();
+        void    printAll(std::string src);
         void	printChar();
         void	printInt();
-        void	printFloat();
-        void	printDouble();
+        void	printFloat(std::string src);
+        void	printDouble(std::string src = "");
 };
   
 #endif

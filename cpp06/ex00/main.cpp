@@ -10,6 +10,22 @@ int main(int argc, char **argv)
     }
     else
     {
+    //        double result = strtod(argv[1], nullptr);
+
+    // // Vérification de la limite de double
+    // if (result == std::numeric_limits<double>::infinity()) {
+    //     std::cout << "double test: +inf" << std::endl;
+    // } else if (result == -std::numeric_limits<double>::infinity()) {
+    //     std::cout << "double test: -inf" << std::endl;
+    // } else if (result > std::numeric_limits<double>::max()) {
+    //     std::cout << "double test: +inf (overflow)" << std::endl;
+    // } else if (result < -std::numeric_limits<double>::max()) {
+    //     std::cout << "double test: -inf (overflow)" << std::endl;
+    // } else {
+    //     std::cout << "double test: " << result << std::endl;
+    // }
+
         ScalarConverter::convert(argv[1]);
+        //std::cout << "float test: " << static_cast<float>(strtod(argv[1], NULL));
     }
 }
