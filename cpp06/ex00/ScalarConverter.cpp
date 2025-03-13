@@ -419,8 +419,18 @@
 
             if (errno == ERANGE || value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min()) 
             {
-                std::cout << "▶ int: impossible" << std::endl;
-                std::cout << "▶ float: " << std::strtof(src.c_str(), nullptr) << "f" << std::endl;
+                //patate
+            
+                char* end;
+                this->_charResult =  std::strtol(src.c_str(), &end, 10);
+                printChar();
+
+                SrcInt(src);
+                printInt();
+
+                printFloat(src);
+                //std::cout << "▶ float: " << std::strtof(src.c_str(), NULL) << "f" << std::endl;
+
                 // std::cout << "▶ double: " << std::strtod(src.c_str(), nullptr) << std::endl;
                 printDouble(src);
                 _isValid = false;  // On empêche tout autre traitement
@@ -462,10 +472,18 @@
             std::cout << "'" << _charResult << "'" << std::endl;
     }
 
-    void ScalarConverter::printInt()
+    // void ScalarConverter::printInt() // 
+    // {
+    //     std::cout << BLUE << "▶ int:     " << RESET_COLOR;
+    //     if (_isLong || _isNanInf || _doubleResult < std::numeric_limits<int>::min() || _doubleResult > std::numeric_limits<int>::max())
+    //         std::cout << "impossible" << std::endl;
+    //     else
+    //         std::cout << _intResult << std::endl;
+    // }
+      void ScalarConverter::printInt() // pk doubleresulte
     {
         std::cout << BLUE << "▶ int:     " << RESET_COLOR;
-        if (_isLong || _isNanInf || _doubleResult < std::numeric_limits<int>::min() || _doubleResult > std::numeric_limits<int>::max())
+        if (_isLong || _isNanInf || _intResult < std::numeric_limits<int>::min() || _intResult > std::numeric_limits<int>::max())
             std::cout << "impossible" << std::endl;
         else
             std::cout << _intResult << std::endl;
@@ -487,26 +505,26 @@
     //         std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
     // }
     void ScalarConverter::printFloat(std::string src)
-{
-    std::cout << CYAN << "▶ float:   " << RESET_COLOR;
-
-    errno = 0;
-    float value = std::strtof(src.c_str(), nullptr);
-    
-    if (errno == ERANGE)  
     {
-        std::cout << "impossible" << std::endl;
-        return;
-    }
+        std::cout << CYAN << "▶ float:   " << RESET_COLOR;
 
-    if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
-    {
-        std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
-        return;
-    }
+        errno = 0;
+        float value = std::strtof(src.c_str(), NULL);
+        
+        // if (errno == ERANGE)  
+        // {
+        //     std::cout << "impossible" << std::endl;
+        //     return;
+        // }
 
-    std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
-}
+        if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
+        {
+            std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
+            return;
+        }
+
+        std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
+    }
 
 
 //    void ScalarConverter::printDouble(std::string src)

@@ -14,7 +14,8 @@
 #include <limits>
 #include <cmath>
 #include <iomanip>
-#include <cstdlib> 
+#include <cstdlib>
+#include <cerrno>
 
 #define RESET_COLOR		"\033[0m"
 #define GREEN			"\033[0;92m"
