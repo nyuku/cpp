@@ -8,16 +8,17 @@ int main()
 {
 
     std::srand(std::time(0));// pour generate()
+    std::cout <<LIGHT_TURCOI<< "\n\n============= Test 1 - generate, identidy(ptr), identify (ref) =============" <<RESET_COLOR<< std::endl;
 
-    std::cout << BLUE<< "\n==== Test generate() ====" << RESET_COLOR<< std::endl;
+    std::cout << BLUE<< "\n==== Test generate aleatoire() ====" << RESET_COLOR<< std::endl;
         Base* Tom = generate();
         Base* Jerry = generate();
 
-    std::cout <<MAGENTA<< "\n==== Test identify(Base* p) ====" <<RESET_COLOR<< std::endl;
+    std::cout <<MAGENTA<< "\n==== Test identify ptr (Base* p) ====" <<RESET_COLOR<< std::endl;
         identify(Tom);
         identify(Jerry);
 
-    std::cout <<LILAC<< "\n==== Test identify(Base& p) ====" <<RESET_COLOR<< std::endl;
+    std::cout <<LILAC<< "\n==== Test identify ref (Base& p) ====" <<RESET_COLOR<< std::endl;
         identify(*Tom);
         identify(*Jerry);
 
@@ -26,7 +27,7 @@ int main()
         delete Jerry;
 
 
-    std::cout <<LIGHT_TURCOI<< "\n\n============= Test direct avec un objet statique =============" <<RESET_COLOR<< std::endl;
+    std::cout <<LIGHT_TURCOI<< "\n\n============= Test 2 - creation direct d'un objet statique(ref) =============" <<RESET_COLOR<< std::endl;
        
         std::cout<<LIGHT_MAGENTA<< "\n== Base A ==" <<RESET_COLOR<< std::endl;
         A ananas;
@@ -41,7 +42,7 @@ int main()
         identify(chat);
 
 
-    std::cout <<LIGHT_BLUE<< "\n\n=============  Test direct avec un objet dynamique (Pointeur) =============" <<RESET_COLOR<< std::endl;
+    std::cout <<LIGHT_BLUE<< "\n\n=============  Test 3 - direct avec un objet dynamique (Pointeur) =============" <<RESET_COLOR<< std::endl;
 
         std::cout<<LIGHT_MAGENTA<< "\n== Base A ==" <<RESET_COLOR<< std::endl;
         Base* p_ananas = new A;

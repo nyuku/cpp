@@ -1,12 +1,18 @@
 
-// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
+// ╔───────────────────────────────────────────────────────¤◎¤───────────────────────────────────────────────────────╗
 // 		 ✩ Destructor virtuel -> héritage avec une classe abstraite en .hpp
 //       ✩ Pas besoin de constructor, automatic
 //       ✩ no orthodox canonical class needed
 //       ✩ 3 fonctions utilitaires demandées -> en dehors de la classe car ne modifie rien dedans
 //          ✩ 2 fonctions identify -> 1 avec ptr et 1 avec ref(sans pointeur)
-//          ✩ 1 fonction generate -> return un pointeur de A, B ou C -> new/delete
-// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
+//          ✩ 1 fonction generate -> cree random un objet A,B,C.return un pointeur de A, B ou C -> new/delete
+//       ✩ 3 classes A,B,C héritent de Base
+//       ✩ dynamic_cast fonctionne différemment avec les références et les pointeurs
+//          -pointeur: retourne nullptr si le cast échoue, sinon un pointeur valide
+//          -référence: lance une exception std::bad_cast si le cast échoue-> utilisation de try/catch
+//       ✩ dynamic_cast s'utilise dynamic_cast<type>(ptr/ref)
+//       ✩ dynamic_cast ne fonctionne que pour les classes polymorphiques
+// ╚───────────────────────────────────────────────────────¤◎¤───────────────────────────────────────────────────────╝
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
@@ -22,7 +28,7 @@
 //=======================================================================================================
 //										   Fonctions utilitaires										|
 //=======================================================================================================
-// New :Création dynamique -> delete
+// New :Création dynamique "new"-> delete dans le main
     Base	*generate(void)
     {
         // std::srand(std::time(0)); à mettre en main uniquement si plusieur appel
@@ -44,6 +50,13 @@
             return (c);
         }
     }
+//.......................................................................................................
+//						                        Identify with pointer                                 |
+//                                          							                                |
+//.......................................................................................................
+//------- ✩ Fonctions pour chaque objet,on lance le cast
+//------- ✩ Si le cast réussit, on retourne true
+//------- ✩ Si le cast échoue, on retourne false
 
     bool isA(Base* p) { return dynamic_cast<A*>(p) != NULL; }
     bool isB(Base* p) { return dynamic_cast<B*>(p) != NULL; }
@@ -73,7 +86,9 @@
 //						                        Identify with reference                                 |
 //                                          							                                |
 //.......................................................................................................
-//------- ✩ Fonctions de check pour chaque type
+//------- ✩ Fonctions de check pour chaque objet, s'il y a eu exception
+//------- ✩ Si le cast réussit, on retourne true
+//------- ✩ Si le cast échoue, on retourne false
 
 bool refToA(Base& p) 
 {

@@ -10,6 +10,8 @@ int main(int argc, char **argv)
     }
     else
     {
+
+        //faut un chiffre treeeeees grand +17 chiffre
     //        double result = strtod(argv[1], nullptr);
 
     // // Vérification de la limite de double
