@@ -169,16 +169,11 @@
         }
         ScalarConverter cast(src);
         cast.detectType(src);
-
-        if(!(cast._isValid) && !(cast._isLong) )
-        {  
-            std::cout <<LIGHT_RED<< "merdouille.\n" <<RESET_COLOR<< std::endl;
-            cast.selectType(src);
-            if (cast._isNanInf)
-                cast.printAll(src);
-            else
-                cast.printAll();
-        }
+        cast.selectType(src);
+        if (cast._isNanInf)
+            cast.printAll(src);
+        else
+            cast.printAll();
         std::cout <<std::endl;
     }
 
@@ -436,13 +431,13 @@
                 this->_charResult =  std::strtol(src.c_str(), &end, 10);// pas encore converti par selectype
                 SrcInt(src);
 
-                // printChar();
-                // printInt();
-                // printFloat(src);
-                    // //std::cout << "▶ float: " << std::strtof(src.c_str(), NULL) << "f" << std::endl;
-                    // // std::cout << "▶ double: " << std::strtod(src.c_str(), nullptr) << std::endl;
-                // printDouble(src);
-                printAll(src);
+                printChar();
+                printInt();
+                printFloat(src);
+                    //std::cout << "▶ float: " << std::strtof(src.c_str(), NULL) << "f" << std::endl;
+                    // std::cout << "▶ double: " << std::strtod(src.c_str(), nullptr) << std::endl;
+                printDouble(src);
+                // printAll(src);
 
                 _isValid = false;  // On empêche tout autre traitement
                 _isLong = true;
@@ -464,10 +459,8 @@
    
     void	ScalarConverter::printAll(std::string src)
     {
-        // if(!(_isNanInf) && !(_isValid) ) peut etre a remettre...empeche checkint
-        //     return;
-
-
+        if(!(_isNanInf) && !(_isValid) && !(_isLong))
+            return;
         // printChar();
         // printInt();
         // printFloat();
@@ -563,7 +556,7 @@
 
         if (src.empty()) // Si aucun argument n'est donné, utiliser _floatResult
         {
-            std::cout<<"plop"<<std::endl;
+            // std::cout<<"plop"<<std::endl;
             std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
             return;
         }
