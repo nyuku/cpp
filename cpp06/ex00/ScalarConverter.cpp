@@ -169,15 +169,23 @@
         }
         ScalarConverter cast(src);
         cast.detectType(src);
-        cast.selectType(src);
-        cast.printAll(src);
+
+        if(!(cast._isValid) && !(cast._isLong) )
+        {  
+            std::cout <<LIGHT_RED<< "merdouille.\n" <<RESET_COLOR<< std::endl;
+            cast.selectType(src);
+            if (cast._isNanInf)
+                cast.printAll(src);
+            else
+                cast.printAll();
+        }
         std::cout <<std::endl;
     }
 
     void    ScalarConverter::detectType(std::string src) 
     {
         if (src == "nan" || src == "nanf" || src == "inf" ||src == "+inf" || src == "-inf" || src == "inff" ||src == "+inff" || src == "-inff")
-        nanInf(src);
+            nanInf(src);
         initFlags(src);
         checkDigit(src);
         checkSign();
@@ -192,7 +200,7 @@
         bool flags[4] =              {_isChar, _isInt, _isFloat, _isDouble};
         const char* flagNames[4] = {"_isChar", "_isInt", "_isFloat", "_isDouble"};
 
-        if( !(_isNanInf) && !(_isValid) && (!_isLong))
+        if( !(_isNanInf) && !(_isValid))
         {
             std::cout <<LIGHT_RED<< "ERROR: Invalid data.\n" <<RESET_COLOR<< std::endl;
             return;
@@ -236,6 +244,7 @@
             case(CHAR):
                 this->_intResult = static_cast<int>(this->_charResult);
                 this->_floatResult = static_cast<float>(this->_charResult);
+                // std::cout << "\nValeur de _floatResult: " << this->_floatResult << "f" << std::endl;
                 this->_doubleResult = static_cast<double>(this->_charResult);
                 break;
             case(INT):
@@ -297,6 +306,7 @@
             _isFloat = true;
         else
             _isDouble = true;
+
     }
 
     void ScalarConverter::initFlags(std::string src) // ✩1
@@ -416,23 +426,24 @@
             errno = 0;
             char* endPtr;
             long long value = std::strtoll(src.c_str(), &endPtr, 10);
-
+            //poru chifre geant
             if (errno == ERANGE || value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min()) 
             {
-                //patate
+                std::cout<<"\npatate\n"<<std::endl;
+                //ici on a un long long 
             
                 char* end;
-                this->_charResult =  std::strtol(src.c_str(), &end, 10);
-                printChar();
-
+                this->_charResult =  std::strtol(src.c_str(), &end, 10);// pas encore converti par selectype
                 SrcInt(src);
-                printInt();
 
-                printFloat(src);
-                //std::cout << "▶ float: " << std::strtof(src.c_str(), NULL) << "f" << std::endl;
+                // printChar();
+                // printInt();
+                // printFloat(src);
+                    // //std::cout << "▶ float: " << std::strtof(src.c_str(), NULL) << "f" << std::endl;
+                    // // std::cout << "▶ double: " << std::strtod(src.c_str(), nullptr) << std::endl;
+                // printDouble(src);
+                printAll(src);
 
-                // std::cout << "▶ double: " << std::strtod(src.c_str(), nullptr) << std::endl;
-                printDouble(src);
                 _isValid = false;  // On empêche tout autre traitement
                 _isLong = true;
                 return;
@@ -453,12 +464,31 @@
    
     void	ScalarConverter::printAll(std::string src)
     {
-        if(!(_isNanInf) && !(_isValid) )
-            return;
-        printChar();
-        printInt();
-        printFloat(src);
-        printDouble();
+        // if(!(_isNanInf) && !(_isValid) ) peut etre a remettre...empeche checkint
+        //     return;
+
+
+        // printChar();
+        // printInt();
+        // printFloat();
+        // printDouble();
+     
+        if (!src.empty() || _isNanInf)
+        {
+            // Utilisation de la chaîne src pour les conversions et affichages spécifiques
+           
+            printChar();
+            printInt();
+            printFloat(src);  // Passer src à la fonction printFloat
+            printDouble(src);
+        }
+        else
+        {
+            printChar();   // Affiche les résultats internes
+            printInt();
+            printFloat();  // Utilise _floatResult pour l'affichage
+            printDouble();
+        }
     }
 
    void ScalarConverter::printChar()
@@ -504,27 +534,53 @@
     //     else
     //         std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
     // }
+    // 2e
+    // void ScalarConverter::printFloat(std::string src)
+    // {
+    //     std::cout << CYAN << "▶ float:   " << RESET_COLOR;
+
+    //     errno = 0;
+    //     float value = std::strtof(src.c_str(), NULL);
+        
+    //     // if (errno == ERANGE)  
+    //     // {
+    //     //     std::cout << "impossible" << std::endl;
+    //     //     return;
+    //     // }
+
+    //     if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
+    //     {
+    //         std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
+    //         return;
+    //     }
+
+    //     std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
+    // }
+
     void ScalarConverter::printFloat(std::string src)
     {
         std::cout << CYAN << "▶ float:   " << RESET_COLOR;
 
+        if (src.empty()) // Si aucun argument n'est donné, utiliser _floatResult
+        {
+            std::cout<<"plop"<<std::endl;
+            std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
+            return;
+        }
+
         errno = 0;
         float value = std::strtof(src.c_str(), NULL);
-        
-        // if (errno == ERANGE)  
-        // {
-        //     std::cout << "impossible" << std::endl;
-        //     return;
-        // }
-
+        //pour les chiffre tres grand
         if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
         {
             std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
             return;
+
         }
 
         std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
     }
+
 
 
 //    void ScalarConverter::printDouble(std::string src)
@@ -551,7 +607,7 @@
 
 void ScalarConverter::printDouble(std::string src)
 {
-    std::cout << BLUE << "▶ doubleuh: " << RESET_COLOR;
+    std::cout << BLUE << "▶ double:  " << RESET_COLOR;
 
     double result;
 

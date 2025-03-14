@@ -118,10 +118,10 @@ class ScalarConverter
         void	SrcDouble(std::string src);
         void    explicitConversion(int type);   
         //    ✩  ---------   Fonctions print    ---------
-        void    printAll(std::string src);
+        void    printAll(std::string src = "");
         void	printChar();
         void	printInt();
-        void	printFloat(std::string src);
+        void    printFloat(std::string src = "");
         void	printDouble(std::string src = "");
 };
   
