@@ -49,9 +49,11 @@ class ScalarConverter
         ScalarConverter & operator=(ScalarConverter const & rhs);
         //    ✩  ---------   Argument      ---------
         std::string _toConvert;
+        std::string _escape;
 
         //    ✩  ---------   Résultats     ---------
         char    _charResult;
+        std::string _charResultStr;
         long    _intResult;
         float   _floatResult;
         double  _doubleResult;
@@ -110,6 +112,7 @@ class ScalarConverter
         void    checkSign();
         void    checkFloatDouble();
         void    checkChar(std::string src);
+        void    checkEscape(std::string src);
         void    checkInt(std::string src);
 
         //    ✩  ---------   Fonctions convert     ---------

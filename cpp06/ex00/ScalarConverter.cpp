@@ -32,7 +32,9 @@
  
     ScalarConverter::ScalarConverter():
             _toConvert(""),
+            _escape(""),
             _charResult('0'),
+            _charResultStr(""),// a verifier
             _intResult(0),
             _floatResult(0.0f),
             _doubleResult(0.0),
@@ -58,6 +60,7 @@
     
     ScalarConverter::ScalarConverter(const std::string & src):
             _toConvert(src),
+            _escape(""),
             _charResult('0'),
             _intResult(0),
             _floatResult(0.0f),
@@ -105,6 +108,7 @@
         {
             this->_toConvert = rhs._toConvert;
             this->_charResult = rhs._charResult;
+            this->_escape = rhs._escape;
             this->_intResult = rhs._intResult;
             this->_floatResult = rhs._floatResult;
             this->_doubleResult = rhs._doubleResult;
@@ -223,13 +227,19 @@
     void ScalarConverter::convertByType(std::string src) 
     {
         if (_isChar) 
-            _charResult = src[0];
+        {
+            if(_charResult == '0') 
+                _charResult = src[0];
+        }
+        
         else if (_isInt) 
             SrcInt(src);
         else if (_isFloat)
             SrcFloat(src);
         else if (_isDouble)
             SrcDouble(src);
+        // std::cout << "\nValeur de src: " << src << std::endl;
+        // std::cout << "\nValeur de _charResult ici: " << _charResult << std::endl;
     }
 
     void ScalarConverter::explicitConversion(int type)
@@ -309,8 +319,9 @@
         _hasSign = ((src.find('-') != std::string::npos) && (src.find('-') == src.rfind('-') && (src.find('-') == 0 || src.find('-') == 1)));
         _hasPlus = ((src.find('+') != std::string::npos) && (src.find('+') == src.rfind('+') && (src.find('+') == 0 || src.find('+') == 1)));
         _hasPoint = ((src.find('.') != std::string::npos) && (src.find('.') == src.rfind('.')) && src.find('.')!= 0);// si pas .67
-        _hasF = (!src.empty() && src[src.length() - 1] == 'f' && src.find('f') == src.rfind('f'));
-        _hasF = (!src.empty() && src[src.length() - 1] == 'F' && src.find('F') == src.rfind('F'));
+        _hasF = (!src.empty() && (src.back() == 'f' || src.back() == 'F') &&
+        (src.find('f') == src.rfind('f') || src.find('F') == src.rfind('F')));
+
     }
 
      void ScalarConverter::checkDigit(std::string src)// check si poin?
@@ -371,14 +382,63 @@
                 _isDouble = true;
             }
         }
+
     }
 
     void ScalarConverter::checkChar(std::string src)
     {
-        if (src.length() == 1 && std::isprint(src[0]) && !std::isdigit(src[0])) 
+        if (src[0] == '\\' && src.length() == 2 )
         {
+            checkEscape(src);
             _isChar = true;  
             _isValid = true;
+            return;
+        }
+        else if (src.length() == 1 && std::isprint(src[0]) && !std::isdigit(src[0])) 
+        {
+
+            _isChar = true;  
+            _isValid = true;
+        }
+
+    }
+    void    ScalarConverter::checkEscape(std::string src)
+    {
+        if (src == "\\0") {
+            _charResult = '\0';
+            _escape = "Null character (NUL)";
+        }
+        else if (src == "\\a") {
+            _charResult = '\a';
+            _escape = "Alert (BEL)";
+        }
+        else if (src == "\\b") {
+            _charResult = '\b';
+            _escape = "Backspace (BS)";
+        }
+        else if (src == "\\f") {
+            _charResult = '\f';
+            _escape = "Form feed (FF)";
+        }
+        else if (src == "\\n") {
+            _charResult = '\n';
+            _escape = "Newline (LF)";
+        }
+        else if (src == "\\r") {
+            _charResult = '\r';
+            _escape = "Carriage return (CR)";
+        }
+        else if (src == "\\t") {
+            _charResult = '\t';
+            _escape = "Horizontal tab (TAB)";
+        }
+        else if (src == "\\v") {
+            _charResult = '\v';
+            _escape = "Vertical tab (VT)";
+        }
+        else {
+            _isValid = false;
+            return;
         }
     }
 
@@ -459,14 +519,14 @@
    
     void	ScalarConverter::printAll(std::string src)
     {
-        if(!(_isNanInf) && !(_isValid) && !(_isLong))
+        if((!(_isNanInf) && !(_isValid)) || (_isLong))
             return;
         // printChar();
         // printInt();
         // printFloat();
         // printDouble();
      
-        if (!src.empty() || _isNanInf)
+        else if (!src.empty() || _isNanInf)
         {
             // Utilisation de la chaîne src pour les conversions et affichages spécifiques
            
@@ -490,9 +550,16 @@
         if (_isNanInf)
             std::cout << " impossible" << std::endl;
         else if (!isprint(_charResult) || _isLong) //&& std::isdigit(_charResult))
-            std::cout << " not displayable" << std::endl;
-        else
+        { 
+            std::cout << " not displayable ";
+            if(_escape != "")
+                std::cout << "   ▶ ascii:" << _escape;
+            std::cout << std::endl;
+        }
+        else if (_charResultStr.empty())
             std::cout << "'" << _charResult << "'" << std::endl;
+        else
+            std::cout << _charResultStr << std::endl;
     }
 
     // void ScalarConverter::printInt() // 
@@ -556,7 +623,7 @@
 
         if (src.empty()) // Si aucun argument n'est donné, utiliser _floatResult
         {
-            std::cout<<"plop"<<std::endl;
+            // std::cout<<"plop"<<std::endl;
             std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
             return;
         }
