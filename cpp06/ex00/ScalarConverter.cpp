@@ -412,22 +412,19 @@
                 if (!std::isdigit(src[i]))
                     return;
             }
-
-            // Conversion sécurisée en `long long`
-            errno = 0;
-            char* endPtr;
-            long long value = std::strtoll(src.c_str(), &endPtr, 10);
+            long long value = std::strtoll(src.c_str(), NULL, 10);
             //poru chifre geant
-            if (errno == ERANGE || value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min()) 
+            if ( value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min()) 
             {
-                char* end;
-                this->_charResult =  std::strtol(src.c_str(), &end, 10);// pas encore converti par selectype
+                this->_charResult =  value;
                 SrcInt(src);
 
-                printChar();
-                printInt();
-                printFloat(src);
-                printDouble(src);
+                // printChar();
+                // printInt();
+                // printFloat(src);
+                // printDouble(src);
+                _isNanInf = true; // pas sur
+                printAll(src);
 
                 _isValid = false;  // On empêche tout autre traitement
                 _isLong = true;
