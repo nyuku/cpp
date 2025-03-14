@@ -459,7 +459,7 @@
    
     void	ScalarConverter::printAll(std::string src)
     {
-        if(!(_isNanInf) && !(_isValid) && !(_isLong))
+        if(!(_isNanInf) && !(_isValid) && (_isLong))
             return;
         // printChar();
         // printInt();
