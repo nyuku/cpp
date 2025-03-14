@@ -459,7 +459,7 @@
    
     void	ScalarConverter::printAll(std::string src)
     {
-        if(!(_isNanInf) && !(_isValid) && (_isLong))
+        if(!(_isNanInf) && !(_isValid) && !(_isLong))
             return;
         // printChar();
         // printInt();
@@ -556,13 +556,14 @@
 
         if (src.empty()) // Si aucun argument n'est donné, utiliser _floatResult
         {
-            // std::cout<<"plop"<<std::endl;
+            std::cout<<"plop"<<std::endl;
             std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
             return;
         }
 
         errno = 0;
         float value = std::strtof(src.c_str(), NULL);
+        
         //pour les chiffre tres grand
         if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
         {
@@ -611,42 +612,56 @@ void ScalarConverter::printDouble(std::string src)
     } 
     else
     {
-        char* endPtr;
-        errno = 0;  // Réinitialisation de errno avant la conversion
-        result = std::strtod(src.c_str(), &endPtr);
+        result = std::strtod(src.c_str(), NULL);
 
         // Si le nombre est trop grand ou trop petit, il sera converti en +inf ou -inf
-        if (errno == ERANGE)
+        
+        if (std::isnan(result)) 
+        {
+            std::cout << "nan" << std::endl;
+            return;
+        }
+        else if (std::isinf(result))
+        {
+            std::cout << (result > 0 ? "+inf" : "-inf") << std::endl;
+            return;
+        }
+        else if (result > std::numeric_limits<double>::max() || result < -std::numeric_limits<double>::max()) // Valeurs max pour double
         {
             std::cout << "+inf" << std::endl;
             return;
         }
+        // if (errno == ERANGE)
+        // {
+        //     std::cout << "+inf" << std::endl;
+        //     return;
+        // }
 
-        // Vérifier si la chaîne n'est pas un nombre valide
-        if (*endPtr != '\0')
-        {
-            std::cout << "+inf" << std::endl;
-            return;
-        }
+        // // Vérifier si la chaîne n'est pas un nombre valide
+        // if (*endPtr != '\0')
+        // {
+        //     std::cout << "+inf" << std::endl;
+        //     return;
+        // }
 
-        // Vérification des limites du type double
-        if (result > std::numeric_limits<double>::max()) {
-            std::cout << "+inf" << std::endl;
-            return;
-        }
-        else if (result < -std::numeric_limits<double>::max()) {
-            std::cout << "-inf" << std::endl;
-            return;
-        }
+        // // Vérification des limites du type double
+        // if (result > std::numeric_limits<double>::max()) {
+        //     std::cout << "+inf" << std::endl;
+        //     return;
+        // }
+        // else if (result < -std::numeric_limits<double>::max()) {
+        //     std::cout << "-inf" << std::endl;
+        //     return;
+        // }
 
-        // Vérifier si c'est l'infini
-        if (std::isinf(result)) {
-            if (result > 0)
-                std::cout << "+inf" << std::endl;
-            else
-                std::cout << "-inf" << std::endl;
-            return;
-        }
+        // // Vérifier si c'est l'infini
+        // if (std::isinf(result)) {
+        //     if (result > 0)
+        //         std::cout << "+inf" << std::endl;
+        //     else
+        //         std::cout << "-inf" << std::endl;
+        //     return;
+        // }
     }
 
     // Affichage avec format fixe
