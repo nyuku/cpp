@@ -195,7 +195,7 @@
         bool flags[4] =              {_isChar, _isInt, _isFloat, _isDouble};
         const char* flagNames[4] = {"_isChar", "_isInt", "_isFloat", "_isDouble"};
 
-        if( !(_isNanInf) && !(_isValid))
+        if( !(_isNanInf) && !(_isValid) && !(_isLong))
         {
             std::cout <<LIGHT_RED<< "ERROR: Invalid data.\n" <<RESET_COLOR<< std::endl;
             return;
