@@ -3,7 +3,7 @@
 # ---------------- Nickname --------------
 NAME			=	Serialization
 RM				=	rm -f
-CC				=	g++ #c++ ou g++ , clang pas à l'ecole
+CC				=	c++ #c++ ou g++ , clang pas à l'ecole
 FLAGS			=	-Wall -Wextra -Werror -std=c++98
 BS_TXT			=	echo "\n"
 
