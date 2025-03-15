@@ -89,13 +89,6 @@ class ScalarConverter
         //    ✩  ---------   Fonctions membre principale     ---------
         static void convert(const std::string &src);
 
-        //    ✩  ---------   Getters      ---------
-        char	getChar() const;
-        int		getInt() const;
-        float	getFloat() const;
-        double	getDouble() const;
-
-        bool	getValid() const;
 
         //.......................................................................................................
         //										   Détection-Conversion-Impression                              |

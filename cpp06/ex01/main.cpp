@@ -19,8 +19,9 @@ int main()
 //.......................................................................................................
     Data myData;
     myData.value = 42;
-    myData.str = "Test Data";
-    std::cout   << "\nAdresse de la structure myData: " 
+    myData.name = "Test Data";
+    std::cout<<LIGHT_MAGENTA<< "▶ Creation de la structure myData:"<< RESET_COLOR<<" value:" <<myData.value <<RESET_COLOR<< ", name: " << myData.name << std::endl;
+    std::cout   << "Adresse de la structure myData: " 
                 <<LIGHT_CYAN<< &myData <<RESET_COLOR<< std::endl;
 
 //.......................................................................................................
@@ -28,8 +29,9 @@ int main()
 //.......................................................................................................
 
     uintptr_t serializedData;
+    std::cout<<LIGHT_MAGENTA<< "\n▶ Création du pointeur contenant la Serialization de myData:"<<RESET_COLOR<< std::endl;
     serializedData = Serializer::serialize(&myData);
-    std::cout   << "Valeur de serializedData après serialize:  " 
+    std::cout   << "Valeur de 'serializedData':  " 
                 <<BLUE<< serializedData <<RESET_COLOR<< std::endl;
 
 //.......................................................................................................
@@ -38,7 +40,8 @@ int main()
     
     Data *ptr;
     ptr = Serializer::deserialize(serializedData);
-    std::cout   << "\nAdresse après deserialize: " 
+    std::cout<<LIGHT_MAGENTA<< "\n▶  Deserialization de 'serializedData':"<<RESET_COLOR<< std::endl;
+    std::cout   << "Adresse après deserialize: " 
                 <<LIGHT_CYAN<< ptr <<RESET_COLOR<< std::endl;
 
 //.......................................................................................................
@@ -46,12 +49,12 @@ int main()
 //.......................................................................................................
 
     if (ptr == &myData)
-        std::cout <<LIGHT_GREEN<< "SUCCESS: La désérialisation a fonctionné !" <<RESET_COLOR<< std::endl;
+        std::cout <<LIGHT_GREEN<< "\nSUCCESS: La désérialisation a fonctionné !" <<RESET_COLOR<< std::endl;
     else
         std::cout << "ERROR: Pointeur incorrect après désérialisation !" << std::endl;
 
-    std::cout   << "\nCheck que c'est le meme contenu:\nValeur de PTR: " 
-                << ptr->value << ", Nom: " << ptr->str << std::endl
+    std::cout   << "\n▶ Check que c'est le meme contenu:\nValeur de PTR: " 
+                << ptr->value << ", Nom: " << ptr->name << std::endl
                 << "Valeur myData: " << myData.value << ", Nom: " 
-                << myData.str << ENDL<<ENDL;
+                << myData.name << ENDL<<ENDL;
 }

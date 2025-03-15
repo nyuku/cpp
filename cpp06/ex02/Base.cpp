@@ -7,6 +7,7 @@
 //          ✩ 2 fonctions identify -> 1 avec ptr et 1 avec ref(sans pointeur)
 //          ✩ 1 fonction generate -> cree random un objet A,B,C.return un pointeur de A, B ou C -> new/delete
 //       ✩ 3 classes A,B,C héritent de Base
+//
 //       ✩ dynamic_cast fonctionne différemment avec les références et les pointeurs
 //          -pointeur: retourne nullptr si le cast échoue, sinon un pointeur valide
 //          -référence: lance une exception std::bad_cast si le cast échoue-> utilisation de try/catch
@@ -87,6 +88,7 @@
 //                                          							                                |
 //.......................................................................................................
 //------- ✩ Fonctions de check pour chaque objet, s'il y a eu exception
+//------- ✩ Tente de caster la référence d'un objet en un objet de type A, B, C
 //------- ✩ Si le cast réussit, on retourne true
 //------- ✩ Si le cast échoue, on retourne false
 
@@ -126,7 +128,6 @@ bool refToC(Base& p)
 
 void identify(Base& p) 
 {
-    // Tableau des pointeurs de fonction de test
     bool (*casts[])(Base&) = { refToA, refToB, refToC };
     const char* types[] = { "A", "B", "C" };
 
