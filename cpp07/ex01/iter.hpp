@@ -35,7 +35,8 @@
 #define ENDL            std::endl
 
 template <typename T, typename Function>
-void iter(T *array, size_t sizeTab, Function func) {
+void iter(T *array, size_t sizeTab, Function func) 
+{
     if (!array) return;
 
     for (size_t i = 0; i < sizeTab; i++) {
