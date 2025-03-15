@@ -16,6 +16,8 @@
 //        ✩1  find() retourne la première occurrence du caractère.
 //          rfind() retourne la dernière occurrence du caractère.
 //          Si find() == rfind(), cela signifie que le caractère n'apparaît qu'une seule fois.
+//         strsof gere les chiffres geants et nan/inf
+//         strtod moins fiable pour nan, rajouter secu
 //
 //       Process:
 //        ✩   detect type -> convert str by the type-> type (strtol,strtol,etc)->static_cast remaining type ->print 
@@ -297,7 +299,6 @@
                 if (!std::isdigit(static_cast<unsigned char>(src[i])) && src[i] != 'F' && src[i] != 'f' && src[i] != '.' && src[i] != '-'&& src[i] != '+') 
                 {
                     _isValid = false;
-                     std::cout <<LIGHT_MAGENTA<< "value of valid:"<<_isValid <<RESET_COLOR<< std::endl << std::endl;
                     return;
                 }
             }
@@ -489,19 +490,29 @@
     void ScalarConverter::printFloat(std::string src)
     {
         std::cout << CYAN << "▶ float:   " << RESET_COLOR;
-
+        float value;
         if (src.empty())
         {
-            std::cout << std::fixed << std::setprecision(1) << _floatResult << "f" << std::endl;
-            return;
+            value =  _floatResult;
         }
-        float value = std::strtof(src.c_str(), NULL);
-        
-        //pour les chiffre tres grand
-        if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
+        else
         {
-            std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
-            return;
+            value = std::strtof(src.c_str(), NULL);
+            // if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
+            // {
+            //     std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
+            //     return;
+            // }
+            if (std::isinf(value))
+            {
+                if (value > 0)
+                    std::cout << "+inf";
+                else
+                    std::cout << "-inf";
+
+                std::cout << "f" << std::endl;
+                return;
+            }
         }
         std::cout << std::fixed << std::setprecision(1) << value << "f" << std::endl;
     }
@@ -511,7 +522,6 @@
         std::cout << BLUE << "▶ double:  " << RESET_COLOR;
         double result;
 
-        // Si la chaîne est vide, on utilise le résultat par défaut
         if (src.empty()) 
         {
             result = _doubleResult;
@@ -526,14 +536,18 @@
             }
             else if (std::isinf(result))
             {
-                std::cout << (result > 0 ? "+inf" : "-inf") << std::endl;
+                if (result > 0)
+                    std::cout << "+inf" << std::endl;
+                else
+                    std::cout << "-inf" << std::endl;
+
                 return;
             }
-            else if (result > std::numeric_limits<double>::max() || result < -std::numeric_limits<double>::max())
-            {
-                std::cout << "+inf" << std::endl;
-                return;
-            }
+            // else if (result > std::numeric_limits<double>::max() || result < -std::numeric_limits<double>::max())
+            // {
+            //     std::cout << "+inf" << std::endl;
+            //     return;
+            // }
         }
     std::cout << std::fixed << std::setprecision(1) << result << std::endl;
     }
