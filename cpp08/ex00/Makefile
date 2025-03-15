@@ -3,8 +3,8 @@
 # ---------------- Nickname --------------
 NAME			=	Easyfind
 RM				=	rm -f
-CC				=	g++ #c++ ou g++ , clang pas à l'ecole
-FLAGS			=	-Wall -Wextra -Werror -std=c++98
+CC				=	c++ #c++ ou g++ , clang pas à l'ecole
+FLAGS			=	-Wall -Wextra -Werror -std=c++98 -g -gdwarf-2
 BS_TXT			=	echo "\n"
 
 # ---------------- Objets ---------------
@@ -14,6 +14,7 @@ OBJ				= 	${SRC:.cpp=.o}
 
 # ---------------- Sources -----------
 SRC 			=	main.cpp 
+
 # ---------------- Color --------------
 
 RED				= \033[0;31m
@@ -49,7 +50,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) \n✨------ Ex 00 - Easy find! ------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------ Ex 00 - Easyfind! ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
@@ -57,6 +58,7 @@ $(NAME):		$(OBJ)
 # --------------- Service nettoyage --------------------
 clean:
 				@${RM} ${OBJ}
+				$(RM) *_shruberry
 
 fclean:			clean
 				@${RM} ${NAME}
