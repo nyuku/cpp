@@ -286,8 +286,8 @@
     {
         _hasSign = ((src.find('-') != std::string::npos) && (src.find('-') == src.rfind('-') && (src.find('-') == 0 || src.find('-') == 1)));
         _hasPlus = ((src.find('+') != std::string::npos) && (src.find('+') == src.rfind('+') && (src.find('+') == 0 || src.find('+') == 1)));
-        _hasPoint = ((src.find('.') != std::string::npos) && (src.find('.') == src.rfind('.')) && src.find('.')!= 0);// si pas .67
-        _hasF = (!src.empty() && (src.back() == 'f' || src.back() == 'F') &&
+        _hasPoint = ((src.find('.') != std::string::npos) && (src.find('.') == src.rfind('.')) && src.find('.')!= 0);
+        _hasF = (!src.empty() && (src[src.size() - 1] == 'f' || src[src.size() - 1] == 'F') &&
         (src.find('f') == src.rfind('f') || src.find('F') == src.rfind('F')));
     }
 
@@ -503,11 +503,7 @@
         else
         {
             value = std::strtof(src.c_str(), NULL);
-            // if (value == std::numeric_limits<float>::infinity() || value == -std::numeric_limits<float>::infinity())
-            // {
-            //     std::cout << (value > 0 ? "+inf" : "-inf") << "f" << std::endl;
-            //     return;
-            // }
+
             if (std::isinf(value))
             {
                 if (value > 0)
@@ -548,11 +544,7 @@
 
                 return;
             }
-            // else if (result > std::numeric_limits<double>::max() || result < -std::numeric_limits<double>::max())
-            // {
-            //     std::cout << "+inf" << std::endl;
-            //     return;
-            // }
+
         }
     std::cout << std::fixed << std::setprecision(1) << result << std::endl;
     }

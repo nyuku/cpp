@@ -14,7 +14,7 @@
 
 #include <iostream>
 #include <string>
-#include <cstdint>
+#include <stdint.h>
 #include "Data.hpp"
 
 #define RESET_COLOR		"\033[0m"

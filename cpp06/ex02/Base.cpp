@@ -32,8 +32,8 @@
 // New :Création dynamique "new"-> delete dans le main
     Base	*generate(void)
     {
-        // std::srand(std::time(0)); à mettre en main uniquement si plusieur appel
-        int	randNbr = std::rand()% 3 + 1;;
+        // srand(time(0)); à mettre en main uniquement si plusieur appel
+        int	randNbr = rand()% 3 + 1;;
 
         if(!(randNbr == 3))
         {

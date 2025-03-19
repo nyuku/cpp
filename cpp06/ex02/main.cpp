@@ -4,10 +4,13 @@
 #include "C.hpp"
 #include <iostream>
 
+#include <cstdlib>
+#include <ctime> 
+
 int main() 
 {
 
-    std::srand(std::time(0));// pour generate()
+    srand(time(0));// pour generate()
     std::cout <<LIGHT_TURCOI<< "\n\n============= Test 1 - generate, identidy(ptr), identify (ref) =============" <<RESET_COLOR<< std::endl;
 
     std::cout << BLUE<< "\n==== Test generate aleatoire() ====" << RESET_COLOR<< std::endl;
