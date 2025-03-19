@@ -3,7 +3,7 @@
 //       ✩ Entrée en string ->  1 )reconnaitre le type              ex : "p"
 //                              2) convertir la string en type reconnu : 'p' = char
 //                              3) convertir le char en int, float, double   et print le type reconnu      
-// 		 ✩ Choisir un seul type de cast: ici static_cast (autre possible reinterpret_cast(pointeur), dynamic_cast(poly), const_cast)
+// 		 ✩ Choisir un seul type de cast: ici static_cast (autre possible reinterpret_cast(pointeur), dynamic_cast(polym), const_cast)
 //          les autres gerent des pointeurs, objet const et polymorphisme
 //
 //       Analyse: 
@@ -18,6 +18,17 @@
 //          Si find() == rfind(), cela signifie que le caractère n'apparaît qu'une seule fois.
 //         strsof gere les chiffres geants et nan/inf
 //         strtod moins fiable pour nan, rajouter secu
+//        ✩2 Conversion static vs fonction
+//         les fonctions de cast: 
+//            - plus lourd que les casts statiques, moins précis mais gère les erreurs
+//            -permet avec  'char** endptr' de voir où la conversion s’arrête).
+//            - débordements gérer(errno)
+//            - ne prend pas direct un string mais c_str():std::string -> en const char*
+//            - bien de str à integer
+//          static:
+//            - plus rapide, plus précis, mais ne gère pas les erreurs
+//            - pratique entre type numérique
+//         
 //
 //       Process:
 //        ✩   detect type -> convert str by the type-> type (strtol,strtol,etc)->static_cast remaining type ->print 
@@ -414,20 +425,14 @@
                     return;
             }
             long long value = std::strtoll(src.c_str(), NULL, 10);
-            //poru chifre geant
             if ( value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min()) 
             {
                 this->_charResult =  value;
                 SrcInt(src);
-
-                // printChar();
-                // printInt();
-                // printFloat(src);
-                // printDouble(src);
                 _isNanInf = true; // pas sur
                 printAll(src);
 
-                _isValid = false;  // On empêche tout autre traitement
+                _isValid = false;
                 _isLong = true;
                 return;
             }
