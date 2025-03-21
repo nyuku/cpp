@@ -39,7 +39,8 @@ void iter(T *array, size_t sizeTab, Function func)
 {
     if (!array) return;
 
-    for (size_t i = 0; i < sizeTab; i++) {
+    for (size_t i = 0; i < sizeTab; i++) 
+    {
         func(array[i]); 
     }
 }
