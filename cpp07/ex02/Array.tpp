@@ -16,7 +16,7 @@
 //.......................................................................................................
 
     template <typename Type>
-    Array<Type>::Array() : _tab(nullptr), _size(0)
+    Array<Type>::Array() : _tab(new Type[0]()), _size(0)
     {
         std::cout << "\nConstructor Array called" << std::endl;
     }
@@ -25,7 +25,7 @@
     Array<Type>::~Array() 
     {
         delete[] _tab;
-        _tab = nullptr; 
+        _tab = NULL; 
     }
 
     template <typename Type>

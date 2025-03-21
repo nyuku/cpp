@@ -5,7 +5,8 @@
 //										   Fonctions test										    	|
 //=======================================================================================================
 #include <cctype> // Pour std::toupper
-#include <cmath> // Pour std::round
+
+//!! bien passe la ref en parametre pour modifier directement 
 //----int
 void printInt(int x) 
 {
@@ -15,6 +16,7 @@ void plusTwo(int &x)
 {
     x += 2;
 }
+
 //----string - char
 void printString(std::string s) 
 {
@@ -29,8 +31,9 @@ void InvertBool(bool &b)
     b = !b;
 }
 //----double
-void roundValue(double &x) {
-    x = std::round(x); // Arrondit au nombre entier le plus proche
+void addConstant(double &x) 
+{
+    x += 4.2;
 }
 //----float
 void squareFloat(float &x) 
@@ -97,12 +100,12 @@ int main()
         printArray(boolArr, 4);
         std::cout << std::endl;
 
-    std::cout <<LILAC<< "\n==================== Test with double - roundValue ====================" <<RESET_COLOR<< std::endl;
+    std::cout <<LILAC<< "\n==================== Test with double - addConstant ====================" <<RESET_COLOR<< std::endl;
         double doubleArr[] = {3.7, 4.9, 5.1};
         std::cout << "Array of double, before: \t";
         printArray(doubleArr, 3);
 
-        iter(doubleArr, 3, roundValue);
+        iter(doubleArr, 3, addConstant);
         std::cout << "Array of double, after: \t";
         printArray(doubleArr, 3);
         std::cout << std::endl;
