@@ -42,14 +42,18 @@
 
     int main() 
     {        
-            std::cout <<MAGENTA<< "\n==================== Test 1 - no param ====================" <<RESET_COLOR<< std::endl;
+            std::cout <<MAGENTA<< "\n==================== Test 1 - no param, empty tab ====================" <<RESET_COLOR<< std::endl;
                 Array<int>noParam;
+
+                std::cout <<LIGHT_BLUE<< "Taille du tableau par 'size': " << noParam.size() <<RESET_COLOR<< std::endl;
                 printArray(noParam,"noParam", 0, false);
 
             std::cout <<MAGENTA<< "\n==================== Test 2 - char - operator[]====================\n" <<RESET_COLOR<< std::endl;
                 try
                 {
                     Array<char>charArray(20);
+
+                    std::cout <<LIGHT_BLUE<< "Taille du tableau par 'size': " << charArray.size() <<RESET_COLOR<< std::endl;
                     for (unsigned int i = 0; i < charArray.size(); i++)
                     {
                         charArray[i] = i + 65;
@@ -70,6 +74,8 @@
                 try 
                 {
                     Array<int> numbersTab(5);
+
+                    std::cout <<LIGHT_BLUE<< "Taille du tableau par 'size': " << numbersTab.size() <<RESET_COLOR<< std::endl;
                     for (unsigned int i = 0; i < numbersTab.size(); i++)
                     {
                         numbersTab[i] = i+3;
@@ -87,6 +93,7 @@
                 try
                 { 
                     Array<float> numbersTab(3);
+                    std::cout <<LIGHT_BLUE<< "Taille du tableau par 'size': " << numbersTab.size() <<RESET_COLOR<< std::endl;
                     for (unsigned int i = 0; i < numbersTab.size(); i++)
                     {
                         numbersTab[i] = i + 10.5;
@@ -113,6 +120,7 @@
                 try 
                 {
                     Array<double> numbersTab(8);
+                    std::cout <<LIGHT_BLUE<< "Taille du tableau par 'size': " << numbersTab.size() <<RESET_COLOR<< std::endl;
                     for (unsigned int i = 0; i < numbersTab.size(); i++)
                     {
                         numbersTab[i] = i + 10.55;
