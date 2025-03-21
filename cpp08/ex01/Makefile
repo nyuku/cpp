@@ -1,7 +1,7 @@
 
 
 # ---------------- Nickname --------------
-NAME			=	Conversion
+NAME			=	Span
 RM				=	rm -f
 CC				=	c++ #c++ ou g++ , clang pas à l'ecole
 FLAGS			=	-Wall -Wextra -Werror -std=c++98 -g -gdwarf-2
@@ -13,7 +13,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	main.cpp ScalarConverter.cpp
+SRC 			=	main.cpp Span.cpp
 
 # ---------------- Color --------------
 
@@ -50,7 +50,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
-				@echo "$(GREEN) ✨------ Ex 00 - Conversion of scalar! ------✨ $(ENDCOLOR)"
+				@echo "$(GREEN) ✨------ Ex 01 - Span! ------✨ $(ENDCOLOR)"
 
 # --------------- Tests  --------------------
 
