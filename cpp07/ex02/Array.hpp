@@ -1,5 +1,5 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 Template de class tableau
+// 		 Template de class tableau qui peut contenir des éléments de n'importe quel type T
 //       ✩ Tableau dynamique
 //       ✩ instanciable avec n’importe quel type T
 //       ✩ Gestion de la mémoire dynamique (new[] et delete[]).obligatoirement
@@ -55,7 +55,7 @@ class Array
     //	✩  ---------   Operator      ---------
         Array& operator=(const Array &other);
         const Type &operator[](unsigned int index) const;
-        Type &operator[](unsigned int index); // retourne un element du tab
+        Type &operator[](unsigned int index);
         
         unsigned int	size() const;
     //    ✩  ---------   Exception   perso  ---------

@@ -50,6 +50,9 @@ all:			$(NAME)
 $(NAME):		$(OBJ)
 				@$(CC) $(FLAGS) $(OBJ) -o $@
 				@echo "$(GREEN) \n✨------ Ex 02 - Array! ------✨ $(ENDCOLOR)"
+valgrind:		$(NAME)
+				@echo "$(LILAC)🛠️  Exécution avec Valgrind...$(ENDCOLOR)"
+				@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)				
 
 # --------------- Tests  --------------------
 

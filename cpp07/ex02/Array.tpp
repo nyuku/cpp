@@ -8,7 +8,7 @@
 //       ✩ exepetion out of range: integrante de la librairie
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
-#include "Array.hpp"
+    #include "Array.hpp"
 
 //.......................................................................................................
 //								        Constructor - Destructor		
@@ -16,16 +16,16 @@
 //.......................................................................................................
 
     template <typename Type>
-    Array<Type>::Array() : _tab(nullptr), _size(0)
+    Array<Type>::Array() : _tab(new Type[0]()), _size(0)
     {
-        std::cout << "\nConstructor Array called" << std::endl;
+        std::cout << "\nConstructor Array called, size: "<< _size << std::endl;
     }
 
     template <typename Type>
     Array<Type>::~Array() 
     {
         delete[] _tab;
-        _tab = nullptr; 
+        _tab = NULL; 
     }
 
     template <typename Type>
@@ -72,7 +72,6 @@
     {
         if (index >= _size) 
         {
-            // std::cerr << "💥 Exception sur index: " << index << " (taille: " << _size << ")" << std::endl;
             throw std::out_of_range("Index out of bounds");
         }
         return _tab[index];
@@ -83,7 +82,6 @@
     const Type& Array<Type>::operator[](unsigned int index) const {
         if (index >= _size) 
         {
-            // std::cerr << "💥 Exception sur index const: " << index << " (taille: " << _size << ")" << std::endl;
             throw std::out_of_range("Index out of bounds");
         }
         return _tab[index];
