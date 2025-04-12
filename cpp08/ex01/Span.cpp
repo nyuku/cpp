@@ -14,21 +14,27 @@
 //              - std::invalid_argument : n < 2 
 //              - std::FullContainerException : container plein > n
 //              - std::InsufficientDataException: < 2 éléments
+
+//      reserve Cela alloue la mémoire pour _n éléments sans en ajouter. Tu contrôles ensuite l’ajout réel via addNumber().
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
-#include ".hpp"
+#include "Span.hpp"
 
 //.......................................................................................................
 //										Constructor - Destructor		
 //                                      With argh - Copy                    							|
 //.......................................................................................................
 
-    Span::Span() : _n(0) {}
+    Span::Span() : _n(0) 
+    {
+        _container.clear();
+    }
     Span::~Span() {}
 
     Span::Span(unsigned int n) : _n(n) 
     {
         if (n<= 1)
             throw std::invalid_argument("Error: n must be greater than 1");
+        _container.reserve(_n);//_container.reserve(_n);..plutot on reserve les slots sans remplir
     }
 
 //.......................................................................................................
@@ -50,10 +56,7 @@
 //                          Init "variable const" par la liste d'int, que 2 variables	
 //                          methode: liste d’initialisation                                             |
 //.......................................................................................................
-    Span::Span(Span const & rhs) : _n(rhs._n), _container(rhs._container) 
-    {
-        *this = rhs;
-    }
+    Span::Span(Span const & rhs) : _n(rhs._n), _container(rhs._container) {}
 
 //=======================================================================================================
 //										   Fonctions membres											|
@@ -61,27 +64,45 @@
     void Span::addNumber(unsigned int addNumber)
     {
         if (_container.size() >= _n)
-            throw std::FullContainerException("Error: Container is full");
+            throw FullContainerException();
         _container.push_back(addNumber);
     }
 /*
     sort: tri dans l'ordre croissant
     shortest: init la valeur a la 1ere difference
     boucle: compare la difference entre chaque element
+    ! ca modifie direct l'original...pas fou
 */
+
+   
     unsigned int Span::shortestSpan()
     {
+        unsigned int span;
+        unsigned int shortest;
+        unsigned int a;
+        unsigned int b;
+        std::vector<unsigned int> tmp ;
         if (_container.size() <= 1)
-            throw std::InsufficientDataException ("Error: Container is empty or has only one element");
-        std::sort(_container.begin(), _container.end());
-        unsigned int shortest = _container[1] - _container[0];
-        for (size_t i = 1; i < _container.size(); i++)
+            throw InsufficientDataException();
+
+        tmp = _container; // Copie pour ne pas trier l'original
+        std::sort(tmp.begin(), tmp.end());
+
+        shortest = tmp[1] - tmp[0];
+        for (size_t i = 1; i < tmp.size(); i++)
         {
-            if (_container[i] - _container[i - 1] < shortest)
-                shortest = _container[i] - _container[i - 1];
+            span = tmp[i] - tmp[i - 1];
+            if (span < shortest)
+            {
+                shortest = span;
+                a = tmp[i - 1];
+                b = tmp[i];
+            }
         }
+        std::cout<< shortest << ", between " << a << " and " << b <<std::endl;
         return shortest;
     }
+
 
 /*
     sort: tri dans l'ordre croissant
@@ -90,33 +111,69 @@
     unsigned int Span::longestSpan()
     {
         if (_container.size() <= 1)
-            throw std::InsufficientDataException("Error: Container is empty or has only one element");
+            throw InsufficientDataException();
         std::sort(_container.begin(), _container.end());
+        std::cout<< _container[_container.size() - 1] - _container[0] <<" ,between "<<_container[_container.size() - 1] << " - " << _container[0] << std::endl;
         return _container[_container.size() - 1] - _container[0];
     }
 
-    void    Span::fillContainer(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+    void    Span::fillContainer(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
     {
+        std::srand(std::time(0));
         size_t count = 0;
-        std::vector<int>::iterator i = begin;
-        for (i; it != end; ++it)
+        std::vector<unsigned int>::iterator i = begin;
+        for (; i != end; ++i)
             count++;
-        if (_container.size() + count > _maxSize || count < 1)
+        if ((_container.size() + count) > _n || count < 1)
             throw std::overflow_error("Error: Adding these numbers would exceed the Span's capacity!");
-        for (i; it != end; ++it)
-            _container.push_back(*it);
+        for (i = begin; i != end; ++i)
+            _container.push_back((std::rand() % 100 + 1));
     }
 
 //=======================================================================================================
-//										   Getters-Setters												|
+//										   utils												|
 //=======================================================================================================
 
+    void Span::printContainer() const
+    {
+        if (_container.empty())
+        {
+            std::cout << "[ empty ]" << std::endl;
+            return;
+        }
+
+        std::cout << "[ ";
+        for (size_t i = 0; i < _container.size(); ++i)
+        {
+            std::cout << _container[i];
+            if (i < _container.size() - 1)
+                std::cout << ", ";
+        }
+        std::cout << " ]" << std::endl << std::endl;;
+    }
 
 //=======================================================================================================
-//										   Operator <<					    							|
+//										   Getter				    							|
 //=======================================================================================================
+    std::vector<unsigned int>::iterator Span::getContainerBegin()
+    {
+        return _container.begin();
+    }
 
+    std::vector<unsigned int>::iterator Span::getContainerEnd()
+    {
+        return _container.end();
+    }
 
 //=======================================================================================================
 //										   Exceptions					    							|
 //=======================================================================================================
+    const char* Span::FullContainerException::what() const throw()
+    {
+        return "Error: Container is full";
+    }
+
+    const char* Span::InsufficientDataException::what() const throw()
+    {
+        return "Error: Container is empty or has only one element";
+    }
