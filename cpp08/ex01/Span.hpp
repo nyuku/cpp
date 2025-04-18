@@ -43,42 +43,43 @@ class Span
 {
     private:
         unsigned int _n;
+        unsigned int _i;
         std::vector<unsigned int> _container;
     public:
 
-        //    ✩  ---------   Constructor - Destructor - Const with arg - Copy    --------- 
-            Span();
-            ~Span();
-            Span(unsigned int n);
-            Span(Span const & rhs);
+    //    ✩  ---------   Constructor - Destructor - Const with arg - Copy    --------- 
+        Span();
+        ~Span();
+        Span(unsigned int n);
+        Span(Span const & rhs);
 
-        //    ✩  ---------   Opérator    ---------
-            Span & operator=(Span const & rhs);
+    //    ✩  ---------   Opérator    ---------
+        Span & operator=(Span const & rhs);
 
-        //    ✩  ---------  Fonctions   ---------   ✩
-            void            addNumber(unsigned int addNumber);
-            unsigned int    shortestSpan();
-            unsigned int    longestSpan();
-            void            fillContainer(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end);
+    //    ✩  ---------  Fonctions   ---------   ✩
+        void            addNumber(int addNumber);
+        unsigned int    shortestSpan();
+        unsigned int    longestSpan();
+        void            fillContainer(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end, bool overwrite );
 
-        //    ✩  ---------  Exceptions   ---------   ✩
-            class FullContainerException : public std::exception
-            {
-                public:
-                    const char* what() const throw();
-            };
+    //    ✩  ---------  Exceptions   ---------   ✩
+        class FullContainerException : public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
 
-            class InsufficientDataException : public std::exception
-            {
-                public:
-                    const char* what() const throw();
-            };
+        class InsufficientDataException : public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
 
-        //    ✩  ---------  Print Container   ---------   ✩
-            void printContainer() const;
-        //    ✩  ---------  Getters - Setters   ---------   ✩
-            std::vector<unsigned int>::iterator getContainerBegin();
-            std::vector<unsigned int>::iterator getContainerEnd();
+    //    ✩  ---------  Print Container   ---------   ✩
+        void printContainer() const;
+    //    ✩  ---------  Getters - Setters   ---------   ✩
+        std::vector<unsigned int>::iterator getContainerBegin();
+        std::vector<unsigned int>::iterator getContainerEnd();
 
 
 };

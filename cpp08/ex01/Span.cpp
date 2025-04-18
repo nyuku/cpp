@@ -15,7 +15,10 @@
 //              - std::FullContainerException : container plein > n
 //              - std::InsufficientDataException: < 2 éléments
 
-//      reserve Cela alloue la mémoire pour _n éléments sans en ajouter. Tu contrôles ensuite l’ajout réel via addNumber().
+//      plus d'actu:reserve Cela alloue la mémoire pour _n éléments sans en ajouter. Tu contrôles ensuite l’ajout réel via addNumber().
+//      plus d'actu:push_back() ajoute un élément à la fin du vecteur, augmentant sa taille.
+//      on cree span avec la taille n directement
+
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include "Span.hpp"
 
@@ -24,17 +27,17 @@
 //                                      With argh - Copy                    							|
 //.......................................................................................................
 
-    Span::Span() : _n(0) 
+    Span::Span() : _n(0), _i(0),_container()
     {
-        _container.clear();
+        std::cout << "Default constructor called" << std::endl;
     }
+
     Span::~Span() {}
 
-    Span::Span(unsigned int n) : _n(n) 
+    Span::Span(unsigned int n) : _n(n),_i(0), _container(n)
     {
         if (n<= 1)
-            throw std::invalid_argument("Error: n must be greater than 1");
-        _container.reserve(_n);//_container.reserve(_n);..plutot on reserve les slots sans remplir
+            throw std::invalid_argument(LIGHT_RED"Error: the size given must be greater than 1"RESET_COLOR);
     }
 
 //.......................................................................................................
@@ -46,6 +49,7 @@
         if (this != &rhs)
         {
             _n = rhs._n;
+            _i = rhs._i;
             _container = rhs._container;
         }
         return *this;
@@ -56,16 +60,18 @@
 //                          Init "variable const" par la liste d'int, que 2 variables	
 //                          methode: liste d’initialisation                                             |
 //.......................................................................................................
-    Span::Span(Span const & rhs) : _n(rhs._n), _container(rhs._container) {}
+    Span::Span(Span const & rhs) : _n(rhs._n), _i(rhs._i),  _container(rhs._container) {}
 
 //=======================================================================================================
 //										   Fonctions membres											|
 //=======================================================================================================
-    void Span::addNumber(unsigned int addNumber)
+    void Span::addNumber(int addNumber)
     {
-        if (_container.size() >= _n)
+        if (_i >= _n)
             throw FullContainerException();
-        _container.push_back(addNumber);
+        if (addNumber < 0) 
+            throw std::invalid_argument(LIGHT_RED"Error: Cannot add a negative number"RESET_COLOR);
+        _container[_i++] = addNumber;
     }
 /*
     sort: tri dans l'ordre croissant
@@ -82,7 +88,7 @@
         unsigned int a;
         unsigned int b;
         std::vector<unsigned int> tmp ;
-        if (_container.size() <= 1)
+        if (_i <= 1)
             throw InsufficientDataException();
 
         tmp = _container; // Copie pour ne pas trier l'original
@@ -110,24 +116,32 @@
 */
     unsigned int Span::longestSpan()
     {
-        if (_container.size() <= 1)
+        if (_i <= 1)
             throw InsufficientDataException();
         std::sort(_container.begin(), _container.end());
         std::cout<< _container[_container.size() - 1] - _container[0] <<" ,between "<<_container[_container.size() - 1] << " - " << _container[0] << std::endl;
         return _container[_container.size() - 1] - _container[0];
     }
 
-    void    Span::fillContainer(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end)
+    void    Span::fillContainer(std::vector<unsigned int>::iterator begin, std::vector<unsigned int>::iterator end,  bool overwrite = false)
     {
+        if (begin == end)
+            throw InsufficientDataException();
+    
         std::srand(std::time(0));
         size_t count = 0;
-        std::vector<unsigned int>::iterator i = begin;
-        for (; i != end; ++i)
+        std::vector<unsigned int>::iterator start = begin;
+        for (; start != end; ++start)
             count++;
-        if ((_container.size() + count) > _n || count < 1)
-            throw std::overflow_error("Error: Adding these numbers would exceed the Span's capacity!");
-        for (i = begin; i != end; ++i)
-            _container.push_back((std::rand() % 100 + 1));
+        if (overwrite == true)
+        {
+            std::cout << "Overwrite mode activated" << std::endl;
+            _i = 0;
+        }
+        if ((_i + count) > _n || count < 1)// respect ce qui a deja éte mis
+            throw FullContainerException();
+        for (start = begin; start != end; ++start)
+            _container[_i++] = (std::rand() % 100 + 1);
     }
 
 //=======================================================================================================
@@ -143,10 +157,10 @@
         }
 
         std::cout << "[ ";
-        for (size_t i = 0; i < _container.size(); ++i)
+        for (size_t i = 0; i < _i; ++i)
         {
             std::cout << _container[i];
-            if (i < _container.size() - 1)
+            if (i < _i - 1)
                 std::cout << ", ";
         }
         std::cout << " ]" << std::endl << std::endl;;
@@ -170,10 +184,10 @@
 //=======================================================================================================
     const char* Span::FullContainerException::what() const throw()
     {
-        return "Error: Container is full";
+        return (LIGHT_RED "Error: Container is full, adding these numbers would exceed the Span's capacity!" RESET_COLOR);
     }
 
     const char* Span::InsufficientDataException::what() const throw()
     {
-        return "Error: Container is empty or has only one element";
+        return (LIGHT_RED"Error: Container is empty or has only one element"RESET_COLOR);
     }
