@@ -8,16 +8,16 @@
 //             -> exception si nombre d’entiers insuffisant < 2 ou aucune différence trouvée
 //       ✩ Fonctions bonus: qui ajoute plusieurs nombres à la fois via une plage d'itérateurs(bord donnés) 
 //                          sans rappeler addNumber() plusieurs fois
-//
 //       ✩ Testez Span avec au moins 10 000 nombres
+//
 //       ✩ 3 exceptions à créer/gérer:
-//              - std::invalid_argument : n < 2 
+//              - std::invalid_argument : nb < 0 
 //              - std::FullContainerException : container plein > n
 //              - std::InsufficientDataException: < 2 éléments
 
-//      plus d'actu:reserve Cela alloue la mémoire pour _n éléments sans en ajouter. Tu contrôles ensuite l’ajout réel via addNumber().
-//      plus d'actu:push_back() ajoute un élément à la fin du vecteur, augmentant sa taille.
-//      on cree span avec la taille n directement
+//      Creation span: -"reserve" alloue la mémoire pour _n éléments sans en ajouter. ensuite l’ajout réel via addNumber().
+//                     - push_back() ajoute un élément à la fin du vecteur, augmentant sa taille.
+//                     ->on cree span avec la taille n directement -> index géré par le constructeur _i
 
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include "Span.hpp"
@@ -36,6 +36,7 @@
 
     Span::Span(unsigned int n) : _n(n),_i(0), _container(n)
     {
+        std::cout << "value constructor called" << std::endl;
         if (n<= 1)
             throw std::invalid_argument(LIGHT_RED"Error: the size given must be greater than 1"RESET_COLOR);
     }
@@ -83,19 +84,20 @@
    
     unsigned int Span::shortestSpan()
     {
-        unsigned int span;
-        unsigned int shortest;
-        unsigned int a;
-        unsigned int b;
-        std::vector<unsigned int> tmp ;
+        unsigned int span = 0;
+        unsigned int shortest = 0;
+        std::vector<unsigned int> tmp;
+        tmp = _container; // Copie pour ne pas trier l'original
+        unsigned int a = tmp[0];
+        unsigned int b = tmp[1];
+        
         if (_i <= 1)
             throw InsufficientDataException();
-
-        tmp = _container; // Copie pour ne pas trier l'original
+       
         std::sort(tmp.begin(), tmp.end());
 
         shortest = tmp[1] - tmp[0];
-        for (size_t i = 1; i < tmp.size(); i++)
+        for (size_t i = 2; i < tmp.size(); i++)
         {
             span = tmp[i] - tmp[i - 1];
             if (span < shortest)
@@ -129,19 +131,23 @@
             throw InsufficientDataException();
     
         std::srand(std::time(0));
-        size_t count = 0;
+        // size_t count = 0;
         std::vector<unsigned int>::iterator start = begin;
-        for (; start != end; ++start)
-            count++;
+        // for (; start != end; ++start)
+        //     count++;
         if (overwrite == true)
         {
-            std::cout << "Overwrite mode activated" << std::endl;
+            std::cout << "FillContainer: Overwrite mode activated" << std::endl;
             _i = 0;
+            start = begin;
         }
-        if ((_i + count) > _n || count < 1)// respect ce qui a deja éte mis
-            throw FullContainerException();
-        for (start = begin; start != end; ++start)
-            _container[_i++] = (std::rand() % 100 + 1);
+        // if ((_i + count) > _n || count < 1)// respect ce qui a deja éte mis
+        //     throw FullContainerException();
+        else
+            start = _i + begin;// onrespect ce qu'il y a deja dans le container
+       
+        for (; start != end; ++start)
+            _container[_i++] = (std::rand() % 10000 + 1);
     }
 
 //=======================================================================================================

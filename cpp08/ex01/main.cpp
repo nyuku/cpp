@@ -70,15 +70,15 @@ int main()
         {
             std::cerr << e.what() << std::endl;
         }
-    std::cout <<LIGHT_BLUE<< "\n==================== Test 3.2 - addnumber+ fillContainer, return exception ====================" <<RESET_COLOR<< std::endl;
+    std::cout <<LIGHT_BLUE<< "\n==================== Test 3.2 - addnumber+ fillContainer ====================" <<RESET_COLOR<< std::endl;
         try
         {
             Span alpha(50);
             alpha.addNumber(1);
+            alpha.addNumber(2);
+            alpha.addNumber(3);
+            alpha.addNumber(4);
             alpha.addNumber(5);
-            alpha.addNumber(12);
-            alpha.addNumber(100);
-            alpha.addNumber(15);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), false);
             std::cout << "Container alpha: ";
             alpha.printContainer();
@@ -148,7 +148,8 @@ int main()
     std::cout <<LIGHT_BLUE<< "\n==================== Test 7 - Big Span + fillcontainer, return shortest and longest ====================" <<RESET_COLOR<< std::endl;
         try
         {
-            Span alpha(100);
+            Span alpha(1000);
+            // Span alpha(10000);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), true);
             std::cout << "Container alpha: ";
             alpha.printContainer();
@@ -162,4 +163,25 @@ int main()
             std::cerr << e.what() << std::endl;
         }
    
-}
+    std::cout <<LIGHT_BLUE<< "\n==================== Test 8 - addnumber+ fillContainer not entirely, return shortest and longest ====================" <<RESET_COLOR<< std::endl;
+        try
+        {
+            Span alpha(50);
+            alpha.addNumber(1);
+            alpha.addNumber(2);
+            alpha.addNumber(3);
+            alpha.addNumber(4);
+            alpha.addNumber(5);
+            alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerBegin() + 30, false);
+            std::cout << "Container alpha: ";
+            alpha.printContainer();
+            std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
+            alpha.shortestSpan();
+            std::cout <<LIGHT_CYAN<< "Longest Span:  \t "<< RESET_COLOR;
+            alpha.longestSpan();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+    }
