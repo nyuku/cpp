@@ -37,7 +37,7 @@
     Span::Span(unsigned int n) : _n(n),_i(0)
     {
         if (n<= 1)
-            throw std::invalid_argument(LIGHT_RED"Error: the size given must be greater than 1"RESET_COLOR);
+            throw std::invalid_argument(LIGHT_RED "Error: the size given must be greater than 1" RESET_COLOR);
         _container = std::vector<unsigned int>(_n, UINT_MAX); // initialise tout à 0
     }
 
@@ -71,7 +71,7 @@
         if (_i >= _n)
             throw FullContainerException();
         if (addNumber < 0) 
-            throw std::invalid_argument(LIGHT_RED"Error: Cannot add a negative number"RESET_COLOR);
+            throw std::invalid_argument(LIGHT_RED "Error: Cannot add a negative number" RESET_COLOR);
         _container[_i++] = addNumber;
     }
 /*
@@ -130,7 +130,7 @@
         if (begin == end)
             throw InsufficientDataException();
     
-        std::srand(std::time(0));
+        std::srand(time(0));
         
         std::vector<unsigned int>::iterator start = begin;
         //check qte d'element ajouter
@@ -234,5 +234,5 @@
 
     const char* Span::InsufficientDataException::what() const throw()
     {
-        return (LIGHT_RED"Error: Container is empty or has only one element"RESET_COLOR);
+        return (LIGHT_RED "Error: Container is empty or has only one element" RESET_COLOR);
     }

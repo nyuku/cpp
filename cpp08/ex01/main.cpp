@@ -13,7 +13,6 @@ int main()
             alpha.addNumber(12);
             alpha.addNumber(100);
             alpha.addNumber(15);
-            std::cout << "Container alpha: ";
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -38,7 +37,7 @@ int main()
             alpha.addNumber(30);
             alpha.addNumber(35);
             alpha.addNumber(40);
-            std::cout << "Container alpha: ";
+
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -59,7 +58,7 @@ int main()
             alpha.addNumber(4);
             alpha.addNumber(5);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), true);
-            std::cout << "Container alpha: ";
+      
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -80,7 +79,7 @@ int main()
             alpha.addNumber(4);
             alpha.addNumber(5);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), false);
-            std::cout << "Container alpha: ";
+         
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -97,7 +96,7 @@ int main()
             Span alpha(5);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), true);
             alpha.addNumber(1);
-            std::cout << "Container alpha: ";
+   
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -113,7 +112,7 @@ int main()
         {
             Span alpha(1);
             alpha.addNumber(1);
-            std::cout << "Container alpha: ";
+       
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -132,7 +131,7 @@ int main()
             alpha.addNumber(-5);
             alpha.addNumber(-12);
             alpha.addNumber(-100);
-            std::cout << "Container alpha: ";
+  
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -151,7 +150,7 @@ int main()
             Span alpha(1000);
             // Span alpha(10000);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerEnd(), true);
-            std::cout << "Container alpha: ";
+      
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
@@ -173,7 +172,7 @@ int main()
             alpha.addNumber(4);
             alpha.addNumber(5);
             alpha.fillContainer(alpha.getContainerBegin(), alpha.getContainerBegin() + 30, false);
-            std::cout << "Container alpha: ";
+         
             alpha.printContainer();
             std::cout <<LIGHT_CYAN<< "Shortest Span: \t "<<RESET_COLOR;
             alpha.shortestSpan();
