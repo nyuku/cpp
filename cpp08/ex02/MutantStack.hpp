@@ -1,7 +1,14 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // 		 ✩ MutantStack va herite de stack -> container protege en deque
 //       ✩ On accede aux iterators en exposant Begin et End
+
 //       ✩ Bonus:  remplacer MutantStack par std::list<int>
+
+//       ✩Rappel :
+//                  -avec constructor copie <-> operator
+//                  -le type de le class est "MutantStack<T>"
+//iterator:
+//          - "container_type" est l’alias du type du container interne à std::stack. plus simple que d'appeler le type du container recherche
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
 #ifndef MUTANTSTACK_HPP
@@ -38,22 +45,35 @@ class MutantStack :public std::stack<T> //herite de stack
 {
 
     public:
-
-    //    ✩  ---------   Constructor - Destructor - Const with arg - Copy    --------- 
-        
+    //    ✩  ---------   Constructor - Destructor -  Copy    --------- 
+        MutantStack(){};
+        ~MutantStack(){};
+        MutantStack(const MutantStack<T> &src)
+        {
+            *this = src; // appelle l'operator =
+        }
 
     //    ✩  ---------   Opérator    ---------
-     
-
-    //    ✩  ---------  Fonctions   ---------   ✩
+        MutantStack<T>&operator=(const MutantStack<T> &rhs)
+        {
+            this->c = rhs.c;
+            return *this;
+        }
        
-    //    ✩  ---------  Exceptions   ---------   ✩
-       
-
-    //    ✩  ---------  Print Container   ---------   ✩
-       
-    //    ✩  ---------  Getters - Setters   ---------   ✩
-
+    //    ✩  ---------  Iterator   ---------   ✩
+        typedef typename std::stack<T>::container_type::iterator iterator;
+        //std::stack<T> la stack de template. ca peut etre int
+        //std::stack<T>::container_type fait reference au type du container interne, qui par defaut et un deque
+        //le 2e iterator et le nom donne
+        //Dans cette classe MutantStack<T>, appelle iterator le même type que std::stack<T>::container_type::iterator.
+        iterator begin() 
+        { 
+            return this->c.begin(); 
+        }
+        iterator end()   
+        { 
+            return this->c.end(); 
+        }
 
 
 };
