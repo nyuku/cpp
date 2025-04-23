@@ -34,11 +34,11 @@
 
     Span::~Span() {}
 
-    Span::Span(unsigned int n) : _n(n),_i(0), _container(n)
+    Span::Span(unsigned int n) : _n(n),_i(0)
     {
-        std::cout << "value constructor called" << std::endl;
         if (n<= 1)
             throw std::invalid_argument(LIGHT_RED"Error: the size given must be greater than 1"RESET_COLOR);
+        _container = std::vector<unsigned int>(_n, UINT_MAX); // initialise tout à 0
     }
 
 //.......................................................................................................
@@ -131,23 +131,53 @@
             throw InsufficientDataException();
     
         std::srand(std::time(0));
-        // size_t count = 0;
+        
         std::vector<unsigned int>::iterator start = begin;
-        // for (; start != end; ++start)
-        //     count++;
+        //check qte d'element ajouter
+        size_t count = 0;
+        for (; start != end; ++start)
+            count++;
+        if (count > _n || count < 1)// respect ce qui a deja éte mis
+            throw FullContainerException();
+        //check iterator begin et end du container
+        if (begin < _container.begin() || end > _container.end())
+            throw std::out_of_range("Iterators out of container bounds.");
+
+
         if (overwrite == true)
         {
             std::cout << "FillContainer: Overwrite mode activated" << std::endl;
             _i = 0;
-            start = begin;
+            // start = begin;
         }
-        // if ((_i + count) > _n || count < 1)// respect ce qui a deja éte mis
-        //     throw FullContainerException();
+        else if (!overwrite && _i > 0)
+        {
+            size_t offsetBegin = std::distance(_container.begin(), begin);
+            size_t offsetEnd   = std::distance(_container.begin(), end);
+            if (offsetBegin < _i && offsetEnd <= _i)
+                throw std::out_of_range("Iterator begin is out of range, risk of damaging current data");
+                //va print par dessus ce qui est deja dans le container
+        }
+    
+        // start = _i + begin;// onrespect ce qu'il y a deja dans le container
+        if (begin < _container.begin() + _i)
+        {
+            start = _container.begin() + _i;  // si begin est dans la data,Commence à l'endroit où les éléments ont été remplis
+        }
         else
-            start = _i + begin;// onrespect ce qu'il y a deja dans le container
-       
+        {
+            start = begin;  // Commence à partir du 'begin' passé en arg
+        }
+
         for (; start != end; ++start)
-            _container[_i++] = (std::rand() % 10000 + 1);
+        {   
+            *start = (std::rand() % 10000 + 1); // pour eviter _container[_i]
+
+            // on met à jour _i seulement si on va plus loin que ce qu’on avait déjà rempli
+            size_t pos = std::distance(_container.begin(), start) + 1;
+            if (pos > _i)
+                _i = pos;
+        }
     }
 
 //=======================================================================================================
@@ -156,6 +186,7 @@
 
     void Span::printContainer() const
     {
+        std::cout << LIGHT_BLUE << "Container size: "<< this->getn() << RESET_COLOR;
         if (_container.empty())
         {
             std::cout << "[ empty ]" << std::endl;
@@ -163,10 +194,13 @@
         }
 
         std::cout << "[ ";
-        for (size_t i = 0; i < _i; ++i)
+        for (size_t i = 0; i < _container.size(); ++i)
         {
-            std::cout << _container[i];
-            if (i < _i - 1)
+            if (_container[i] != UINT_MAX)
+                std::cout << _container[i];
+            else
+                std::cout << "-";// rand() ne donne pas  de 0
+            if (i < _container.size() - 1)
                 std::cout << ", ";
         }
         std::cout << " ]" << std::endl << std::endl;;
@@ -183,6 +217,11 @@
     std::vector<unsigned int>::iterator Span::getContainerEnd()
     {
         return _container.end();
+    }
+
+    unsigned int Span::getn() const
+    {
+        return _n;
     }
 
 //=======================================================================================================

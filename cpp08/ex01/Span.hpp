@@ -19,6 +19,8 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
+#include <climits> // pour UINT_MAX
+
 
 #define RESET_COLOR		"\033[0m"
 #define GREEN			"\033[0;92m"
@@ -80,6 +82,7 @@ class Span
     //    ✩  ---------  Getters - Setters   ---------   ✩
         std::vector<unsigned int>::iterator getContainerBegin();
         std::vector<unsigned int>::iterator getContainerEnd();
+        unsigned int getn()const;
 
 
 };
