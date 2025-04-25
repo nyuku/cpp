@@ -1,15 +1,16 @@
-// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
-// 		 ✩ MutantStack va herite de stack -> container protege en deque
-//       ✩ On accede aux iterators en exposant Begin et End
-
+// ╔────────────────────────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────────────────────────╗
+// 		 ✩ MutantStack va herite de std::stack -> contient un container en protected "c" (deque par defaut) 
 //       ✩ Bonus:  remplacer MutantStack par std::list<int>
-
+//
 //       ✩Rappel :
-//                  -avec constructor copie <-> operator
+//                  -avec constructor copie <-> operator =
 //                  -le type de le class est "MutantStack<T>"
-//iterator:
+//       ✩iterator:
 //          - "container_type" est l’alias du type du container interne à std::stack. plus simple que d'appeler le type du container recherche
-// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
+//          - "iterator" est l'alias du type d'itérateur du container interne.
+//          - "c" est le nom du container interne de la stack.
+//          - "begin()" et "end()" sont des méthodes qui renvoient les itérateurs de début et de fin du container interne.
+// ╚────────────────────────────────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────────────────────────────────╝
 
 #ifndef MUTANTSTACK_HPP
 #define MUTANTSTACK_HPP
@@ -62,9 +63,9 @@ class MutantStack :public std::stack<T> //herite de stack
        
     //    ✩  ---------  Iterator   ---------   ✩
         typedef typename std::stack<T>::container_type::iterator iterator;
-        //std::stack<T> la stack de template. ca peut etre int
-        //std::stack<T>::container_type fait reference au type du container interne, qui par defaut et un deque
-        //le 2e iterator et le nom donne
+        //"std::stack<T>" la stack de template. 
+        //"std::stack<T>::container_type" fait reference au type du container interne, qui par defaut et un deque
+        //le 2e "iterator" et le nom donné à l'alias
         //Dans cette classe MutantStack<T>, appelle iterator le même type que std::stack<T>::container_type::iterator.
         iterator begin() 
         { 
