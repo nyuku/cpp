@@ -160,14 +160,22 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
     
         while (std::getline(input, line)) {
             if (line.empty()) continue;
+            if (line.find('|') == std::string::npos) 
+            {
+                std::cerr << "Error: missing separator => " << line << std::endl;
+                continue;
+            }
+            
     
             std::istringstream ss(line);
             std::string date, valueStr;
     
-            if (!std::getline(ss, date, '|') || !std::getline(ss, valueStr)) {
+            if (!std::getline(ss, date, '|') || !std::getline(ss, valueStr)) 
+            {
                 std::cerr << "\tError: bad input => " << line << std::endl;
                 continue;
             }
+            
     
             // Trim spaces
             date.erase(date.find_last_not_of(" \t") + 1);
