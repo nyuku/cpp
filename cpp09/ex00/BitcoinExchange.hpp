@@ -76,8 +76,10 @@ class BitcoinExchange
 
     //    ✩  ---------  Print Container   ---------   ✩
 
-    //    ✩  ---------  Getters - Setters   ---------   ✩
-
+    //    ✩  --------- utils   ---------   ✩
+        bool checkFileOpen(std::ifstream &file)const; // Vérifie si le fichier s'ouvre correctement
+        void processFile(std::ifstream& input);
+        bool isPositiveNumber(const std::string& valueStr); // Vérifie si la valeur est un nombre positif
 
 };
 #endif
