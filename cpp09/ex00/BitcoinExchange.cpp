@@ -57,6 +57,7 @@ bool BitcoinExchange::loadDatabase(const std::string& filename)
 
     while (std::getline(file, line)) 
     {
+        
         std::istringstream ss(line);
         std::string date, rateStr;
 
@@ -79,33 +80,43 @@ bool BitcoinExchange::isValidDateFormat(const std::string& dateStr) const
 {
     const int daysInMonth[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
     if (dateStr.length() != 10 || dateStr[4] != '-' || dateStr[7] != '-')
+    {
+        std::cerr << LIGHT_RED << "Error: Date format must be YYYY-MM-DD." << RESET_COLOR << std::endl;
         return false;
+    }
 
     for (size_t i = 0; i < dateStr.length(); ++i) //verifie si que chiffre
     {
         if ((i == 4 || i == 7))//"YYYY-MM-DD"
             continue;
         if (!isdigit(dateStr[i]))
+        {
+            std::cerr << LIGHT_RED << "Error: Date contains non-digit characters." << RESET_COLOR << std::endl;
             return false;
+        }
     }
     int year = std::atoi(dateStr.substr(0, 4).c_str());
     int month = std::atoi(dateStr.substr(5, 2).c_str());
     int day = std::atoi(dateStr.substr(8, 2).c_str());
     if (year < 2009 || year > 2023) // Bitcoin started in 2009
     {
-        std::cerr << LIGHT_RED <<ENDL<< "Error: Year out of range." << RESET_COLOR << std::endl;
+        std::cerr << LIGHT_RED << "Error: Year out of range [2009-2023]. Here year is :" << RESET_COLOR <<year<< std::endl;
         return false;
     }
-    if (month < 1 || month > 12 || day < 1 || day > 31)
-    {  
-        std::cerr << LIGHT_RED <<ENDL<< "Error: There's something odd in the number" << RESET_COLOR << std::endl;
+    if (month < 1 || month > 12) {
+        std::cerr << LIGHT_RED << "Error: Invalid month. Must be between 01 and 12. Here month is: " << RESET_COLOR<< month << std::endl;
+        return false;
+    }
+
+    if (day < 1 || day > 31) {
+        std::cerr << LIGHT_RED << "Error: Invalid day. Must be between 01 and 31. Here day is: " << RESET_COLOR<<day << std::endl;
         return false;
     }
     if (month == 2 && day == 29) //bissextile
     {
         if (!(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))) 
         {
-            std::cerr << LIGHT_RED <<ENDL<< "Error: This is not a leap year, this February 29 is invalid." << RESET_COLOR << std::endl;
+            std::cerr << LIGHT_RED << "Error: This is not a leap year, this February 29 is invalid." << RESET_COLOR << std::endl;
             return false;
         }
     }
@@ -156,15 +167,27 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
         }
     
         std::string line;
-        std::getline(input, line); // Skip header line
-    
-        while (std::getline(input, line)) {
+        bool hasData = false;
+        
+        while (std::getline(input, line)) 
+        {
+            if (line == "date | value") 
+                std::getline(input, line);
             if (line.empty()) continue;
+            hasData = true;
             if (line.find('|') == std::string::npos) 
             {
-                std::cerr << "Error: missing separator => " << line << std::endl;
+                std::cerr << LIGHT_RED<< "Error: missing separator. " <<RESET_COLOR<< std::endl;
+                std::cerr << "\tError: bad input \"" << line << "\""  << std::endl;
                 continue;
             }
+            if (std::count(line.begin(), line.end(), '|') != 1) 
+            {
+                std::cerr << LIGHT_RED<< "Error: too many separators. " <<RESET_COLOR<< std::endl;
+                std::cerr << "\tError: bad input \"" << line << "\""  << std::endl;
+                continue;
+            }
+            
             
     
             std::istringstream ss(line);
@@ -172,30 +195,45 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
     
             if (!std::getline(ss, date, '|') || !std::getline(ss, valueStr)) 
             {
-                std::cerr << "\tError: bad input => " << line << std::endl;
+                std::cerr <<LIGHT_RED<< "Error: no trace of date or value " <<RESET_COLOR<< std::endl;
+                std::cerr << "\tError: bad input \"" << line << "\""  << std::endl;
+                continue; 
+            }
+                   // Trim spaces
+            date.erase(0, date.find_first_not_of(" \t"));
+            date.erase(date.find_last_not_of(" \t") + 1);
+            valueStr.erase(0, valueStr.find_first_not_of(" \t"));
+            valueStr.erase(valueStr.find_last_not_of(" \t") + 1);
+
+            if (date.empty() || valueStr.empty())
+            {
+                if (date.empty())
+                    std::cerr <<LIGHT_RED<< "Error: missing date " <<RESET_COLOR<< std::endl;
+                else if (valueStr.empty())
+                    std::cerr <<LIGHT_RED<< "Error: missing value " <<RESET_COLOR<< std::endl;
+                std::cerr <<"\tError: bad input \"" << line << "\""  << std::endl;
                 continue;
             }
             
     
-            // Trim spaces
-            date.erase(date.find_last_not_of(" \t") + 1);
-            valueStr.erase(0, valueStr.find_first_not_of(" \t"));
+         
     
             if (!isValidDateFormat(date)) 
             {
-                std::cerr << "\tError: bad input => " << date << std::endl;
+                std::cerr << "\tError: bad input date: \"" << date << "\""  << std::endl;
                 continue;
             }
     
             float value = std::atof(valueStr.c_str());
             if (value > 1000) {
-                std::cerr <<ENDL<<LIGHT_RED<< "Error: value too large." <<RESET_COLOR<<  std::endl;
-                std::cerr<<"\tBad input => "<<RESET_COLOR<< value << std::endl;
+                std::cerr <<LIGHT_RED<< "Error: value too large." <<RESET_COLOR<<  std::endl;
+                std::cerr<<"\tError: bad input \"" << value << "\""  << std::endl;
                 continue;
             }
     
             if (!isPositiveNumber(valueStr)) {
-                std::cerr <<LIGHT_RED<<ENDL<< "Error: not a positive number." <<RESET_COLOR<< std::endl;
+                std::cerr <<LIGHT_RED<< "Error: value is not a positive number." <<RESET_COLOR<< std::endl;
+                std::cerr<<"\tError: bad input value: \"" << value << "\""  << std::endl;
                 continue;
             }
     
@@ -207,7 +245,11 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
             } catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
             }
+            if (!hasData) {
+                std::cerr << LIGHT_RED << "Error: input file is empty or contains only header." << RESET_COLOR << std::endl;
+            }
         }
+        
     }
     
 //=======================================================================================================
