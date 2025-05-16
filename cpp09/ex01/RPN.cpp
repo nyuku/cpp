@@ -67,33 +67,51 @@
             default:
                 throw std::runtime_error(LIGHT_RED"Error: Unknown operator"RESET_COLOR);
         }
-        std::cout << LIGHT_CYAN<< "Result cauculus: " << RESET_COLOR<< _stack.top() << std::endl;    
     }
     bool RPN::isOperator(const std::string& token) const
     {
         if (token == "+" || token == "-" || token == "*" || token == "/")
             return true;
-        else 
+        else if (token.length() == 1 )
         {
-            std::cerr << LIGHT_RED << "Error: Unknown operator " <<RESET_COLOR<< token << RESET_COLOR << std::endl;
+            std::cerr << LIGHT_RED << "Error: Unknown operator : " <<RESET_COLOR<< token << RESET_COLOR << std::endl;
             return false;
         }
+        if (token.length() > 1 && std::isdigit(token[1]))
+        {
+            // Affiche seulement le premier caractère du token
+            std::cerr << LIGHT_RED << "Error: Unknown operator : " << RESET_COLOR << token[0] << RESET_COLOR << std::endl;
+        }
+        else
+        {
+            // Sinon affiche tout le token
+            std::cerr << LIGHT_RED << "Error: Unknown operator : " << RESET_COLOR << token << RESET_COLOR << std::endl;
+        }
+        return false;
     }
     bool RPN::isNumber(const std::string& token) const
     {
         if (token.length() == 1 && std::isdigit(token[0]))
             return true;
     
-        else if (token.length() >= 2 && token[0] == '-') 
+        else if (token.length() >= 2 && token[0] == '-') //negatif
         {
-            std::cout <<  "ploop" << token << std::endl;
             for (size_t i = 1; i < token.size(); ++i) 
             {
                 if (!std::isdigit(token[i]))  // Pas un chiffre = invalide
                     return false;
             }
-            std::cerr << LIGHT_RED << "Error: negative number " 
-                      << token << RESET_COLOR << std::endl;
+            std::cerr << LIGHT_RED << "Error: negative number : " << RESET_COLOR<< token  << std::endl;
+            std::exit(EXIT_FAILURE);  // Termine proprement le programme
+        }
+        else if(token.length() >=2 && std::isdigit(token[0]))//nb > 9
+        {
+            for (size_t i = 1; i < token.size(); ++i) 
+            {
+                if (!std::isdigit(token[i]))  // Pas un chiffre = invalide
+                    return false;
+            }
+            std::cerr << LIGHT_RED << "Error: number is bigger than [0-9] : " <<RESET_COLOR<< token << std::endl;
             std::exit(EXIT_FAILURE);  // Termine proprement le programme
         }
         return false;
@@ -107,41 +125,50 @@
     {
         std::istringstream iss(expression);// ne lit pas encore
         std::string token;// on a pas encore parser, ca peut etre -42, abc etc
-        // int Numberright = false;
+        int operatorCount = 0;
+        int numberCount = 0;
         while (iss >> token) //injecte a token et lit le mot
         {
             if (isNumber(token)) 
             {
-                std::cout<< "Number: " << token << std::endl;
                 addStack(std::stoi(token));
-                // Numberright = true;
-
+                numberCount++;
             } 
             else if (isOperator(token)) 
             {
-                std::cout<< "ispoerator: " << token << std::endl;
+                operatorCount++;
                 try 
                 {
                     calculus(token[0]);
                 } 
                 catch (const std::exception& e) 
                 {
-                    std::cout<<"ici"<<token<< std::endl;
                     std::cerr << e.what() << std::endl;
                     return false;
                 }
             } 
             else 
             {
-                std::cerr << LIGHT_RED"Error: Invalid token "RESET_COLOR<< expression<<LIGHT_RED << " should be something like \"3 4+ 5-\" with number between [0-9] and [+-*/]"<<RESET_COLOR<< std::endl;
+                std::cerr << LIGHT_RED"Error: Invalid token : "RESET_COLOR<< expression<<LIGHT_RED << " should be something like \"3 4+ 5-\" with number between [0-9] and [+-*/]"<<RESET_COLOR<< std::endl;
                 return false;
             }
         }
         if (_stack.size() != 1) //si bien fait, doit rester que 1 resultat
         {
-            std::cerr << LIGHT_RED"Error: Invalid expression, should respect Nb = Op + 1"RESET_COLOR<< std::endl;
+            std::cerr << LIGHT_RED"Error: Invalid expression, should respect Nb = Op + 1 : "RESET_COLOR<< expression<< std::endl;
             return false;
         }
-        result = _stack.top();
+        if (numberCount < 2)
+        {
+            std::cerr <<LIGHT_RED<< "Error: Not enough numbers for a valid RPN : " <<RESET_COLOR<< expression<< std::endl;
+            return false;
+        }
+        if (operatorCount != numberCount - 1)
+        {
+            std::cerr <<LIGHT_RED<< "Error: Number of operators must be exactly one less than numbers : "<<RESET_COLOR<< expression << std::endl;
+            return false;
+        }
+        else
+            result = _stack.top();
         return true;
     }
