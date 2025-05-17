@@ -1,6 +1,10 @@
-// Deque:
+// ╔───────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────╗
+//      Test sur plusieur type de container
+//      Deque:
         // Application pour deque -> rotation (sur une liste d'éléments de données).
         // Sens des aiguilles d'une montre : retirer élément de l'arrière et l'insérer à l'avant.
+//         
+// ╚───────────────────────────────────────────────────────¤◎¤────────────────────────────────────────────────────╝
 
 #include <vector>
 #include <list>
@@ -18,9 +22,8 @@ void printContainer(T &container)
 
 int main()
 {
-    int value = 5;
+    int value = 0;
     
-    // Initialisation des conteneurs 
     std::vector<int> numbers;
     numbers.push_back(10);
     numbers.push_back(20);
@@ -52,40 +55,42 @@ int main()
     deq.push_back(500);
 
     std::cout << "\n==================== Test 1 - with vector ====================" << std::endl;
-    std::cout <<LIGHT_BLUE<< "1." << RESET_COLOR;
-    printContainer(numbers);
-    std::cout << "To find: " << value << std::endl;
-    easyfind(numbers, value);
+        std::cout <<LIGHT_BLUE<< "1." << RESET_COLOR;
+        printContainer(numbers);
+        value = 5;
+        std::cout << "To find: " << value << std::endl;
+        easyfind(numbers, value);
 
-    std::cout <<LIGHT_BLUE<< "\n2." << RESET_COLOR;
-    printContainer(vec);
-    std::cout << "To find: " << value << std::endl;
-    easyfind(vec, value);
+        std::cout <<LIGHT_BLUE<< "\n2." << RESET_COLOR;
+        printContainer(vec);
+        std::cout << "To find: " << value << std::endl;
+        easyfind(vec, value);
 
     std::cout << "\n==================== Test 2 - with list ====================" << std::endl;
-    std::cout <<LIGHT_BLUE<< "3." << RESET_COLOR;
-    printContainer(lst);
-    value = 2;
-    std::cout << "To find: " << value << std::endl;
-    easyfind(lst, value);
-    std::cout << std::endl;
+        std::cout <<LIGHT_BLUE<< "3." << RESET_COLOR;
+        printContainer(lst);
 
-    value = 7;
-    std::cout << "To find: " << value << std::endl;
-    easyfind(lst, value);
+        value = 2;
+        std::cout << "To find: " << value << std::endl;
+        easyfind(lst, value);
+        std::cout << std::endl;
+
+        value = 7;
+        std::cout << "To find: " << value << std::endl;
+        easyfind(lst, value);
 
     std::cout << "\n==================== Test 3 - with deque ====================" << std::endl;
-    std::cout <<LIGHT_BLUE<< "4." << RESET_COLOR;
-    printContainer(deq);
-    value = 12;
-    std::cout << "To find: " << value << std::endl;
-    easyfind(deq, value);
-    std::cout << std::endl;
+        std::cout <<LIGHT_BLUE<< "4." << RESET_COLOR;
+        printContainer(deq);
+        value = 12;
+        std::cout << "To find: " << value << std::endl;
+        easyfind(deq, value);
+        std::cout << std::endl;
 
-    value = 100;
-    std::cout << "To find: " << value << std::endl;
-    easyfind(deq, value);
-    std::cout << std::endl;
+        value = 100;
+        std::cout << "To find: " << value << std::endl;
+        easyfind(deq, value);
+        std::cout << std::endl;
 
     return 0;
 }
