@@ -40,17 +40,19 @@
 void PmergeMe::sort()
 {
     
-    std::cout <<LIGHT_CYAN<< "Before: "<<RESET_COLOR
-    ;
+    std::cout <<LIGHT_CYAN<< "Before: [ ";
 
-    std::cout << LIGHT_CYAN << _rawInputCleaned << RESET_COLOR << std::endl;
+    std::cout << _rawInputCleaned << "]";
     
-    benchmarkVector();
-    benchmarkDeque();
+    double TimerVector = benchmarkVector();
+    double TimerDeque = benchmarkDeque();
 
-    std::cout <<LIGHT_CYAN<< "\nAfter: "<<RESET_COLOR;
+    std::cout <<LIGHT_CYAN<< "After:  ";
     printContainerVector("", _vec);
+    std::cout <<RESET_COLOR;
     // printContainerDeque("", _deq);
+    printBenchmarkTime(TimerVector, "std::vector", _vec.size());
+    printBenchmarkTime(TimerDeque, "std::deque", _deq.size());
 }
 
 
@@ -81,6 +83,16 @@ void PmergeMe::printContainerVector(const std::string& prefix, const std::vector
             std::cout << ", ";
     }
     std::cout << " ]" << std::endl;
+}
+void PmergeMe::printBenchmarkTime(double timeUs, const std::string& containerName, size_t size) 
+{
+    std::cout << "Time to process a range of "
+              << LIGHT_GREEN << size << RESET_COLOR
+              << std::fixed << std::setprecision(5)
+              << " elements with "
+              << LIGHT_GREEN << containerName << RESET_COLOR
+              << ": "
+              << LIGHTPURPLE << timeUs << RESET_COLOR << " us" << std::endl;
 }
 
 //=======================================================================================================
@@ -205,7 +217,7 @@ void PmergeMe::parseInput(char** argv) //all in one
 //=======================================================================================================
 //										   Timer- algo					    							|
 //=======================================================================================================
-    void PmergeMe::benchmarkVector()
+    double PmergeMe::benchmarkVector()
     {
         clock_t start = clock();
 
@@ -213,20 +225,8 @@ void PmergeMe::parseInput(char** argv) //all in one
 
         clock_t end = clock();
         double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0; // us
-
-        std::cout << "Time to process a range of " 
-                <<LIGHT_GREEN
-                << _vec.size() <<RESET_COLOR
-                << std::fixed << std::setprecision(5)
-                << " elements with "
-                <<LIGHT_GREEN
-                <<"std::vector "
-                <<RESET_COLOR
-                <<": " 
-                <<LIGHTPURPLE
-                << timer 
-                <<RESET_COLOR
-                << " us" << std::endl;
+        return timer;
+     
     }
 
 

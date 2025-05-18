@@ -139,7 +139,7 @@
 //=======================================================================================================
 //										  Main				    				            			| 
 //========================================================================================================
-    void PmergeMe::benchmarkDeque()
+    double PmergeMe::benchmarkDeque()
     {
         clock_t start = clock();
 
@@ -147,20 +147,7 @@
 
         clock_t end = clock();
         double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0; // us
-
-        std::cout << "Time to process a range of " 
-                <<LIGHT_GREEN
-                << _deq.size() <<RESET_COLOR
-                << std::fixed << std::setprecision(5)
-                << " elements with "
-                <<LIGHT_GREEN
-                <<"std::deque "
-                <<RESET_COLOR
-                <<": " 
-                <<LIGHTPURPLE
-                << timer 
-                <<RESET_COLOR
-                << " us" << std::endl;
+        return timer;
     }
 
     void PmergeMe::mergeInsertSortDeque(std::deque<int>& deq)

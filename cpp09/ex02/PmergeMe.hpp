@@ -79,15 +79,15 @@ class PmergeMe
         // void printContainer(const std::string& label, const std::deque<int>& container) const;
         bool isDuplicateFreeVector(const std::vector<int>& input) const;
     //    ✩  ---------  Timer   ---------   ✩
-        void benchmarkVector();
-        // void benchmarkDeque();
+        double benchmarkVector();
+        void printBenchmarkTime(double timeUs, const std::string& containerName, size_t size);
 
         void printStatusDeque(const std::deque<int>& deq) const;
         void printContainerDeque(const std::string& prefix, const std::deque<int>& container) const;
         bool isDuplicateFreeDeque(const std::deque<int>& input) const;
         void parseInputStringDeque(const std::string& inputLine) ;
         std::deque<size_t> generateJacobsthalSequenceDeque(size_t max);
-        void benchmarkDeque();
+        double benchmarkDeque();
         void mergeInsertSortDeque(std::deque<int>& deq);
         void recursiveSortDeque(std::deque<int>& deq);
         void insertWithJacobsthalDeque(std::deque<int>& sorted, std::deque<int>& pending);
