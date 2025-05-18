@@ -26,6 +26,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <algorithm>
+#include <set>
 
 
 #define RESET_COLOR		"\033[0m"
@@ -52,30 +53,31 @@ class PmergeMe
     private:
     //    ✩  ---------  Containers   ---------   ✩
         std::vector<int> _vec;
-        std::deque<int>  _deque;
+        // std::deque<int>  _deque;
         std::string _rawInputCleaned;
 
     //    ✩  ---------  Fonctions   ---------   ✩
         
         void mergeInsertSortVector(std::vector<int>& vec);
-        void mergeInsertSortDeque(std::deque<int>& deq);
+        // void mergeInsertSortDeque(std::deque<int>& deq);
 
         // Étapes internes de l'algorithme Ford-Johnson
         void recursiveSortVector(std::vector<int>& vec);
-        void recursiveSortDeque(std::deque<int>& deq);
+        // void recursiveSortDeque(std::deque<int>& deq);
 
         void insertWithJacobsthalVector(std::vector<int>& sorted, std::vector<int>& pending);
-        void insertWithJacobsthalDeque(std::deque<int>& sorted, std::deque<int>& pending);
+        // void insertWithJacobsthalDeque(std::deque<int>& sorted, std::deque<int>& pending);
     //    ✩  ---------  Utils   ---------   ✩
-        void parseInput(char** argv);
+    void printStatusSorting(const std::vector<int>& vec) const;
+        // void parseInput(char** argv);
         void parseInputString(const std::string& inputLine) ;//met tout en 1
         std::vector<size_t> generateJacobsthalSequence(size_t max);
         void printContainer(const std::string& label, const std::vector<int>& container) const;
-        void printContainer(const std::string& label, const std::deque<int>& container) const;
+        // void printContainer(const std::string& label, const std::deque<int>& container) const;
         bool isDuplicateFree(const std::vector<int>& input) const;
     //    ✩  ---------  Timer   ---------   ✩
         void benchmarkVector();
-        void benchmarkDeque();
+        // void benchmarkDeque();
     
     public:
 
@@ -88,7 +90,7 @@ class PmergeMe
 
     //    ✩  ---------  Fonctions   ---------   ✩
         void sort();   
-
+        void parseInput(char** argv);
 
 };
 #endif
