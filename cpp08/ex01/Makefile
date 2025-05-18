@@ -3,7 +3,7 @@
 # ---------------- Nickname --------------
 NAME			=	Span
 RM				=	rm -f
-CC				=	c++ #c++ ou g++ , clang pas à l'ecole
+CC				=	c++ 
 FLAGS			=	-Wall -Wextra -Werror -std=c++98 -g -gdwarf-2
 BS_TXT			=	echo "\n"
 

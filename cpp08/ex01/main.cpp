@@ -2,6 +2,10 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // ! Fill container avec variante overide si deja qlqch de present. Soit il ecrase soit il respect
 
+    // But de l’exercice : Implémenter une classe Span capable de stocker un nombre fixe d'entiers 
+    // et de calculer les écarts minimum et maximum entre eux, 
+    // tout en gérant correctement les exceptions et en permettant l’ajout via des itérateurs.
+
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 int main()
 {
