@@ -47,7 +47,7 @@ void PmergeMe::sort()
     double TimerVector = benchmarkVector();
     double TimerDeque = benchmarkDeque();
 
-    std::cout <<LIGHT_CYAN<< "After:  ";
+    std::cout <<ENDL<<LIGHT_CYAN<< "After:  ";
     printContainerVector("", _vec);
     std::cout <<RESET_COLOR;
     // printContainerDeque("", _deq);
@@ -98,18 +98,35 @@ void PmergeMe::printBenchmarkTime(double timeUs, const std::string& containerNam
 //=======================================================================================================
 //										  Utils				    				            			|
 //=======================================================================================================
-bool PmergeMe::isDuplicateFreeVector(const std::vector<int>& input) const
-{
-    std::set<int> seen;
-    for (size_t i = 0; i < input.size(); ++i) {
-        if (seen.find(input[i]) != seen.end()) {
-            return false; 
+// bool PmergeMe::isDuplicateFreeVector(const std::vector<int>& input) const
+// {
+//     std::set<int> seen;
+//     for (size_t i = 0; i < input.size(); ++i) {
+//         if (seen.find(input[i]) != seen.end()) {
+//             return false; 
+//         }
+//         seen.insert(input[i]);
+//     }
+//     return true; 
+// }
+    void PmergeMe::isDuplicateFreeVector()
+    {
+        std::set<int> uniqueSet;
+        std::vector<int> uniqueVec;
+    
+        for (size_t i = 0; i < _vec.size(); ++i) {
+            if (uniqueSet.insert(_vec[i]).second) {
+                uniqueVec.push_back(_vec[i]);
+            }
         }
-        seen.insert(input[i]);
+    
+        size_t removed = _vec.size() - uniqueVec.size();
+        _vec = uniqueVec;
+    
+        if (removed > 0) {
+            std::cerr << LIGHT_GREEN << "Info: Removed " << removed << " duplicate(s) from input." << RESET_COLOR << std::endl;
+        }
     }
-    return true; 
-}
-
 
 void PmergeMe::parseInput(char** argv) //all in one
     {
@@ -133,11 +150,11 @@ void PmergeMe::parseInput(char** argv) //all in one
             std::cerr << "Error: Empty input." << std::endl;
             std::exit(EXIT_FAILURE);
         }
-        if (inputLine.length() > 3000) 
-        {
-            std::cerr <<LIGHT_RED<< "Error: Input too long." <<RESET_COLOR<< std::endl;
-            std::exit(EXIT_FAILURE);
-        }
+        // if (inputLine.length() > 3000) 
+        // {
+        //     std::cerr <<LIGHT_RED<< "Error: Input too long." <<RESET_COLOR<< std::endl;
+        //     std::exit(EXIT_FAILURE);
+        // }
         if (inputLine.length() < 2) 
         {
             std::cerr <<LIGHT_RED<< "Error: Input too short to be sorted." <<RESET_COLOR<< std::endl;
@@ -173,12 +190,12 @@ void PmergeMe::parseInput(char** argv) //all in one
             std::cerr << "Error: No input numbers." << std::endl;
             std::exit(EXIT_FAILURE);
         }
-    
-        if (!isDuplicateFreeVector(_vec)) 
-        {
-            std::cerr <<LIGHT_RED<< "Error: Duplicate values found." << RESET_COLOR<< std::endl;
-            std::exit(EXIT_FAILURE);
-        }
+        isDuplicateFreeVector();
+        // if (!isDuplicateFreeVector(_vec)) 
+        // {
+        //     std::cerr <<LIGHT_RED<< "Error: Duplicate values found." << RESET_COLOR<< std::endl;
+        //     std::exit(EXIT_FAILURE);
+        // }
     }
 
     std::vector<size_t> PmergeMe::generateJacobsthalSequenceVector(size_t max)
@@ -224,7 +241,7 @@ void PmergeMe::parseInput(char** argv) //all in one
         mergeInsertSortVector(_vec);
 
         clock_t end = clock();
-        double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0; // us
+        double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC; //* 1000000.0; // us
         return timer;
      
     }

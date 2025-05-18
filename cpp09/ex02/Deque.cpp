@@ -29,16 +29,34 @@
 //=======================================================================================================
 //										  Utils				    				            			|
 //=======================================================================================================
-    bool PmergeMe::isDuplicateFreeDeque(const std::deque<int>& input) const
+    // bool PmergeMe::isDuplicateFreeDeque(const std::deque<int>& input) const
+    // {
+    //     std::set<int> seen;
+    //     for (size_t i = 0; i < input.size(); ++i) {
+    //         if (seen.find(input[i]) != seen.end()) {
+    //             return false; 
+    //         }
+    //         seen.insert(input[i]);
+    //     }
+    //     return true; 
+    // }
+    void PmergeMe::isDuplicateFreeDeque()
     {
-        std::set<int> seen;
-        for (size_t i = 0; i < input.size(); ++i) {
-            if (seen.find(input[i]) != seen.end()) {
-                return false; 
+        std::set<int> uniqueSet;
+        std::deque<int> uniqueDeq;
+    
+        for (size_t i = 0; i < _deq.size(); ++i) {
+            if (uniqueSet.insert(_deq[i]).second) {
+                uniqueDeq.push_back(_deq[i]);
             }
-            seen.insert(input[i]);
         }
-        return true; 
+    
+        size_t removed = _deq.size() - uniqueDeq.size();
+        _deq = uniqueDeq;
+    
+        if (removed > 0) {
+            std::cerr << LIGHT_GREEN << "Info: Removed " << removed << " duplicate(s) from input." << RESET_COLOR << std::endl;
+        }
     }
 
     std::deque<size_t> PmergeMe::generateJacobsthalSequenceDeque(size_t max)
@@ -85,11 +103,11 @@
             std::cerr << "Error: Empty input." << std::endl;
             std::exit(EXIT_FAILURE);
         }
-        if (inputLine.length() > 3000) 
-        {
-            std::cerr <<LIGHT_RED<< "Error: Input too long." <<RESET_COLOR<< std::endl;
-            std::exit(EXIT_FAILURE);
-        }
+        // if (inputLine.length() > 3000) 
+        // {
+        //     std::cerr <<LIGHT_RED<< "Error: Input too long." <<RESET_COLOR<< std::endl;
+        //     std::exit(EXIT_FAILURE);
+        // }
         if (inputLine.length() < 2) 
         {
             std::cerr <<LIGHT_RED<< "Error: Input too short to be sorted." <<RESET_COLOR<< std::endl;
@@ -129,11 +147,11 @@
             std::exit(EXIT_FAILURE);
         }
 
-
-        if (!isDuplicateFreeDeque(_deq)) {
-            std::cerr <<LIGHT_RED<< "Error: Duplicate values found." << RESET_COLOR<< std::endl;
-            std::exit(EXIT_FAILURE);
-        }
+        isDuplicateFreeDeque();
+        // if (!isDuplicateFreeDeque(_deq)) {
+        //     std::cerr <<LIGHT_RED<< "Error: Duplicate values found." << RESET_COLOR<< std::endl;
+        //     std::exit(EXIT_FAILURE);
+        // }
     }
 
 //=======================================================================================================
@@ -146,7 +164,7 @@
         mergeInsertSortDeque(_deq);
 
         clock_t end = clock();
-        double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000.0; // us
+        double timer = static_cast<double>(end - start) / CLOCKS_PER_SEC ;//* 1000000.0; // us
         return timer;
     }
 
