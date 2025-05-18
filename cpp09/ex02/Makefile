@@ -13,7 +13,7 @@ OBJ				= 	${SRC:.cpp=.o}
 					@$(CC) $(FLAGS) -c $< -o $@
 
 # ---------------- Sources -----------
-SRC 			=	main.cpp PmergeMe.cpp
+SRC 			=	main.cpp PmergeMe.cpp Deque.cpp
 
 # ---------------- Color --------------
 

@@ -1,8 +1,7 @@
 // ╔─────────────────────────────────────────────────────────¤◎¤─────────────────────────────────────────────────────────╗
-// 		 ✩ prend une séquence d’entiers positif en argument
+// 		 ✩ Entrée une séquence d’entiers positif en argument(->3000)
 //       ✩ doit utiliser l’algorithme de tri "merge-insert" Ford-Johnson
 //       ✩ au moins deux conteneurs    
-// 		 ✩ doit pouvoir gérer au moins 3000 entiers différents
 
 //       Affichage:
 //       ✩ première ligne, un texte explicite + la séquence d’entiers positifs non triés
@@ -11,13 +10,16 @@
 //       ✩ quatrième ligne, un texte explicite + le temps d’exécution de l’algorithme et le 2ème container utilisé
 //       ✩ précision pour voir la difference entre les deux containers
 
-//       ✩ Algo:  une merge sort classique + insertion optimisée suffit
+//       ✩ Algo:  tri par pair, puis tri par insertion avec sequence de Jacobsthal
+//       ✩ Container: std::vector(contiguë) et std::deque
+//       ✩ même utilisation (.begin(), .end(), .size(), .push_back(), .insert(),)
 // ╚─────────────────────────────────────────────────────────¤◎¤─────────────────────────────────────────────────────────╝
 
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
 #include <vector>
+#include <deque>
 #include <list>
 #include <iostream>
 #include <string>
@@ -27,6 +29,7 @@
 #include <sstream>
 #include <algorithm>
 #include <set>
+#include <iomanip>
 
 
 #define RESET_COLOR		"\033[0m"
@@ -53,7 +56,7 @@ class PmergeMe
     private:
     //    ✩  ---------  Containers   ---------   ✩
         std::vector<int> _vec;
-        // std::deque<int>  _deque;
+        std::deque<int>  _deq;
         std::string _rawInputCleaned;
 
     //    ✩  ---------  Fonctions   ---------   ✩
@@ -68,16 +71,26 @@ class PmergeMe
         void insertWithJacobsthalVector(std::vector<int>& sorted, std::vector<int>& pending);
         // void insertWithJacobsthalDeque(std::deque<int>& sorted, std::deque<int>& pending);
     //    ✩  ---------  Utils   ---------   ✩
-    void printStatusSorting(const std::vector<int>& vec) const;
+    void printStatusVector(const std::vector<int>& vec) const;
         // void parseInput(char** argv);
-        void parseInputString(const std::string& inputLine) ;//met tout en 1
-        std::vector<size_t> generateJacobsthalSequence(size_t max);
-        void printContainer(const std::string& label, const std::vector<int>& container) const;
+        void parseInputStringVector(const std::string& inputLine) ;//met tout en 1
+        std::vector<size_t> generateJacobsthalSequenceVector(size_t max);
+        void printContainerVector(const std::string& label, const std::vector<int>& container) const;
         // void printContainer(const std::string& label, const std::deque<int>& container) const;
-        bool isDuplicateFree(const std::vector<int>& input) const;
+        bool isDuplicateFreeVector(const std::vector<int>& input) const;
     //    ✩  ---------  Timer   ---------   ✩
         void benchmarkVector();
         // void benchmarkDeque();
+
+        void printStatusDeque(const std::deque<int>& deq) const;
+        void printContainerDeque(const std::string& prefix, const std::deque<int>& container) const;
+        bool isDuplicateFreeDeque(const std::deque<int>& input) const;
+        void parseInputStringDeque(const std::string& inputLine) ;
+        std::deque<size_t> generateJacobsthalSequenceDeque(size_t max);
+        void benchmarkDeque();
+        void mergeInsertSortDeque(std::deque<int>& deq);
+        void recursiveSortDeque(std::deque<int>& deq);
+        void insertWithJacobsthalDeque(std::deque<int>& sorted, std::deque<int>& pending);
     
     public:
 
@@ -91,6 +104,7 @@ class PmergeMe
     //    ✩  ---------  Fonctions   ---------   ✩
         void sort();   
         void parseInput(char** argv);
+       
 
 };
 #endif
