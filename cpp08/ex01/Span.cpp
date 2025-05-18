@@ -38,7 +38,7 @@
     {
         if (n<= 1)
             throw std::invalid_argument(LIGHT_RED "Error: the size given must be greater than 1" RESET_COLOR);
-        _container = std::vector<unsigned int>(_n, UINT_MAX); // initialise tout à 0
+        _container = std::vector<unsigned int>(_n, UINT_MAX); 
     }
 
 //.......................................................................................................
@@ -87,7 +87,7 @@
         unsigned int span = 0;
         unsigned int shortest = 0;
         std::vector<unsigned int> tmp;
-        tmp = _container; // Copie pour ne pas trier l'original
+        tmp = _container;
         unsigned int a = tmp[0];
         unsigned int b = tmp[1];
         
@@ -133,13 +133,13 @@
         std::srand(time(0));
         
         std::vector<unsigned int>::iterator start = begin;
-        //check qte d'element ajouter
+  
         size_t count = 0;
         for (; start != end; ++start)
             count++;
-        if (count > _n || count < 1)// respect ce qui a deja éte mis
+        if (count > _n || count < 1)
             throw FullContainerException();
-        //check iterator begin et end du container
+ 
         if (begin < _container.begin() || end > _container.end())
             throw std::out_of_range("Iterators out of container bounds.");
 
@@ -148,7 +148,7 @@
         {
             std::cout << "FillContainer: Overwrite mode activated" << std::endl;
             _i = 0;
-            // start = begin;
+        
         }
         else if (!overwrite && _i > 0)
         {
@@ -156,24 +156,23 @@
             size_t offsetEnd   = std::distance(_container.begin(), end);
             if (offsetBegin < _i && offsetEnd <= _i)
                 throw std::out_of_range("Iterator begin is out of range, risk of damaging current data");
-                //va print par dessus ce qui est deja dans le container
+          
         }
     
-        // start = _i + begin;// onrespect ce qu'il y a deja dans le container
+ 
         if (begin < _container.begin() + _i)
         {
-            start = _container.begin() + _i;  // si begin est dans la data,Commence à l'endroit où les éléments ont été remplis
+            start = _container.begin() + _i;  
         }
         else
         {
-            start = begin;  // Commence à partir du 'begin' passé en arg
+            start = begin;
         }
 
         for (; start != end; ++start)
         {   
-            *start = (std::rand() % 10000 + 1); // pour eviter _container[_i]
+            *start = (std::rand() % 10000 + 1); 
 
-            // on met à jour _i seulement si on va plus loin que ce qu’on avait déjà rempli
             size_t pos = std::distance(_container.begin(), start) + 1;
             if (pos > _i)
                 _i = pos;
@@ -199,7 +198,7 @@
             if (_container[i] != UINT_MAX)
                 std::cout << _container[i];
             else
-                std::cout << "-";// rand() ne donne pas  de 0
+                std::cout << "-";
             if (i < _container.size() - 1)
                 std::cout << ", ";
         }

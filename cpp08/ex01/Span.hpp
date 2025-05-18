@@ -1,11 +1,14 @@
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // 		 ✩ Span pouvant stocker un maxium de 'N' entiers
 //       ✩ 'N' est le seul paramètre du constructeur
+
 //       ✩ Fonction addNumber() qui ajoute un seul entier à Span
 //          -> lance une exception si le nombre d'entiers dépasse 'N'
+
 //       ✩ Fonctions member shortestSpan() et longestSpan()
 //          -> calculent la différence entre les plus petits et plus grands entiers
 //          -> lancent une exception si le nombre d'entiers est insuffisant ou aucune différence n'est trouvée
+
 //       ✩  Testez votre Span avec au moins 10 000 nombres
 //       ✩  Bonus: ajouter plusieurs nombres à la fois via une plage d'itérateurs (range of iterators)
 //                 sans appeler explicitement addNumber() plusieurs fois
@@ -19,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-#include <climits> // pour UINT_MAX
+#include <climits>
 
 
 #define RESET_COLOR		"\033[0m"

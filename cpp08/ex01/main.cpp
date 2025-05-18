@@ -1,7 +1,8 @@
 #include "Span.hpp"
+// ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
+// ! Fill container avec variante overide si deja qlqch de present. Soit il ecrase soit il respect
 
-
-
+// ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 int main()
 {
     std::cout <<LIGHT_BLUE<< "\n==================== Test 1 - addnumber, return shortest and longest ====================" <<RESET_COLOR<< std::endl;
@@ -69,7 +70,7 @@ int main()
         {
             std::cerr << e.what() << std::endl;
         }
-    std::cout <<LIGHT_BLUE<< "\n==================== Test 3.2 - addnumber+ fillContainer ====================" <<RESET_COLOR<< std::endl;
+    std::cout <<LIGHT_BLUE<< "\n==================== Test 3.2 - addnumber+ fillContainer(no overide) ====================" <<RESET_COLOR<< std::endl;
         try
         {
             Span alpha(50);
