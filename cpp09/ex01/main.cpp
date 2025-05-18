@@ -4,7 +4,7 @@ int main(int argc, char* argv[])
 {
     if (argc != 2) 
     {
-        std::cerr <<LIGHT_RED<< "Error: please add calculus in RPN style." <<RESET_COLOR<< std::endl;
+        std::cerr <<LIGHT_RED<< "Error: please add calculus in RPN style between double quote  '2 2 +'" <<RESET_COLOR<< std::endl;
         return (1);
     }
     RPN rpn;

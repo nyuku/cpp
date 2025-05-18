@@ -43,7 +43,7 @@
     void RPN::calculus(char op)
     {
         if (_stack.size() < 2) 
-            throw std::runtime_error(LIGHT_RED"Error: not enough operands"RESET_COLOR);
+            throw std::runtime_error(LIGHT_RED "Error: not enough operands" RESET_COLOR);
         int a = _stack.top();
         _stack.pop();
         int b = _stack.top();
@@ -61,11 +61,11 @@
                 break;
             case '/':
                 if (a == 0)
-                    throw std::runtime_error(LIGHT_RED"Error: integer division by zero"RESET_COLOR);
+                    throw std::runtime_error(LIGHT_RED "Error: integer division by zero" RESET_COLOR);
                 _stack.push(b / a);
                 break;
             default:
-                throw std::runtime_error(LIGHT_RED"Error: Unknown operator"RESET_COLOR);
+                throw std::runtime_error(LIGHT_RED" Error: Unknown operator" RESET_COLOR);
         }
     }
     bool RPN::isOperator(const std::string& token) const
@@ -131,7 +131,7 @@
         {
             if (isNumber(token)) 
             {
-                addStack(std::stoi(token));
+                addStack(std::atoi(token.c_str()));
                 numberCount++;
             } 
             else if (isOperator(token)) 
@@ -149,13 +149,13 @@
             } 
             else 
             {
-                std::cerr << LIGHT_RED"Error: Invalid token : "RESET_COLOR<< expression<<LIGHT_RED << " should be something like \"3 4+ 5-\" with number between [0-9] and [+-*/]"<<RESET_COLOR<< std::endl;
+                std::cerr << LIGHT_RED "Error: Invalid token : " RESET_COLOR<< expression<<LIGHT_RED << " should be something like \"3 4+ 5-\" with number between [0-9] and [+-*/]"<<RESET_COLOR<< std::endl;
                 return false;
             }
         }
         if (_stack.size() != 1) //si bien fait, doit rester que 1 resultat
         {
-            std::cerr << LIGHT_RED"Error: Invalid expression, should respect Nb = Op + 1 : "RESET_COLOR<< expression<< std::endl;
+            std::cerr << LIGHT_RED "Error: Invalid expression, should respect Nb = Op + 1 : " RESET_COLOR<< expression<< std::endl;
             return false;
         }
         if (numberCount < 2)

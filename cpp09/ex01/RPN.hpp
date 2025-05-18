@@ -17,7 +17,10 @@
 # include <algorithm>
 # include <cctype>
 # include <stdexcept>
-# include <sstream> 
+# include <sstream>
+# include <cstring>  
+# include <cstdlib> 
+
 
 
 #define RESET_COLOR		"\033[0m"

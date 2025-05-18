@@ -2,15 +2,9 @@
 
 // ╔──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╗
 // 		 ✩ Lire un fichier CSV de taux (data.csv) contenant des paires date, taux.
-
-// Lire un fichier d’entrée (input.txt) contenant des lignes date | valeur.
-
-// Pour chaque ligne de input.txt, trouver le taux le plus proche dans le passé (ou le même jour) et multiplier par la valeur.
-
-// Afficher le résultat ou des messages d’erreur.
-//       ✩ 
-//       ✩ 
-//       ✩ 
+//       ✩ Lire un fichier d’entrée (input.txt) contenant des lignes date | valeur.
+//       ✩ Pour chaque ligne de input.txt, trouver le taux le plus proche dans le passé (ou le même jour) et multiplier par la valeur.
+//       ✩ Afficher le résultat ou des messages d’erreur.
 //       ✩ 
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 #include "BitcoinExchange.hpp"
@@ -67,7 +61,7 @@ bool BitcoinExchange::loadDatabase(const std::string& filename)
         float rate = std::atof(rateStr.c_str());
         if (rate > std::numeric_limits<float>::max()) {
             std::cerr <<LIGHT_RED<< ENDL<<"Error: value exceeds float limit for date " <<RESET_COLOR<< date << std::endl;
-            continue;  // Skip this entry if the value is too large
+            continue; 
         }
         _csvdata[date] = rate;
     }
@@ -75,7 +69,6 @@ bool BitcoinExchange::loadDatabase(const std::string& filename)
     return (true);
 }
 
-// Vérifie le format de date "YYYY-MM-DD"
 bool BitcoinExchange::isValidDateFormat(const std::string& dateStr) const
 {
     const int daysInMonth[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
@@ -85,9 +78,9 @@ bool BitcoinExchange::isValidDateFormat(const std::string& dateStr) const
         return false;
     }
 
-    for (size_t i = 0; i < dateStr.length(); ++i) //verifie si que chiffre
+    for (size_t i = 0; i < dateStr.length(); ++i)
     {
-        if ((i == 4 || i == 7))//"YYYY-MM-DD"
+        if ((i == 4 || i == 7))
             continue;
         if (!isdigit(dateStr[i]))
         {
@@ -129,12 +122,12 @@ bool BitcoinExchange::isValidDateFormat(const std::string& dateStr) const
     return true;
 }
 
-// Trouve le taux pour une date exacte ou la date précédente la plus proche
+
 float BitcoinExchange::getRateForDate(const std::string& dateStr) const
 {
     std::map<std::string, float>::const_iterator it = _csvdata.lower_bound(dateStr);
 
-    // Si la date n'existe pas exactement, on prend la précédente
+
     if (it != _csvdata.end() && it->first != dateStr) {
         if (it == _csvdata.begin())
             throw std::runtime_error("Error: no earlier date in database.");
@@ -199,7 +192,7 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
                 std::cerr << "\tError: bad input \"" << line << "\""  << std::endl;
                 continue; 
             }
-                   // Trim spaces
+            // Trim spaces
             date.erase(0, date.find_first_not_of(" \t"));
             date.erase(date.find_last_not_of(" \t") + 1);
             valueStr.erase(0, valueStr.find_first_not_of(" \t"));
@@ -251,19 +244,11 @@ float BitcoinExchange::getRateForDate(const std::string& dateStr) const
         }
         
     }
-    
-//=======================================================================================================
-//										   Operator <<					    							|
-//=======================================================================================================
 
-
-//=======================================================================================================
-//										   Exceptions					    							|
-//=======================================================================================================
-bool BitcoinExchange::isPositiveNumber(const std::string& valueStr) 
-{
-    std::istringstream iss(valueStr);
-    float value;
-    iss >> value;
-    return !iss.fail() && value >= 0 && value <= 1000;
-}
+    bool BitcoinExchange::isPositiveNumber(const std::string& valueStr) 
+    {
+        std::istringstream iss(valueStr);
+        float value;
+        iss >> value;
+        return !iss.fail() && value >= 0 && value <= 1000;
+    }

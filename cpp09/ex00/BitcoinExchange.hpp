@@ -6,7 +6,7 @@
 //         
 // 		 ✩ charge base données depuis un fichier CSV, parsing valeur et date, verifier ouverture
 //       ✩ gérer les convertions et verifier les formats et validité
-//       ✩ calcule la valeur du bitcoin en fonction de la date
+//       ✩ calcule la valeur du bitcoin en fonction de la date  YYYY-MM-DD
 // ╚──────────────────────────────────────────────¤◎¤──────────────────────────────────────────────╝
 
 #ifndef BITCOINEXCHANGE_HPP
@@ -22,6 +22,8 @@
 #include <sstream>
 #include <cstdlib>
 #include <limits>
+#include <algorithm>
+
 
 
 
@@ -44,18 +46,14 @@
 #define BOLD		    "\033[1m"
 #define ENDL            std::endl
 
-//Représente une date proprement.
-
-// Comparateurs (<, ==) pour le std::map.
 
 
 class BitcoinExchange
 {
     private:
-        //Clé : date, valeur : taux
-        std::map<std::string, float> _csvdata; // map pour stocker les données de bitcoin
-        std::string _date; // date de la transaction
-
+        
+        std::map<std::string, float> _csvdata;
+        std::string _date; 
     public:
 
     //    ✩  ---------   Constructor - Destructor  - Copy    --------- 
@@ -67,19 +65,14 @@ class BitcoinExchange
         BitcoinExchange&operator=(const BitcoinExchange &other);
 
     //    ✩  ---------  Fonctions   ---------   ✩
-        bool loadDatabase(const std::string& filename); // Charge le fichier CSV dans _csvdata
-        bool isValidDateFormat(const std::string& dateStr) const; // Vérifie que la date est bien au format YYYY-MM-DD
-        float getRateForDate(const std::string& dateStr) const; // Retourne le taux pour une date, ou la date antérieure la plus proche
-
-
-    //    ✩  ---------  Exceptions   ---------   ✩
-
-    //    ✩  ---------  Print Container   ---------   ✩
+        bool loadDatabase(const std::string& filename);
+        bool isValidDateFormat(const std::string& dateStr) const;
+        float getRateForDate(const std::string& dateStr) const;
 
     //    ✩  --------- utils   ---------   ✩
-        bool checkFileOpen(std::ifstream &file)const; // Vérifie si le fichier s'ouvre correctement
+        bool checkFileOpen(std::ifstream &file)const;
         void processFile(std::ifstream& input);
-        bool isPositiveNumber(const std::string& valueStr); // Vérifie si la valeur est un nombre positif
+        bool isPositiveNumber(const std::string& valueStr);
 
 };
 #endif
